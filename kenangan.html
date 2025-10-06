@@ -311,7 +311,7 @@
         <!-- Bagian Konten -->
         
         <div id="sectionSongs" class="content-section">
-            <h3>🎵 Lagu Kenangan</h3>
+            <h3>🎵 A Song That Reminds You</h3>
             <p>dengarkan 3 lagu ini, lagu-lagu yang mengingatkanku pada kamu, dari masa awal kita sampai sekarang.</p>
             <div class="track-list">
                 <!-- Karena hanya 1 file audio, kita ulang 3 kali. Ganti path audionya jika ada lebih dari satu. -->
@@ -334,7 +334,6 @@
             <h3>📸 Foto-foto Kita</h3>
             <p>galeri kenangan terindah dari momen-momen yang tak terlupakan.</p>
             <div id="gallery" class="gallery" aria-live="polite">
-                <!-- GANTI URL PLACEHOLDER INI DENGAN PATH FOTO ASLIMU, contoh: "img/foto1.jpg" -->
                 <img src="img/f3.jpg" alt="Foto kenangan 1">
                 <img src="img/f7.jpg" alt="Foto kenangan 2">
                 <img src="img/f4.jpg" alt="Foto kenangan 3">
@@ -352,7 +351,6 @@
                     <div class="status muted">online</div>
                 </div>
                 <div class="chat-body" id="chatBody" tabindex="0">
-                    <!-- Isi Chat akan di-generate oleh JavaScript -->
                 </div>
             </div>
             <p class="muted" style="text-align: center; margin-top: 15px;">sore hari di tanggal 03 Agustus 2024</p>
@@ -376,8 +374,8 @@
         /* === COUNTDOWN TIMER LOGIC === */
         /* =============================================================== */
         
-        // ** UBAH TANGGAL INI **
-        // Aku atur default ke 01 November 2025 (asumsi anniversary berikutnya dari judul 11 Nov 2024)
+        // ** SETTING TGL **
+        // Aku atur default ke 01 November 2025
         // Format: 'YYYY-MM-DDTHH:MM:SS'
         const TARGET_DATE = '2025-11-01T00:00:00'; 
         const targetTime = new Date(TARGET_DATE).getTime();
