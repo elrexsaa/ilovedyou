@@ -173,7 +173,7 @@
             font-weight: 700;
         }
         
-        /* Loading Page - PERBAIKAN DI SINI */
+        /* Loading Page - PERBAIKAN Z-INDEX DAN POINTER EVENTS */
         #loadingPage {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -182,22 +182,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 100; /* Z-index tinggi saat aktif */
             opacity: 0;
             transition: opacity 0.5s ease;
-            pointer-events: none; /* Tambahan: Biarkan klik lewat saat tersembunyi */
         }
         /* Saat loading aktif */
         #loadingPage[aria-hidden="false"] {
             opacity: 1;
-            z-index: 999; /* Z-index sangat tinggi saat aktif */
-            pointer-events: auto; /* Aktifkan pointer-events agar menutupi halaman saat loading */
+            z-index: 999; 
+            pointer-events: auto; 
         }
-        
         /* Saat loading tidak aktif, kita pastikan dia tidak mengganggu */
         #loadingPage[aria-hidden="true"] {
-            z-index: -1; /* Pindahkan ke belakang */
-            pointer-events: none; /* Abaikan klik */
+            z-index: -1; 
+            pointer-events: none; 
         }
         
         #typingText {
@@ -210,10 +207,7 @@
 </head>
 <body>
 
-    <!-- Loading Page - Diposisikan di body agar bisa tampil overlay -->
-    <!-- Default state: hidden (aria-hidden="true") -->
     <div id="loadingPage" aria-hidden="true">
-        <!-- Icon Loader Sederhana -->
         <div class="chibi-icon" style="opacity: 0.8;">⏳</div>
         <div id="typingText"></div>
     </div>
@@ -221,9 +215,7 @@
     <main id="loginPage" class="page--center">
         <div class="card login-card" role="dialog" aria-labelledby="loginTitle">
 
-            <!-- Icon Chibi Sederhana -->
             <div class="chibi-icon" aria-hidden="true">
-                <!-- Emoji yang lebih bersih dan terpusat -->
                 😊
             </div>
 
@@ -235,7 +227,6 @@
 
             <button id="btnEnter" class="btn btn--primary" aria-describedby="hint">verifikasi</button>
             
-            <!-- Verify Frame untuk pesan status, ditempatkan absolut di luar card -->
             <div id="verifyFrame" class="verify-frame" role="status" aria-live="polite" hidden>
                 <div id="verifyIcon" class="verify-icon" aria-hidden="true"></div>
                 <div id="verifyText" class="verify-text"></div>
@@ -252,10 +243,10 @@
         /* SCRIPT DARI script.js - Logika Verifikasi Halaman Login */
 
         /* ===== easy settings (ubah di sini) ===== */
-        // Ubah password sesuai keinginanmu
-        const PASSWORD_TO_CHANGE = 'nikitaelga, nikita, elga, user'; 
+        const PASSWORD_TO_CHANGE = 'secretkenangan'; // Ubah password sesuai keinginanmu
         const AUTHOR_HANDLE = '@elgarexsaa';
         const TARGET_PAGE = 'kenangan.html'; // Target halaman setelah login
+        const AUTH_KEY = 'kenangan_verified'; // Kunci rahasia untuk localStorage
         
         // elements
         const pw = document.getElementById('pw');
@@ -270,13 +261,12 @@
         // event listeners
         pw.addEventListener('keydown', (e) => { 
             if (e.key === 'Enter') {
-                e.preventDefault(); // Mencegah form submit default
+                e.preventDefault(); 
                 attemptEnter(); 
             }
         });
         btnEnter.addEventListener('click', attemptEnter);
         
-        // Fungsi untuk menampilkan pesan status (Sukses/Gagal)
         function showVerify(ok, message) {
             verifyFrame.classList.remove('ok', 'fail');
             verifyFrame.classList.add(ok ? 'ok' : 'fail');
@@ -292,23 +282,23 @@
             }, 3500);
         }
 
-        // Fungsi utama verifikasi
         function attemptEnter(){
             const v = (pw.value || '').trim();
             if (v === PASSWORD_TO_CHANGE){
                 showVerify(true, 'verifikasi berhasil, sedang masuk ke halaman...');
-                // Saat sukses, sembunyikan login page dan tampilkan loading
+                
+                // === PERBAIKAN: SET AUTH TOKEN DI LOCALSTORAGE ===
+                localStorage.setItem(AUTH_KEY, 'true'); // Simpan token verifikasi
+                
                 loginPage.hidden = true;
                 loadingPage.setAttribute('aria-hidden', 'false');
-                setTimeout(startTypingSequence, 500); // Jeda 0.5 detik sebelum loading
+                setTimeout(startTypingSequence, 500); 
             } else {
                 showVerify(false, `verifikasi gagal. hubungi author: ${AUTHOR_HANDLE}`);
             }
         }
 
-        // Fungsi animasi loading (typing effect)
         function startTypingSequence(){
-            // Pastikan loading page terlihat sebelum memulai animasi
             loadingPage.hidden = false; 
 
             typingText.textContent = '';
@@ -322,7 +312,6 @@
                 if (i > text.length){
                     clearInterval(t);
                     
-                    // Jeda sebentar, lalu redirect
                     setTimeout(() => {
                         window.location.href = TARGET_PAGE;
                     }, 500); 
@@ -330,10 +319,16 @@
             }, speed);
         }
 
-        // Pastikan loading page tersembunyi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
              loadingPage.hidden = true;
              loadingPage.setAttribute('aria-hidden', 'true');
+
+             // PERBAIKAN: CEK APAKAH SUDAH TERVERIFIKASI
+             // Jika token ada, lewati halaman login dan langsung ke halaman kenangan
+             if (localStorage.getItem(AUTH_KEY) === 'true') {
+                 console.log("Token ditemukan, langsung menuju halaman kenangan.");
+                 window.location.href = TARGET_PAGE;
+             }
         });
     </script>
 
