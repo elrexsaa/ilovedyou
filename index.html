@@ -36,6 +36,7 @@
             justify-content: center;
             align-items: center;
             padding: 1.5rem;
+            position: relative; /* Penting untuk konteks z-index */
         }
 
         /* Container Halaman */
@@ -45,6 +46,7 @@
             align-items: center;
             width: 100%;
             max-width: 400px; /* Lebar Maksimum untuk Mobile */
+            z-index: 20; /* Pastikan konten login di atas */
         }
 
         /* Card Login */
@@ -140,7 +142,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             color: white;
-            z-index: 10;
+            z-index: 30; /* Pastikan di atas semua (Loading dan Login) */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: opacity 0.3s ease, transform 0.3s ease;
             min-width: 280px;
@@ -171,7 +173,7 @@
             font-weight: 700;
         }
         
-        /* Loading Page */
+        /* Loading Page - PERBAIKAN DI SINI */
         #loadingPage {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -180,13 +182,24 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 999;
+            z-index: 100; /* Z-index tinggi saat aktif */
             opacity: 0;
             transition: opacity 0.5s ease;
+            pointer-events: none; /* Tambahan: Biarkan klik lewat saat tersembunyi */
         }
+        /* Saat loading aktif */
         #loadingPage[aria-hidden="false"] {
             opacity: 1;
+            z-index: 999; /* Z-index sangat tinggi saat aktif */
+            pointer-events: auto; /* Aktifkan pointer-events agar menutupi halaman saat loading */
         }
+        
+        /* Saat loading tidak aktif, kita pastikan dia tidak mengganggu */
+        #loadingPage[aria-hidden="true"] {
+            z-index: -1; /* Pindahkan ke belakang */
+            pointer-events: none; /* Abaikan klik */
+        }
+        
         #typingText {
             font-size: 1.2rem;
             font-weight: 600;
@@ -198,7 +211,8 @@
 <body>
 
     <!-- Loading Page - Diposisikan di body agar bisa tampil overlay -->
-    <div id="loadingPage" aria-hidden="true" hidden>
+    <!-- Default state: hidden (aria-hidden="true") -->
+    <div id="loadingPage" aria-hidden="true">
         <!-- Icon Loader Sederhana -->
         <div class="chibi-icon" style="opacity: 0.8;">⏳</div>
         <div id="typingText"></div>
@@ -283,7 +297,10 @@
             const v = (pw.value || '').trim();
             if (v === PASSWORD_TO_CHANGE){
                 showVerify(true, 'verifikasi berhasil, sedang masuk ke halaman...');
-                setTimeout(startTypingSequence, 1500); // Jeda 1.5 detik sebelum loading
+                // Saat sukses, sembunyikan login page dan tampilkan loading
+                loginPage.hidden = true;
+                loadingPage.setAttribute('aria-hidden', 'false');
+                setTimeout(startTypingSequence, 500); // Jeda 0.5 detik sebelum loading
             } else {
                 showVerify(false, `verifikasi gagal. hubungi author: ${AUTHOR_HANDLE}`);
             }
@@ -291,9 +308,8 @@
 
         // Fungsi animasi loading (typing effect)
         function startTypingSequence(){
-            loginPage.hidden = true; // Sembunyikan halaman login
-            loadingPage.hidden = false; // Tampilkan loading overlay
-            loadingPage.setAttribute('aria-hidden', 'false');
+            // Pastikan loading page terlihat sebelum memulai animasi
+            loadingPage.hidden = false; 
 
             typingText.textContent = '';
             const text = 'membuka kenangan...';
@@ -313,6 +329,12 @@
                 }
             }, speed);
         }
+
+        // Pastikan loading page tersembunyi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+             loadingPage.hidden = true;
+             loadingPage.setAttribute('aria-hidden', 'true');
+        });
     </script>
 
 </body>
