@@ -8,9 +8,9 @@
   --bg1: #ffd6e8;
   --bg2: #f6d7ff;
   --accent: #ff6fb5;
-  --glass-card: rgba(255,255,255,0.85); /* New for a subtle glass effect */
+  --glass-card: rgba(255,255,255,0.85);
   --muted: #6b4256;
-  --shadow: 0 12px 40px rgba(15,10,20,0.12); /* Shadow lebih besar & halus */
+  --shadow: 0 12px 40px rgba(15,10,20,0.12);
   --shadow-lite: 0 4px 15px rgba(15,10,20,0.06);
   --glass: rgba(255,255,255,0.6);
   --input-focus: #ffc2e4;
@@ -35,7 +35,7 @@ body{
 /* center pages */
 .page { display: none; }
 .page--center { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px; }
-.page--overlay { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+.page--overlay { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index: 999; } /* Tambah z-index untuk loading */
 .page--stack { min-height:100vh; padding:36px 20px 120px 20px; display:block; position:relative; }
 
 /* card (GLASSMORHISM) */
@@ -51,7 +51,7 @@ body{
   width:380px;
   text-align:center;
   position:relative;
-  padding:36px;
+  padding: 60px 36px 36px 36px; /* Perbaikan padding atas untuk memberi ruang verify-frame */
 }
 
 /* chibi top svg spacing */
@@ -94,15 +94,17 @@ body{
   box-shadow:0 18px 45px rgba(255,105,180,0.35);
 }
 
-/* verify frame */
+/* verify frame (PERBAIKAN POSISI) */
 .verify-frame{
-  position:absolute; left:50%; top:20px;
+  position:absolute; left:50%;
+  top: 70px; /* Posisikan lebih ke bawah agar tidak menutupi h1 */
   transform:translateX(-50%); display:flex; gap:12px; align-items:center;
   padding:12px 18px;
   border-radius:16px;
   background:#fff;
   box-shadow:var(--shadow-lite);
   border: 1px solid rgba(230, 230, 230, 0.8);
+  z-index: 1001; /* Pastikan di atas elemen card lainnya */
 }
 .verify-icon{
   width:40px; height:40px;
