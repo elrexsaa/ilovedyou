@@ -1,69 +1,306 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DejaVu</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>kenangan — untuk nikita</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="login-page" class="page active">
-    <div class="chibi"></div>
-    <div class="login-box">
-      <h2>masukkan password 💗</h2>
-      <input type="password" id="password" placeholder="password">
-      <button onclick="verifyPassword()">verifikasi</button>
-    </div>
-    <div id="verify-frame" class="verify-frame hidden">
-      <div id="verify-icon" class="verify-icon"></div>
-      <p id="verify-text"></p>
-    </div>
-  </div>
 
-  <div id="loading-page" class="page">
-    <p id="loading-text"></p>
-  </div>
+  <!--
+    INSTRUKSI SINGKAT:
+    - ubah password di bagian SCRIPT (variabel PASSWORD_TO_CHANGE)
+    - taruh backsound utama di: ./backsound.mp3
+    - taruh lagu tambahan di folder: ./sound/sound1.mp3, sound2.mp3, sound3.mp3
+    - taruh foto di folder: ./img/ (nama bebas, contoh img/foto1.jpg dst)
+    - untuk ganti gambar chibi couple, taruh file di ./img/chibi-couple.png dan nanti ubah css jika perlu
+  -->
 
-  <div id="menu-page" class="page">
-    <h2>Hi, Nikita Friskila Pakpahan💗💗💗</h2>
-    <div class="menu-container">
-      <div class="menu-card" onclick="showSection('song')">💗 a song that reminds you</div>
-      <div class="menu-card" onclick="showSection('photo')">📸 foto kita</div>
-      <div class="menu-card" onclick="showSection('chat')">💬 chat waktu pertama kali</div>
-    </div>
-
-    <div id="section-song" class="section hidden fade">
-      <h3>a song that reminds you</h3>
-      <audio controls src="sound/sound1.mp3"></audio>
-      <audio controls src="sound/sound2.mp3"></audio>
-      <audio controls src="sound/sound3.mp3"></audio>
-    </div>
-
-    <div id="section-photo" class="section hidden fade">
-      <h3>foto kita</h3>
-      <div class="gallery">
-        <img src="img/foto1.jpg">
-        <img src="img/foto2.jpg">
-        <img src="img/foto3.jpg">
+  <!-- LOGIN / VERIFICATION PAGE -->
+  <main id="loginPage" class="page page--center">
+    <div class="card login-card" role="dialog" aria-labelledby="loginTitle">
+      <div class="chibi-top" aria-hidden="true">
+        <!-- decorative chibi couple (svg + css animation) -->
+        <svg class="chibi-couple" viewBox="0 0 220 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <!-- simplified cute couple shapes, colored pink/purple -->
+          <g transform="translate(10,10)">
+            <circle cx="30" cy="40" r="28" fill="#ffd6e8"/>
+            <ellipse cx="22" cy="38" rx="4.2" ry="5.4" fill="#2b1324"/>
+            <ellipse cx="38" cy="38" rx="4.2" ry="5.4" fill="#2b1324"/>
+            <path d="M20 52 Q30 60 40 52" stroke="#3a1e2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="55" y="18" rx="22" ry="22" width="64" height="44" fill="#ff9ccf" />
+            <circle cx="86" cy="40" r="5" fill="#2b1324" />
+            <circle cx="76" cy="40" r="5" fill="#2b1324" />
+            <path d="M72 52 Q86 60 100 52" stroke="#3a1e2d" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
       </div>
-    </div>
 
-    <div id="section-chat" class="section hidden fade">
-      <h3>chat waktu pertama kali</h3>
-      <div class="chat-frame">
-        <div class="chat-header">nikita 💗 — online</div>
-        <div class="chat-body">
-          <div class="chat-left">hai elga 😳</div>
-          <div class="chat-right">hai nikita 😁</div>
-          <div class="chat-left">hehe kamu lucu</div>
-          <div class="chat-right">kamu juga 😳</div>
+      <h1 id="loginTitle">masukkan password</h1>
+      <p class="muted">halaman ini berisi kenangan pribadi. masukkan kata sandi untuk melanjutkan.</p>
+
+      <label for="pw" class="visually-hidden">kata sandi</label>
+      <input id="pw" class="input" type="password" placeholder="kata sandi..." autocomplete="off" aria-label="kata sandi">
+
+      <button id="btnEnter" class="btn btn--primary" aria-describedby="hint">verifikasi</button>
+
+      <!-- verify frame muncul ketika user klik verifikasi -->
+      <div id="verifyFrame" class="verify-frame" role="status" aria-live="polite" hidden>
+        <div id="verifyIcon" class="verify-icon" aria-hidden="true"></div>
+        <div id="verifyText" class="verify-text"></div>
+      </div>
+
+      <p id="hint" class="hint">kalau lupa, hub author: <strong>@elgarexsaa</strong></p>
+    </div>
+  </main>
+
+  <!-- LOADING / TYPING -->
+  <div id="loadingPage" class="page page--overlay" hidden>
+    <div class="typing-box" role="status" aria-live="polite">
+      <span id="typingText" class="typing-text"></span><span class="cursor">▌</span>
+    </div>
+  </div>
+
+  <!-- MEMORY PAGE -->
+  <main id="memoryPage" class="page page--stack" hidden>
+    <!-- sparkle background layer + chibi couple fixed -->
+    <div class="sparkles" aria-hidden="true"></div>
+    <img class="chibi-fixed" src="img/chibi-couple.png" alt="" aria-hidden="true">
+
+    <header class="mem-header">
+      <div class="mem-title">
+        <h2 id="greeting">Hi, Nikita Friskila Pakpahan💗💗💗</h2>
+        <p class="muted">pilih salah satu untuk melihat kenangan</p>
+      </div>
+    </header>
+
+    <section class="menu-cards" aria-label="menu pilihan">
+      <button class="card card--menu" data-target="songs" aria-controls="sectionSongs">
+        <div class="card-title">💗 a song that reminds you</div>
+        <div class="card-sub muted">3 pilihan lagu</div>
+      </button>
+
+      <button class="card card--menu" data-target="photos" aria-controls="sectionPhotos">
+        <div class="card-title">📸 foto kita</div>
+        <div class="card-sub muted">galeri kenangan</div>
+      </button>
+
+      <button class="card card--menu" data-target="chat" aria-controls="sectionChat">
+        <div class="card-title">💬 chat waktu pertama kali</div>
+        <div class="card-sub muted">preview chat kecil</div>
+      </button>
+    </section>
+
+    <section id="contentArea" class="content-area" aria-live="polite">
+      <!-- SONGS -->
+      <div id="sectionSongs" class="panel" hidden>
+        <h3>a song that reminds you</h3>
+        <p class="muted">klik play untuk masing-masing lagu</p>
+        <div class="tracks">
+          <div class="track">
+            <div class="tmeta">sound1.mp3</div>
+            <audio controls preload="none" src="sound/sound1.mp3"></audio>
+          </div>
+          <div class="track">
+            <div class="tmeta">sound2.mp3</div>
+            <audio controls preload="none" src="sound/sound2.mp3"></audio>
+          </div>
+          <div class="track">
+            <div class="tmeta">sound3.mp3</div>
+            <audio controls preload="none" src="sound/sound3.mp3"></audio>
+          </div>
         </div>
       </div>
-    </div>
 
-    <audio id="backsound" src="audio.mp3" autoplay loop></audio>
-  </div>
+      <!-- PHOTOS -->
+      <div id="sectionPhotos" class="panel" hidden>
+        <h3>foto kita</h3>
+        <p class="muted">upload foto ke folder <code>img/</code>. tampil otomatis di grid.</p>
+        <div id="gallery" class="gallery" aria-live="polite">
+          <!-- contoh placeholder; tambahkan file di img/ dan ubah src jika perlu -->
+          <img src="img/foto1.jpg" alt="foto 1">
+          <img src="img/foto2.jpg" alt="foto 2">
+          <img src="img/foto3.jpg" alt="foto 3">
+          <img src="img/foto4.jpg" alt="foto 4">
+          <img src="img/foto5.jpg" alt="foto 5">
+        </div>
+      </div>
 
-  <script src="script.js"></script>
+      <!-- CHAT -->
+      <div id="sectionChat" class="panel" hidden>
+        <h3>chat waktu pertama kali</h3>
+        <div class="chat-frame" role="region" aria-label="chat preview">
+          <div class="chat-header">
+            <div class="contact">nikita</div>
+            <div class="status muted">online</div>
+          </div>
+          <div class="chat-body" id="chatBody" tabindex="0">
+            <!-- isi chat di script.js (mudah diedit) -->
+          </div>
+        </div>
+        <p class="muted small">ubah teks chat langsung di bagian demo chat di script if perlu.</p>
+      </div>
+    </section>
+
+    <!-- background audio (autoplay attempted after user interaction) -->
+    <audio id="bgAudio" src="backsound.mp3" preload="auto"></audio>
+  </main>
+
+  <!-- SCRIPT: logika verifikasi, typing, menu, chat populate -->
+  <script>
+    /* ===== easy settings (ubah di sini) =====
+       - PASSWORD_TO_CHANGE : kata sandi masuk
+       - AUTHOR_HANDLE : handle author untuk pesan gagal
+    */
+    const PASSWORD_TO_CHANGE = 'nikitaelga'; // <-- ganti kalau perlu
+    const AUTHOR_HANDLE = '@elgarexsaa';
+
+    // elements
+    const pw = document.getElementById('pw');
+    const btnEnter = document.getElementById('btnEnter');
+    const verifyFrame = document.getElementById('verifyFrame');
+    const verifyIcon = document.getElementById('verifyIcon');
+    const verifyText = document.getElementById('verifyText');
+    const loginPage = document.getElementById('loginPage');
+    const loadingPage = document.getElementById('loadingPage');
+    const typingText = document.getElementById('typingText');
+    const memoryPage = document.getElementById('memoryPage');
+    const bgAudio = document.getElementById('bgAudio');
+    const contentArea = document.getElementById('contentArea');
+
+    // chat demo messages (edit here to change preview)
+    const demoChat = [
+      {side: 'left', text: 'hey, kamu udah sampe?', ts: '08:03'},
+      {side: 'right', text: 'iya, baru turun nih', ts: '08:05'},
+      {side: 'left', text: 'oke nanti kabar ya', ts: '08:06'}
+    ];
+
+    // keyboard submit
+    pw.addEventListener('keydown', (e) => { if (e.key === 'Enter') attemptEnter(); });
+    btnEnter.addEventListener('click', attemptEnter);
+
+    function showVerify(ok, message) {
+      verifyIcon.className = 'verify-icon ' + (ok ? 'ok' : 'fail');
+      verifyIcon.textContent = ok ? '✔' : '✖';
+      verifyText.textContent = message;
+      verifyFrame.hidden = false;
+      // auto-hide after a bit (except keep long enough to read)
+      setTimeout(() => { verifyFrame.hidden = true; }, 3500);
+    }
+
+    function attemptEnter(){
+      const v = (pw.value || '').trim();
+      if (v === PASSWORD_TO_CHANGE){
+        showVerify(true, 'verifikasi berhasil, sedang masuk ke halaman');
+        // slight delay then typing animation
+        setTimeout(startTypingSequence, 800);
+      } else {
+        showVerify(false, `verifikasi gagal, kamu bukan nikita atau elga, hub author website : ${AUTHOR_HANDLE}`);
+      }
+    }
+
+    // typing animation
+    function startTypingSequence(){
+      // hide login, show overlay typing
+      loginPage.hidden = true;
+      loadingPage.hidden = false;
+      typingText.textContent = '';
+      const text = 'membuka kenangan...';
+      let i = 0;
+      const speed = 70; // ms per char
+      const t = setInterval(() => {
+        typingText.textContent += text.charAt(i) || '';
+        i++;
+        if (i > text.length){
+          clearInterval(t);
+          setTimeout(() => {
+            loadingPage.hidden = true;
+            openMemoryPage();
+          }, 800);
+        }
+      }, speed);
+    }
+
+    // open memory page and init menu + audio
+    function openMemoryPage(){
+      memoryPage.hidden = false;
+      // try to play background audio (user triggered by clicking verif button)
+      setTimeout(() => { bgAudio.play().catch(()=>{}); }, 600);
+      initMenuCards();
+      populateChat();
+    }
+
+    // menu wiring with fade-in transitions
+    function initMenuCards(){
+      const cards = document.querySelectorAll('.menu-cards .card--menu');
+      const panels = document.querySelectorAll('.panel');
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          const target = card.getAttribute('data-target');
+          // hide all panels with fade
+          panels.forEach(p => hidePanel(p));
+          const panelId = target === 'songs' ? 'sectionSongs' :
+                          target === 'photos' ? 'sectionPhotos' :
+                          target === 'chat' ? 'sectionChat' : null;
+          if (!panelId) return;
+          const panel = document.getElementById(panelId);
+          showPanel(panel);
+        });
+      });
+    }
+
+    function hidePanel(panel){
+      if (!panel) return;
+      panel.style.opacity = 1;
+      panel.style.transition = 'opacity .35s ease, transform .35s ease';
+      panel.style.transform = 'translateY(6px)';
+      panel.style.opacity = 0;
+      setTimeout(()=> { panel.hidden = true; panel.style.transition = ''; panel.style.transform=''; panel.style.opacity=''; }, 360);
+    }
+
+    function showPanel(panel){
+      if (!panel) return;
+      panel.hidden = false;
+      panel.style.opacity = 0;
+      panel.style.transform = 'translateY(10px)';
+      panel.style.transition = 'opacity .45s ease, transform .45s ease';
+      requestAnimationFrame(()=> {
+        panel.style.opacity = 1;
+        panel.style.transform = 'translateY(0)';
+      });
+      // focus for accessibility
+      panel.setAttribute('tabindex','-1');
+      panel.focus();
+    }
+
+    // populate chat preview
+    function populateChat(){
+      const chatBody = document.getElementById('chatBody');
+      if (!chatBody) return;
+      chatBody.innerHTML = '';
+      demoChat.forEach(m => {
+        const wrap = document.createElement('div');
+        wrap.className = 'bubble ' + (m.side === 'right' ? 'right' : 'left');
+        const txt = document.createElement('div'); txt.className = 'txt'; txt.textContent = m.text;
+        const ts = document.createElement('div'); ts.className = 'ts'; ts.textContent = m.ts;
+        wrap.appendChild(txt); wrap.appendChild(ts);
+        chatBody.appendChild(wrap);
+      });
+    }
+
+    // small accessibility: ESC to return to login (for quick testing)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape'){
+        if (!memoryPage.hidden){
+          memoryPage.hidden = true;
+          loginPage.hidden = false;
+          // pause audio
+          try { bgAudio.pause(); } catch(e){}
+        }
+      }
+    });
+  </script>
+
 </body>
 </html>
