@@ -98,6 +98,34 @@
         }
         #btnLogout:hover { background: #fee; }
 
+        /* --- CSS BARU UNTUK COUNTDOWN --- */
+        .countdown-container {
+            text-align: center;
+            background: var(--glass-card);
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px; /* Tambah margin bawah sedikit */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .countdown-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        #countdown {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-color);
+            line-height: 1.2;
+            display: block; /* Memastikan span berada di baris baru */
+        }
+        /* --- AKHIR CSS COUNTDOWN --- */
+
+
         /* Menu Card Grid */
         .menu-grid {
             display: grid;
@@ -251,6 +279,13 @@
             <button id="btnLogout" onclick="doLogout()">Logout</button>
         </header>
 
+        <!-- COUNTDOWN TIMER BARU -->
+        <div class="countdown-container">
+            <div class="countdown-title">Waktu Menuju Anniversary Kita!</div>
+            <div id="countdown">Memuat hitung mundur...</div>
+        </div>
+        <!-- AKHIR COUNTDOWN TIMER -->
+
         <section class="menu-grid" aria-label="menu pilihan">
             <button class="card card--menu" data-target="#sectionSongs" onclick="scrollToTarget(this)">
                 <div class="card-title">🎵 A Song That Reminds You</div>
@@ -337,7 +372,48 @@
     </main>
 
     <script>
-        /* SCRIPT DARI script-kenangan.js - Logika Menu & Chat */
+        /* =============================================================== */
+        /* === COUNTDOWN TIMER LOGIC === */
+        /* =============================================================== */
+        
+        // ** UBAH TANGGAL INI **
+        // Aku atur default ke 11 November 2025 (asumsi anniversary berikutnya dari judul 11 Nov 2024)
+        // Format: 'YYYY-MM-DDTHH:MM:SS'
+        const TARGET_DATE = '2025-11-11T00:00:00'; 
+        const targetTime = new Date(TARGET_DATE).getTime();
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetTime - now;
+            
+            // Perhitungan waktu
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if (distance < 0) {
+                // Jika waktu sudah terlewati
+                clearInterval(countdownInterval);
+                countdownElement.innerHTML = "<span style='color: var(--accent);'>🎉 HAPPY ANNIVERSARY! 🎉</span>";
+            } else {
+                // Tampilkan hitung mundur
+                countdownElement.innerHTML = 
+                    `<span style="color: var(--text-color);">${days}</span> Hari &nbsp;&nbsp; ` + 
+                    `<span style="color: var(--text-color);">${String(hours).padStart(2, '0')}</span> Jam &nbsp;&nbsp; ` + 
+                    `<span style="color: var(--text-color);">${String(minutes).padStart(2, '0')}</span> Menit &nbsp;&nbsp; ` + 
+                    `<span style="color: var(--text-color);">${String(seconds).padStart(2, '0')}</span> Detik`;
+            }
+        }
+
+        // Jalankan fungsi hitung mundur setiap 1 detik
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Panggil sekali saat dimuat untuk menghindari jeda 1 detik
+
+        /* =============================================================== */
+        /* === SCRIPT DARI script-kenangan.js - Logika Menu & Chat === */
+        /* =============================================================== */
 
         // chat demo messages (edit di sini untuk mengubah isi chat)
         const demoChat = [
@@ -358,7 +434,9 @@
             if (targetElement) {
                 // Scroll ke elemen dengan offset untuk header sticky
                 const headerHeight = document.querySelector('.mem-header').offsetHeight;
-                const offset = targetElement.offsetTop - headerHeight - 20; // 20px tambahan margin
+                const countdownHeight = document.querySelector('.countdown-container').offsetHeight;
+                // Mengurangi total tinggi area sticky + sedikit margin
+                const offset = targetElement.offsetTop - (headerHeight + countdownHeight) - 20; 
 
                 window.scrollTo({
                     top: offset,
@@ -388,16 +466,19 @@
                 wrap.appendChild(ts);
                 chatBody.appendChild(wrap);
             });
+            // Auto-scroll ke bawah di chat box setelah diisi
+            chatBody.scrollTop = chatBody.scrollHeight;
         }
 
         window.onload = function() {
             // Jalankan inisialisasi chat setelah halaman dimuat
             populateChat();
             
-            // Coba putar audio setelah interaksi user (walaupun di halaman lain, tetap perlu di-trigger)
-            const bgAudio = document.querySelector('audio[src="audio.mp3"]');
-            if(bgAudio) {
-                bgAudio.play().catch(()=>{}); 
+            // Coba putar audio (opsional)
+            const firstAudio = document.querySelector('.track-list audio');
+            if(firstAudio) {
+                // Mencegah error jika audio tidak bisa diputar otomatis
+                firstAudio.play().catch(()=>{}); 
             }
         };
 
