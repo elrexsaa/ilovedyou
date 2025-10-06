@@ -1,9 +1,6 @@
 /* script.js: logika verifikasi, typing, menu, chat populate */
 
-/* ===== easy settings (ubah di sini) =====
-   - PASSWORD_TO_CHANGE : kata sandi masuk
-   - AUTHOR_HANDLE : handle author untuk pesan gagal
-*/
+/* ===== easy settings (ubah di sini) ===== */
 const PASSWORD_TO_CHANGE = 'nikitaelga'; // <-- GANTI PASSWORD DI SINI!
 const AUTHOR_HANDLE = '@elgarexsaa';
 
@@ -20,7 +17,7 @@ const memoryPage = document.getElementById('memoryPage');
 const bgAudio = document.getElementById('bgAudio');
 const contentArea = document.getElementById('contentArea');
 
-// chat demo messages (edit here to change preview)
+// chat demo messages (edit di sini)
 const demoChat = [
   {side: 'left', text: 'ini kenangan saat kita pertama kali chatting, kamu ingat?', ts: '10:12'},
   {side: 'right', text: 'hahaha, iya! kamu duluan yang chat aku kan? waktu itu aku malu-malu banget mau bales 😆', ts: '10:15'},
@@ -46,9 +43,10 @@ function showVerify(ok, message) {
 function attemptEnter(){
   const v = (pw.value || '').trim();
   if (v === PASSWORD_TO_CHANGE){
+    // Tampilkan notifikasi verifikasi berhasil
     showVerify(true, 'verifikasi berhasil, sedang masuk ke halaman');
-    // slight delay then typing animation
-    setTimeout(startTypingSequence, 800);
+    // Beri jeda sebentar agar notifikasi terbaca, lalu mulai sequence loading
+    setTimeout(startTypingSequence, 1500); // Jeda 1.5 detik
   } else {
     showVerify(false, `verifikasi gagal, kamu bukan nikita atau elga, hub author website : ${AUTHOR_HANDLE}`);
   }
@@ -56,11 +54,12 @@ function attemptEnter(){
 
 // typing animation
 function startTypingSequence(){
-  // hide login, show overlay typing
+  // SEMBUNYIKAN loginPage DULU
   loginPage.hidden = true;
+  // Lalu tampilkan loadingPage
   loadingPage.hidden = false;
   typingText.textContent = '';
-  const text = 'Loading...';
+  const text = 'membuka kenangan...';
   let i = 0;
   const speed = 70; // ms per char
   const t = setInterval(() => {
@@ -69,6 +68,7 @@ function startTypingSequence(){
     if (i > text.length){
       clearInterval(t);
       setTimeout(() => {
+        // Sembunyikan loadingPage sebelum menampilkan memoryPage
         loadingPage.hidden = true;
         openMemoryPage();
       }, 800);
@@ -116,8 +116,7 @@ function hidePanel(panel){
 function showPanel(panel){
   if (!panel) return;
   panel.hidden = false;
-  // Use the CSS @keyframes 'panelIn' for the animation
-  panel.setAttribute('hidden', 'false');
+  panel.setAttribute('hidden', 'false'); // Trigger CSS animation
 
   // focus for accessibility
   panel.setAttribute('tabindex','-1');
