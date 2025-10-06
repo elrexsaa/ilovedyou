@@ -21,21 +21,275 @@
       display:flex;align-items:center;justify-content:center;padding:32px;
     }
     .app{width:100%;max-width:1100px;background:linear-gradient(180deg,transparent, #ffffff11);border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,0.12);overflow:hidden}
+
     header{padding:28px 36px;display:flex;align-items:center;gap:16px}
     .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffb0d6);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:22px;box-shadow:0 6px 18px rgba(255,111,181,0.25)}
     h1{margin:0;font-size:20px}
     p.lead{margin:0;color:#43283b66}
+
+    main{display:grid;grid-template-columns:360px 1fr;gap:24px;padding:24px}
+
+    /* left column */
+    .card{background:var(--card);backdrop-filter:blur(6px);border-radius:14px;padding:16px}
+    .profile{display:flex;gap:12px;align-items:center}
+    .pf-img{width:64px;height:64px;border-radius:12px;object-fit:cover}
+    .pf-name{font-weight:700}
+
+    .section{margin-top:14px}
+    .mem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .mem-grid img{width:100%;height:110px;object-fit:cover;border-radius:10px;transform:translateY(0);transition:transform .32s}
+    .mem-grid img:hover{transform:translateY(-6px)}
+
+    /* right column */
+    .stage{min-height:520px;padding:20px;border-radius:12px;background:linear-gradient(180deg, #ffffffaa, #ffffff88)}
+
+    /* password modal */
+    .overlay{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;z-index:60}
+    .modal{width:360px;background:linear-gradient(180deg,#fff,#ffeef8);padding:20px;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.3);text-align:center}
+    .modal h2{margin:0 0 8px}
+    .pass{width:100%;padding:12px;border-radius:10px;border:2px solid #ffd5ec;background:transparent;font-size:16px}
+    .btn{display:inline-block;margin-top:12px;padding:10px 14px;border-radius:10px;background:var(--accent);color:white;font-weight:700;cursor:pointer;border:none}
+    .msg{margin-top:10px;height:22px}
+
+    /* typing effect */
+    .typing{font-weight:700;font-size:18px;min-height:28px}
+
+    /* memories page */
+    .hidden{display:none}
+    .mem-wrap{display:flex;flex-direction:column;gap:14px}
+
+    .photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .photos img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+
+    /* music */
+    .music-list{display:flex;flex-direction:column;gap:8px}
+    .track{display:flex;align-items:center;gap:12px;padding:8px;border-radius:10px;background:var(--glass)}
+    .track .title{font-weight:600}
+
+    /* chat mockup */
+    .phone{width:280px;background:#fff;border-radius:18px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+    .bubble{max-width:80%;padding:10px 12px;border-radius:14px;margin:6px 0;display:inline-block}
+    .from-me{background:linear-gradient(90deg,#ffd6ec,#ffb0d6);align-self:flex-end;color:#33061b}
+    .from-you{background:#fff;border:1px solid #f0d7e5;color:#2a1730}
+
+    /* little animations */
+    .float{animation:floaty 4s ease-in-out infinite}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)} }
+
+    /* responsive */
+    @media(max-width:900px){main{grid-template-columns:1fr;gap:14px;padding:16px}.photos{grid-template-columns:repeat(2,1fr)}.stage{min-height:420px}}
   </style>
 </head>
 <body>
-  <div class="app">
+  <div class="app" role="application">
     <header>
-      <div class="logo">K</div>
+      <div class="logo float">K</div>
       <div>
         <h1>kenangan</h1>
         <p class="lead">sebuah halaman kecil penuh ingatan.</p>
       </div>
     </header>
+
+    <main>
+      <aside class="card">
+        <div class="profile">
+          <img class="pf-img" src="https://picsum.photos/seed/pf/200/200" alt="profile">
+          <div>
+            <div class="pf-name">untuk: nikita friskila pakpahan</div>
+            <div style="font-size:13px;color:#5a3f4f">kenangan yang kita simpan.</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div style="font-weight:700;margin-bottom:8px">foto favorit</div>
+          <div class="mem-grid">
+            <img src="https://picsum.photos/seed/m1/400/300" alt="m1">
+            <img src="https://picsum.photos/seed/m2/400/300" alt="m2">
+            <img src="https://picsum.photos/seed/m3/400/300" alt="m3">
+            <img src="https://picsum.photos/seed/m4/400/300" alt="m4">
+          </div>
+        </div>
+
+        <div class="section">
+          <div style="font-weight:700;margin-bottom:8px">chat pertama</div>
+          <div class="phone">
+            <div class="bubble from-you">hey, kamu udah sampe?</div>
+            <div class="bubble from-me">iya nih, baru aja turun, lagi cari spot kopinya.</div>
+            <div class="bubble from-you">oke, nanti kabarin ya.</div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="stage card" id="stage">
+        <!-- typing / welcome area -->
+        <div id="welcomeArea" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+          <div class="typing" id="typing">selamat datang — ini halaman kenanganmu.</div>
+          <div style="width:100%;display:flex;gap:10px;align-items:center">
+            <button class="btn" id="openPass">masuk ke halaman kenangan</button>
+            <div style="font-size:13px;color:#6b4256">(butuh password untuk masuk)</div>
+          </div>
+        </div>
+
+        <!-- memories content (hidden until password correct) -->
+        <div id="memories" class="hidden mem-wrap">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-weight:800;font-size:20px" id="greetingText"></div>
+              <div style="color:#6b4256;font-size:13px">ketuk tombol untuk melanjutkan.</div>
+            </div>
+            <div>
+              <button id="continueBtn" class="btn">lanjut ke kenangan</button>
+            </div>
+          </div>
+
+          <div class="photos section">
+            <img src="https://picsum.photos/seed/p1/800/600" alt="p1">
+            <img src="https://picsum.photos/seed/p2/800/600" alt="p2">
+            <img src="https://picsum.photos/seed/p3/800/600" alt="p3">
+            <img src="https://picsum.photos/seed/p4/800/600" alt="p4">
+            <img src="https://picsum.photos/seed/p5/800/600" alt="p5">
+            <img src="https://picsum.photos/seed/p6/800/600" alt="p6">
+          </div>
+
+          <div style="display:flex;gap:18px;flex-wrap:wrap">
+            <div style="flex:1;min-width:260px">
+              <div style="font-weight:700;margin-bottom:10px">musik & backsound</div>
+              <div class="music-list card" style="padding:12px">
+                <div class="track" data-src="audio/track1.mp3">
+                  <div class="title">track 1 — kenangan</div>
+                  <div style="margin-left:auto"><button class="btn small play" data-src="audio/track1.mp3">play</button></div>
+                </div>
+                <div class="track" data-src="audio/track2.mp3">
+                  <div class="title">track 2 — senja</div>
+                  <div style="margin-left:auto"><button class="btn small play" data-src="audio/track2.mp3">play</button></div>
+                </div>
+                <div style="margin-top:12px">
+                  <audio id="audioPlayer" controls style="width:100%">
+                    <source src="audio/track1.mp3" type="audio/mpeg">
+                    browser kamu ga support audio
+                  </audio>
+                </div>
+              </div>
+            </div>
+
+            <div style="width:300px">
+              <div style="font-weight:700;margin-bottom:10px">chat pertama (detail)</div>
+              <div class="card" style="padding:12px">
+                <div style="font-size:13px;color:#6b4256;margin-bottom:8px">tangkapan layar chat pertama kami</div>
+                <img src="https://picsum.photos/seed/chat/400/220" alt="chat screenshot" style="width:100%;border-radius:10px;object-fit:cover">
+                <div style="font-size:12px;color:#885066;margin-top:8px">(ganti gambar ini dengan screenshot chat asli di folder /images)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
   </div>
+
+  <!-- password modal -->
+  <div id="overlay" class="overlay" aria-hidden="false">
+    <div class="modal" role="dialog" aria-labelledby="passTitle">
+      <h2 id="passTitle">masukkan kata sandi</h2>
+      <input id="password" class="pass" type="password" placeholder="kata sandi..." autocomplete="off" />
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button id="enterBtn" class="btn">masuk</button>
+        <button id="demoBtn" class="btn" style="background:#fff;color:var(--accent);border:2px solid var(--accent);">demo</button>
+      </div>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+
+  <script>
+    // configuration
+    const PASSWORD = 'nikita123'; // ganti sesuai keinginan
+
+    const overlay = document.getElementById('overlay');
+    const password = document.getElementById('password');
+    const enterBtn = document.getElementById('enterBtn');
+    const demoBtn = document.getElementById('demoBtn');
+    const msg = document.getElementById('msg');
+    const openPass = document.getElementById('openPass');
+
+    const memories = document.getElementById('memories');
+    const greetingText = document.getElementById('greetingText');
+    const continueBtn = document.getElementById('continueBtn');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    // helper: small typing effect
+    function typeText(el, text, speed=40){
+      el.textContent='';
+      let i=0;
+      const t = setInterval(()=>{
+        el.textContent += text[i] || '';
+        i++;
+        if(i>text.length){clearInterval(t)}
+      }, speed);
+    }
+
+    function showMsg(text, ok=true){
+      msg.textContent = text;
+      msg.style.color = ok ? '#0b6623' : '#7b2536';
+    }
+
+    // open password modal from page
+    openPass.addEventListener('click', ()=>{
+      overlay.style.display = 'flex';
+      password.focus();
+    });
+
+    // demo fills the correct password (for convenience)
+    demoBtn.addEventListener('click', ()=>{ password.value = PASSWORD; showMsg('demo: kata sandi terisi otomatis', true); });
+
+    function unlock(){
+      if(password.value === PASSWORD){
+        showMsg('kata sandi benar. membuka kenangan...', true);
+        // small delay for effect
+        setTimeout(()=>{
+          overlay.style.display = 'none';
+          // show greeting and memories
+          greetingText.textContent = '';
+          typeText(greetingText, 'Hi, Nikita Friskila Pakpahan💗💗💗', 60);
+          memories.classList.remove('hidden');
+          // autoplay soft: set audio source if exists
+          try{ audioPlayer.play().catch(()=>{/* ignore autoplay block */}) }catch(e){}
+        },900);
+      } else {
+        showMsg('kata sandi salah — coba lagi ya 😊', false);
+      }
+    }
+
+    enterBtn.addEventListener('click', unlock);
+    password.addEventListener('keydown', e=>{ if(e.key==='Enter') unlock(); });
+
+    // continue button scrolls to memories area (visual)
+    continueBtn.addEventListener('click', ()=>{
+      document.getElementById('stage').scrollIntoView({behavior:'smooth'});
+    });
+
+    // play buttons in track list
+    document.querySelectorAll('.play').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const src = b.getAttribute('data-src') || b.dataset.src;
+        if(src){ audioPlayer.src = src; audioPlayer.play().catch(()=>{}); }
+      });
+    });
+
+    // accessibility: close overlay with ESC
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ overlay.style.display='none'; } });
+
+    // initial tiny animation for typing
+    const typing = document.getElementById('typing');
+    typeText(typing, 'halo. ini tempat kita menyimpan momen-momen kecil.', 28);
+  </script>
+
+  <!-- notes for user (non-intrusive) -->
+  <!--
+    cara pakai:
+    1. simpan file ini sebagai kenangan.html
+    2. letakkan folder images/ dan audio/ di sebelah file ini, atau ganti path gambar dan audio langsung di html
+    3. untuk demo, klik "masuk ke halaman kenangan" lalu gunakan tombol "demo" pada modal untuk mengisi password otomatis
+    4. ganti PASSWORD di bagian <script> sesuai kata sandi yang kamu mau
+  -->
 </body>
 </html>
