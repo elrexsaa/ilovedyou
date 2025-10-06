@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>~ K.E.N.A.N.G.A.N ~ untuk Nikita Friskila Pakpahan ✨</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main id="memoryPage" class="page--stack">
+    <div class="sparkles" aria-hidden="true"></div>
+    <img class="chibi-fixed" src="img/chibi-couple.png" alt="" aria-hidden="true">
+
+    <header class="mem-header">
+      <div class="mem-title">
+        <h2 id="greeting">Hi, My Beloved Nikita Friskila Pakpahan 💖💍</h2>
+        <p class="muted">pilih salah satu album kenangan kita di bawah ini ya!</p>
+      </div>
+    </header>
+
+    <section class="menu-cards" aria-label="menu pilihan">
+      <button class="card card--menu" data-target="songs" aria-controls="sectionSongs">
+        <div class="card-title">💗 A Song That Reminds You</div>
+        <div class="card-sub muted">3 pilihan lagu favorit</div>
+      </button>
+
+      <button class="card card--menu" data-target="photos" aria-controls="sectionPhotos">
+        <div class="card-title">📸 Foto-foto Kita</div>
+        <div class="card-sub muted">galeri kenangan terindah</div>
+      </button>
+
+      <button class="card card--menu" data-target="chat" aria-controls="sectionChat">
+        <div class="card-title">💬 Chat Waktu Pertama Kali</div>
+        <div class="card-sub muted">preview chat romantis</div>
+      </button>
+    </section>
+
+    <section id="contentArea" class="content-area" aria-live="polite">
+      <div id="sectionSongs" class="panel" hidden>
+        <h3>A Song That Reminds You</h3>
+        <p class="muted">klik play untuk masing-masing lagu</p>
+        <div class="tracks">
+          <div class="track">
+            <div class="tmeta">sound1.mp3</div>
+            <audio controls preload="none" src="sound/sound1.mp3"></audio>
+          </div>
+          <div class="track">
+            <div class="tmeta">sound2.mp3</div>
+            <audio controls preload="none" src="sound/sound2.mp3"></audio>
+          </div>
+          <div class="track">
+            <div class="tmeta">sound3.mp3</div>
+            <audio controls preload="none" src="sound/sound3.mp3"></audio>
+          </div>
+        </div>
+      </div>
+
+      <div id="sectionPhotos" class="panel" hidden>
+        <h3>Foto-foto Kita</h3>
+        <p class="muted">upload foto ke folder <code>img/</code>. tampil otomatis di grid.</p>
+        <div id="gallery" class="gallery" aria-live="polite">
+          <img src="img/foto1.jpg" alt="foto 1">
+          <img src="img/foto2.jpg" alt="foto 2">
+          <img src="img/foto3.jpg" alt="foto 3">
+          <img src="img/foto4.jpg" alt="foto 4">
+          <img src="img/foto5.jpg" alt="foto 5">
+        </div>
+      </div>
+
+      <div id="sectionChat" class="panel" hidden>
+        <h3>Chat Waktu Pertama Kali</h3>
+        <div class="chat-frame" role="region" aria-label="chat preview">
+          <div class="chat-header">
+            <div class="contact">nikita</div>
+            <div class="status muted">online</div>
+          </div>
+          <div class="chat-body" id="chatBody" tabindex="0">
+            </div>
+        </div>
+        <p class="muted small">ubah teks chat langsung di script-kenangan.js.</p>
+      </div>
+    </section>
+
+    <audio id="bgAudio" src="audio.mp3" preload="auto"></audio>
+  </main>
+
+  <script src="script-kenangan.js"></script>
+
+</body>
+</html>
