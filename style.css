@@ -1,8 +1,21 @@
-/* style.css (pastikan kode di bagian ini sudah benar) */
-/* ... */
+/* style.css (Perbaikan Utama di bagian center pages) */
+/* ... (kode sebelumnya) ... */
+
 /* center pages */
-.page { display: none; } /* Tetap ada, tapi tidak digunakan di index.html yang baru */
-.page--center { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px; }
+.page { display: none; } 
+.page--center { 
+  min-height:100vh; 
+  display:flex; 
+  align-items:center; 
+  justify-content:center; 
+  padding:28px; 
+} /* Ini adalah class yang harus digunakan untuk centering */
 .page--overlay { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index: 999; }
 .page--stack { min-height:100vh; padding:36px 20px 120px 20px; display:block; position:relative; }
-/* ... */
+
+/* Hapus kode 'display: none' yang tidak perlu dari loginPage */
+#loginPage {
+    display: block; /* Pastikan main login muncul */
+}
+
+/* ... (kode lainnya) ... */
