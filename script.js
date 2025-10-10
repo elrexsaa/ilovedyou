@@ -40,7 +40,19 @@ const demoChat = [
   {side: 'left', text: 'iya mau nganter paket ini', ts: '16:10'},
   {side: 'right', text: 'oalaa', ts: '16:11'},
   {side: 'left', text: 'rumahnya dimana yaa?', ts: '16:12'},
-  {side: 'right', text: 'kan jgo sulap, psti tau dong', ts: '16:13'}
+  {side: 'right', text: 'kan jgo sulap, psti tau dong', ts: '16:13'},
+  {side: 'left', text: 'wet wet sebentar', ts: '16:14'},
+  {side: 'right', text: 'sipp', ts: '16:17'},
+  {side: 'left', text: '📷titiknya disini cok', ts: '16:27'},
+  {side: 'right', text: 'km intel kah😞😞', ts: '16:28'},
+  {side: 'left', text: 'bnr kah?', ts: '16:29'},
+  {side: 'right', text: 'km tmen nya gabriel ya?', ts: '16:29'},
+  {side: 'right', text: 'soalnya td dia nnya', ts: '16:30'},
+  {side: 'left', text: 'YAHHH', ts: '16:30'},
+  {side: 'left', text: 'ketauan😭😭😭😭', ts: '16:30'},
+  {side: 'right', text: 'NAH KAN ANJIR', ts: '16:31'},
+  {side: 'left', text: 'yauda maap ya😔🙏🏻', ts: '16:33'},
+  {side: 'right', text: 'tida mau', ts: '16:34'},
 ];
 
 function populateChat(){
