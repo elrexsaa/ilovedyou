@@ -52,7 +52,7 @@ const demoChat = [
   {side: 'left', text: 'ketauan😭😭😭😭', ts: '16:30'},
   {side: 'right', text: 'NAH KAN ANJIR', ts: '16:31'},
   {side: 'left', text: 'yauda maap ya😔🙏🏻', ts: '16:33'},
-  {side: 'right', text: 'tida mau', ts: '16:34'},
+  {side: 'right', text: 'tida mau', ts: '16:34'}
 ];
 
 function populateChat(){
