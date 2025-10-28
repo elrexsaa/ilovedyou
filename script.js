@@ -38,7 +38,7 @@ function updateCountdown() {
 
   if (distance < 0) {
     clearInterval(countdownInterval);
-    if(countdownElement) countdownElement.innerHTML = "<span style='color: var(--accent);'>🎉 HAPPY ANNIVERSARY! 🎉</span>";
+    if(countdownElement) countdownElement.innerHTML = "<span style='color: var(--accent);'>ð HAPPY ANNIVERSARY! ð</span>";
   } else if (countdownElement) {
     countdownElement.innerHTML = `${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
   }
@@ -108,7 +108,7 @@ const chatData = [
   {side: 'right', text: 'bagus', ts: '20:02', status: 'read'},
   {side: 'left', text: 'kamu udah makan belom?', ts: '20:02'},
   {side: 'right', text: 'udah td', ts: '20:03', status: 'read'},
-  {side: 'left', text: '🚫Pesan Telah Dihapus🚫', ts: '20:03', deleted: true},
+  {side: 'left', text: 'ð«Pesan Telah Dihapusð«', ts: '20:03', deleted: true},
   {side: 'right', text: 'EH SALKIR', ts: '20:03', status: 'read'},
   {side: 'right', text: 'ga, td uda', ts: '20:03', status: 'read'},
   {side: 'left', text: 'salkir itu yang tingkah orang aneh liat crush nya bukan?', ts: '20:04'},
@@ -138,9 +138,9 @@ function renderChat() {
             const checkClass = chat.status === 'read' ? ' read' : ' sent';
             // Hanya 1 centang jika pesan terhapus
             if (chat.deleted) {
-                 checkmarkIcon = `<span class="checkmark sent">✓</span>`; 
+                 checkmarkIcon = `<span class="checkmark sent">â</span>`; 
             } else {
-                 checkmarkIcon = `<span class="checkmark${checkClass}">✓✓</span>`;
+                 checkmarkIcon = `<span class="checkmark${checkClass}">ââ</span>`;
             }
         }
 
