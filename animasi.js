@@ -5,8 +5,8 @@ const bg = document.querySelector('.bg-hearts');
 const introScreenOverlay = document.querySelector('.intro-screen'); 
 const mainPage = document.querySelector('main');
 
-// Seleksi elemen spesifik untuk animasi berurutan (FIXED CLASS)
-const header = document.querySelector('.site-header'); // Menggunakan class .site-header
+// Seleksi elemen spesifik untuk animasi berurutan
+const header = document.querySelector('.mem-header') || document.querySelector('.site-header');
 const countdownContainer = document.querySelector('.countdown-container');
 const menuGrid = document.querySelector('.menu-grid');
 const contentSections = document.querySelectorAll('.content-section'); 
@@ -28,44 +28,49 @@ const TEXT_FADE_DURATION = 800;
 const INITIAL_DELAY = 1000; 
 const SECTION_DELAY = 800;  
 
+
 // --- FUNGSIONALITAS AUDIO: SINGLE PLAY ---
 function stopAllAudio(currentPlaying) {
+    // 1. Stop BGM jika lagu di daftar diputar
     if (bgm && currentPlaying !== bgm && !bgm.paused) {
         bgm.pause();
     }
+
+    // 2. Stop semua lagu di daftar jika ada yang diputar
     allTracks.forEach(track => {
       if (track !== currentPlaying && !track.paused) {
         track.pause();
-        track.currentTime = 0; 
+        track.currentTime = 0; // Reset ke awal
       }
     });
 }
 
-// Tambahkan event listener ke semua elemen audio
-document.addEventListener('DOMContentLoaded', () => {
-    allTracks.forEach(track => {
-        track.addEventListener('play', () => stopAllAudio(track));
-    });
+// Tambahkan event listener untuk mengelola BGM saat lagu lain diputar
+allTracks.forEach(track => {
+  track.addEventListener('play', () => stopAllAudio(track));
 });
 
-// --- 1. LOGIKA INTRO TYPING ---
-function showNextText() {
-  if (!introScreenOverlay || !introTextElement) {
-      // Jika di halaman sub-page yang tidak memiliki intro, langsung reveal
-      if (mainPage) {
-          mainPage.classList.remove('hidden');
-          startMemoryReveal();
-      }
-      return; 
-  }
 
+// --- 2. LOGIKA INTRO TEXT (TYPING) ---
+function showNextText() {
   if (textIndex >= introTexts.length) {
     // Selesai, mulai transisi ke halaman utama
-    setTimeout(fadeOutIntro, 500);
+    introScreenOverlay.classList.add('fade-out');
+    mainPage.classList.remove('hidden');
+    
+    // Tunggu transisi selesai, lalu hapus intro screen
+    setTimeout(() => {
+      introScreenOverlay.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Kembalikan scroll
+      startMemoryReveal();
+    }, 500); // Harus sama dengan durasi transisi CSS
     return;
   }
 
-  introTextElement.textContent = introTexts[textIndex];
+  const currentText = introTexts[textIndex];
+  
+  // Gunakan animasi ketik sederhana
+  introTextElement.textContent = currentText;
   introTextElement.classList.add('is-visible');
 
   setTimeout(() => {
@@ -78,105 +83,78 @@ function showNextText() {
 }
 
 
-// --- 2. TRANSISI KE HALAMAN UTAMA ---
-function fadeOutIntro() {
-  if (!introScreenOverlay || !mainPage) return;
-
-  introScreenOverlay.classList.add('fade-out');
-  
-  // Tampilkan konten utama
-  mainPage.classList.remove('hidden');
-
-  // Mulai animasi reveal
-  startMemoryReveal();
-  
-  // Mainkan BGM
-  if (bgm) {
-    bgm.volume = 0.5;
-    bgm.play().catch(e => console.log('BGM Play failed:', e)); // Menangani error play()
-  }
-
-  // Hapus overlay setelah transisi selesai
-  setTimeout(() => {
-    introScreenOverlay.remove();
-    document.body.style.overflow = 'auto';
-  }, 1000);
-}
-
-
-// --- 3. LOGIKA REVEAL SEQUENTIAL ---
+// --- 3. LOGIKA REVEAL SEQUENTIAL (VIDEO EFFECT) ---
 function startMemoryReveal() {
-    if (!mainPage) return;
-
-    // Tambahkan background hearts jika belum ada
-    if (bg) {
-        // Logika untuk generate hearts di sini (jika belum ada)
-        if (bg.children.length === 0) {
-             for (let i = 0; i < 7; i++) {
-                const span = document.createElement('span');
-                span.innerHTML = '💖'; 
-                bg.appendChild(span);
-             }
-        }
+    // MODIFIKASI: Coba putar BGM otomatis setelah intro screen selesai (dianggap interaksi)
+    if (bgm && bgm.paused) {
+        bgm.volume = 0.5; // Atur volume BGM (Opsional: 50%)
+        // Gunakan .catch() karena autoplay sering diblokir, tidak perlu error fatal
+        bgm.play().catch(e => console.error("BGM Autoplay Gagal:", e));
     }
 
-    // Hanya jalankan animasi untuk elemen yang ada di halaman
-    if (header) {
+    // Ambil elemen untuk halaman non-kenangan (songs, about, dll)
+    const headerElement = document.querySelector('.site-header') || document.querySelector('.mem-header');
+    const countdown = document.querySelector('.countdown-container');
+    const menu = document.querySelector('.menu-grid');
+    
+    // Reveal Header
+    if (headerElement) {
         setTimeout(() => {
-            header.classList.add('show');
+            headerElement.classList.add('show');
         }, INITIAL_DELAY);
     }
-    
-    if (countdownContainer) {
+
+    // Hanya tampilkan countdown dan menu jika ada (khusus kenangan.html)
+    if (countdown) {
         setTimeout(() => {
-            countdownContainer.parentElement.classList.add('show');
+            countdown.classList.add('show');
         }, INITIAL_DELAY + SECTION_DELAY);
     }
     
-    if (menuGrid) {
+    if (menu) {
         setTimeout(() => {
-            menuGrid.parentElement.classList.add('show');
+            menu.classList.add('show');
         }, INITIAL_DELAY + SECTION_DELAY * 2);
     }
 
 
-    // Reveal Content Sections satu per satu (untuk sub-page)
+    // Reveal Content Sections satu per satu
     setTimeout(() => {
-        // Ambil ulang contentSections di subpage jika tidak ada di homepage
-        const sections = document.querySelectorAll('.content-section');
-        sections.forEach((section, index) => {
-            // Adjust index and delay for subpages
-            const delay = 500 + 400 * index; 
+        contentSections.forEach((section, index) => {
+            const startDelay = headerElement ? INITIAL_DELAY : 0; // Jika ada header, mulai dari delay header
+            const delay = startDelay + SECTION_DELAY * (index + (headerElement ? 1 : 0)); // Penyesuaian delay
+            
             setTimeout(() => {
                 section.classList.add('show');
                 
                 // Khusus Carousel, inisialisasi setelah terlihat
                 if (section.id === 'sectionPhotos') {
-                    const carouselTrack = section.querySelector('.carousel-track');
-                    // initCarousel tidak diperlukan karena menggunakan CSS scroll
+                    const carouselContainer = section.querySelector('.carousel-container');
+                    // Memastikan fungsi initCarousel tersedia (Asumsi ada di script.js)
+                    // Panggil initCarousel dengan container
+                    if (carouselContainer && typeof initCarousel === 'function') { 
+                        setTimeout(() => initCarousel(carouselContainer), 1300); 
+                    }
                 }
 
             }, delay); 
         });
-    }, INITIAL_DELAY);
+    }, INITIAL_DELAY); 
 }
 
 
 // --- 4. START POINT ---
 window.addEventListener('load', () => {
-    // Pada load, kita ingin memastikan body disembunyikan untuk animasi intro
-    document.body.style.overflow = 'hidden';
-
-    // Cek apakah ini halaman utama (yang punya intro screen)
-    if (introScreenOverlay && mainPage) {
-        introScreenOverlay.style.display = 'flex'; 
-        showNextText();
-    } else if (mainPage) {
-        // Jika ini sub-page, tampilkan konten utama dan mulai reveal
-        mainPage.classList.remove('hidden');
-        document.body.style.overflow = 'auto'; // Pastikan bisa di scroll
-        startMemoryReveal();
-    }
+  document.body.style.overflow = 'hidden';
+  if (introScreenOverlay && mainPage) {
+      introScreenOverlay.style.display = 'flex'; 
+      showNextText();
+  } else if (mainPage) {
+      // Fallback jika intro screen hilang (misal di halaman sub-page)
+      mainPage.classList.remove('hidden');
+      document.body.style.overflow = 'auto'; 
+      startMemoryReveal();
+  }
 });
 
 /* --- AKHIR COPY PASTE SELURUHNYA KE FILE animasi.js --- */
