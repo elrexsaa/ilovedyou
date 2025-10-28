@@ -49,7 +49,6 @@
 
     <script src="js/animasi.js"></script> 
     <script>
-        // Logika login ditaruh di sini, sementara fungsi pendukung ada di animasi.js dan script.js
         const AUTH_KEY = 'auth_granted';
         const TARGET_PAGE = 'kenangan.html'; 
         const CORRECT_PASSWORD = 'CIANKU'; // Ganti dengan kata sandi Anda
@@ -60,8 +59,36 @@
         const verifyIcon = document.getElementById('verifyIcon');
         const verifyText = document.getElementById('verifyText');
         const loginCard = document.querySelector('.login-card');
+        const loadingPage = document.getElementById('loadingPage');
+        const typingTextElement = document.getElementById('typingText');
+        const loginPage = document.getElementById('loginPage');
 
-        // Toggle Password Visibility
+        // 1. Logika Typing Animation (dipindahkan ke sini)
+        function startTypingSequence() {
+            loginPage.hidden = true;
+            loadingPage.hidden = false; 
+            loadingPage.setAttribute('aria-hidden', 'false');
+
+            typingTextElement.textContent = '';
+            const text = 'Memuat Kenangan Romantis & Merapikan Memori...';
+            let i = 0;
+            const speed = 50; 
+
+            const t = setInterval(() => {
+                if (i < text.length) {
+                    typingTextElement.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(t);
+                    // FIX: Ganti window.location.href menjadi replace untuk mencegah loop histori
+                    setTimeout(() => {
+                        window.location.replace(TARGET_PAGE);
+                    }, 800); 
+                }
+            }, speed);
+        }
+
+        // 2. Toggle Password Visibility
         togglePassword.addEventListener('click', function () {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
@@ -69,7 +96,7 @@
             this.classList.toggle('fa-eye-slash');
         });
 
-        // Tampilkan Notifikasi (Toast)
+        // 3. Tampilkan Notifikasi (Toast)
         function showVerification(isSuccess, message) {
             verifyFrame.hidden = false;
             verifyText.textContent = message;
@@ -82,14 +109,13 @@
                 verifyFrame.classList.add('fail');
                 verifyIcon.innerHTML = '<i class="fas fa-times-circle"></i>';
                 
-                // Sembunyikan notifikasi error setelah 3 detik
                 setTimeout(() => {
                     verifyFrame.hidden = true;
                 }, 3000);
             }
         }
 
-        // Cek Kata Sandi
+        // 4. Cek Kata Sandi (Inti Login)
         function checkPassword() {
             const password = passwordInput.value.trim().toUpperCase();
             
@@ -97,12 +123,11 @@
                 sessionStorage.setItem(AUTH_KEY, 'true');
                 showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
                 
-                // Panggil fungsi typing dari animasi.js
-                setTimeout(() => startTypingSequence(TARGET_PAGE), 1000);
+                // FIX: Langsung panggil fungsi typing lokal
+                setTimeout(() => startTypingSequence(), 1000);
             } else {
                 showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
                 
-                // Efek Goyang (Shake)
                 loginCard.classList.add('shake-effect');
                 setTimeout(() => {
                     loginCard.classList.remove('shake-effect');
@@ -110,11 +135,11 @@
             }
         }
 
-        // Fix Loop Login & Cek Session saat Halaman Dimuat
+        // 5. Cek Session saat Halaman Dimuat (Mencegah Loop/Stuck di Login jika sudah login)
         document.addEventListener('DOMContentLoaded', () => {
-             // Jika sudah login, langsung redirect ke halaman utama (Mencegah Loop)
+             // Jika sudah login, langsung redirect
              if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
-                 window.location.replace(TARGET_PAGE); // Menggunakan replace()
+                 window.location.replace(TARGET_PAGE); // FIX: Menggunakan replace()
              }
         });
     </script>
@@ -143,7 +168,7 @@
 
         .verify-frame.fail {
             background-color: #dc3545; 
-            animation: none; /* Jangan fade out otomatis jika error, akan disembunyikan via JS */
+            animation: none;
             opacity: 1;
         }
 
