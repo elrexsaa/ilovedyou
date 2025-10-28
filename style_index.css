@@ -1,11 +1,11 @@
 /* --- MULAI COPY PASTE SELURUHNYA KE FILE style_index.css --- */
 :root {
-    --bg1: #fde4e8; /* Background Lebih Pucat */
-    --bg2: #ffe0f0;
+    --bg1: #fcecf0; /* Background Lebih Soft */
+    --bg2: #ffe6f2;
     --accent: #ff6fb5; /* Pink Utama */
-    --glass-card: rgba(255, 255, 255, 0.95); /* Lebih Solid */
+    --glass-card: rgba(255, 255, 255, 0.95);
     --muted: #806b72;
-    --shadow: 0 16px 40px rgba(15, 10, 20, 0.15);
+    --shadow: 0 12px 32px rgba(200, 100, 150, 0.15); /* Shadow lebih soft */
     --input-focus: #ffc2e4;
     --text-color: #2f1e2b;
     --font-main: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -17,11 +17,12 @@
     src: url('https://cdn.jsdelivr.net/gh/sh-cl/ios-emoji-font@main/AppleColorEmoji.ttf') format('truetype');
 }
 
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 
 body {
-    font-family: var(--font-main), 'Apple Color Emoji', sans-serif; /* UPDATE: Tambahkan iOS Emoji */
+    font-family: var(--font-main), 'Apple Color Emoji', sans-serif; /* Update agar emoji universal */
     background: linear-gradient(135deg, var(--bg1), var(--bg2));
     color: var(--text-color);
     -webkit-font-smoothing: antialiased;
@@ -36,122 +37,161 @@ body {
 
 /* Container Halaman */
 .page--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    max-width: 400px;
-    margin: auto;
-    text-align: center;
-    padding: 2rem 0;
+    max-width: 400px; 
+    z-index: 20; 
 }
 
-/* Kartu Login */
-.card.login-card {
+/* Card Login */
+.card {
     background: var(--glass-card);
-    border-radius: 20px;
-    padding: 30px;
+    border-radius: 2rem; /* Disesuaikan */
+    padding: 2.5rem; /* Disesuaikan */
+    text-align: center;
     box-shadow: var(--shadow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 100%;
+    transform: translateY(0);
+    transition: transform 0.4s ease-out;
 }
 
-.card.login-card.shake-effect {
-    animation: shake 0.5s;
-    /* Ketika shake, tambahkan bayangan error merah tipis */
-    box-shadow: 0 16px 40px rgba(255, 0, 0, 0.2); 
-}
-
+/* --- ANIMASI GETAR (SHAKE) --- */
 @keyframes shake {
-  0%, 100% {transform: translateX(0);}
-  20%, 60% {transform: translateX(-5px);}
-  40%, 80% {transform: translateX(5px);}
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
 }
 
+.shake-effect {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0); 
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+/* --- AKHIR ANIMASI GETAR --- */
+
+/* Icon Chibi */
 .chibi-icon {
-    font-size: 3rem;
+    font-size: 5rem; 
+    margin-bottom: 1.5rem;
     line-height: 1;
-    margin-bottom: 1rem;
-    font-family: 'Apple Color Emoji', sans-serif; /* UPDATE: Tambahkan iOS Emoji */
+    font-family: 'Apple Color Emoji', sans-serif; /* Update agar emoji universal */
 }
 
-h1 {
-    font-size: 2rem;
-    color: var(--accent);
+/* Judul */
+#loginTitle {
+    font-size: 2rem; 
+    font-weight: 800;
+    line-height: 1.2;
     margin-bottom: 0.5rem;
 }
 
+/* Teks Muted */
 .muted {
     color: var(--muted);
     font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
 }
 
-/* Form */
-.input-group {
-    margin-bottom: 1rem;
-}
-.input-group label {
-    display: block;
-    text-align: left;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-.input-group input[type="text"] {
+/* INPUT DAN ICON MATA */
+.input-wrapper {
+    position: relative;
     width: 100%;
-    padding: 12px 15px;
+}
+
+.input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    padding-right: 3.5rem; 
+    border-radius: 1.25rem; /* Disesuaikan */
     border: 2px solid #ddd;
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    font-family: var(--font-main);
-    color: var(--text-color);
-}
-.input-group input[type="text"]:focus {
-    border-color: var(--accent);
-    outline: none;
-    box-shadow: 0 0 0 3px var(--input-focus);
-}
-
-/* Tombol */
-.btn-submit {
-    width: 100%;
-    padding: 14px;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 12px;
     font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
-    margin-top: 1rem;
-}
-.btn-submit:hover {
-    background: #ff5d8f;
-}
-.btn-submit:active {
-    transform: scale(0.98);
+    text-align: center;
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
 }
 
-/* Frame Notifikasi */
+.input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 5px rgba(255, 111, 181, 0.2);
+}
+
+#togglePw {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+#togglePw:hover {
+    color: var(--accent);
+}
+
+
+/* Button */
+.btn {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    border-radius: 1.25rem; /* Disesuaikan */
+    cursor: pointer;
+    border: none;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    letter-spacing: 0.5px;
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+.btn--primary {
+    background: linear-gradient(90deg, var(--accent), #ff8cc7);
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(255, 105, 180, 0.35);
+}
+
+.btn--primary:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 16px 35px rgba(255, 105, 180, 0.5); 
+}
+
+.btn--primary:active {
+    transform: translateY(1px) scale(0.98); 
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2);
+}
+
+/* --- PERBAIKAN POSISI POP-UP ERROR (DI TENGAH) --- */
 .verify-frame {
     position: fixed;
-    top: 50%;
     left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
-    background: #000;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 15px 25px; 
+    border-radius: 18px;
+    font-size: 1rem; 
     font-weight: 600;
-    z-index: 1000;
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none;
+    color: white;
+    z-index: 30; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease, transform 0.3s ease;
     min-width: 280px;
 }
 .verify-frame[hidden] {
     opacity: 0;
     pointer-events: none;
-    transform: translate(-50%, -60%); /* Transisi dari atas saat hilang */
+    transform: translate(-50%, -60%);
 }
 .verify-frame:not([hidden]) {
     opacity: 1;
@@ -161,10 +201,7 @@ h1 {
 
 .verify-frame.ok { background: #4CAF50; } 
 .verify-frame.fail { background: #F44336; } 
-.verify-icon { 
-    font-size: 1.2rem; 
-    font-family: 'Apple Color Emoji', sans-serif; /* UPDATE: Tambahkan iOS Emoji */
-}
+.verify-icon { font-size: 1.2rem; }
 
 /* Footer Hint */
 .hint-text {
@@ -192,12 +229,30 @@ h1 {
 }
 #loadingPage[aria-hidden="false"] {
     opacity: 1;
-    z-index: 999;
+    z-index: 999; 
+    pointer-events: auto; 
 }
+#loadingPage[aria-hidden="true"] {
+    z-index: -1; 
+    pointer-events: none; 
+}
+
 #typingText {
-    margin-top: 1rem;
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--accent);
+    color: var(--text-color);
+    margin-top: 20px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 /* --- AKHIR COPY PASTE SELURUHNYA KE FILE style_index.css --- */
