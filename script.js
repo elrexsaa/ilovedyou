@@ -1,7 +1,6 @@
 /* --- MULAI COPY PASTE SELURUHNYA KE FILE script.js --- */
 
 // ===== FUNGSI GLOBAL: PENGECEKAN ELEMEN =====
-// Menjalankan fungsi hanya jika elemennya ada di halaman saat ini
 function runOnElement(selector, func) {
   const element = document.querySelector(selector);
   if (element) {
@@ -44,7 +43,6 @@ function initNavMenu() {
 
 // ===== 2. LOGIKA COUNTDOWN (Hanya untuk kenangan.html) =====
 function initCountdown(element) {
-  // Ganti tanggal ini dengan tanggal anniversary kamu
   const TARGET_DATE = '2025-11-01T00:00:00'; 
   const targetTime = new Date(TARGET_DATE).getTime();
 
@@ -68,7 +66,8 @@ function initCountdown(element) {
 }
 
 // ===== 3. LOGIKA CHAT (Hanya untuk chat.html - WA Style) =====
-const STICKER_URL = "https://cdn.jsdelivr.net/gh/twemoji/twemoji@14.0.2/assets/svg/1f92c.svg"; // Placeholder Sticker
+// Ganti path/URL gambar di sini!
+const STICKER_URL = "https://cdn.jsdelivr.net/gh/twemoji/twemoji@14.0.2/assets/svg/1f92c.svg"; // Emoji 🤬 untuk placeholder sticker
 const IMAGE_URL_1 = "https://picsum.photos/id/401/300/300"; // Ganti dengan foto kamu
 const IMAGE_URL_2 = "https://picsum.photos/id/237/300/300"; // Ganti dengan foto kamu lainnya
 
@@ -79,7 +78,7 @@ const whatsappChat = [
   {type: 'image', side: 'right', content: IMAGE_URL_1, caption: 'Ihh lucu banget yaaa foto ini. Aku upload di sini hihi!', ts: '16:15'},
   {type: 'sticker', side: 'left', content: STICKER_URL, ts: '16:16'},
   {type: 'text', side: 'right', content: 'km intel kah😞😞', ts: '16:28'},
-  {type: 'text', side: 'left', content: 'YAHHH\nketauan😭😭😭😭', ts: '16:30'}, // \n akan menjadi <br>
+  {type: 'text', side: 'left', content: 'YAHHH\nketauan😭😭😭😭', ts: '16:30'}, 
   {type: 'text', side: 'right', content: 'NAH KAN ANJIR', ts: '16:31'},
   {type: 'text', side: 'left', content: 'yauda maap ya😔🙏🏻', ts: '16:33'},
   {type: 'audio', side: 'right', content: '0:15', ts: '16:34'}, // Voice Note Placeholder
@@ -106,8 +105,10 @@ function populateChat(chatBodyElement){
     const txt = createEl('div', 'txt');
     
     let contentHTML = '';
-
-    if (m.type === 'image' || m.type === 'sticker') {
+    const isMedia = m.type === 'image' || m.type === 'sticker';
+    
+    // --- 1. Buat Konten Pesan ---
+    if (isMedia) {
         const media = createEl('div', 'media-content');
         const img = createEl('img');
         img.src = m.content;
@@ -117,7 +118,10 @@ function populateChat(chatBodyElement){
         contentHTML += media.outerHTML;
 
         if (m.caption && m.type === 'image') {
-            contentHTML += `<p class="caption">${m.caption}</p>`;
+             // Caption akan menampung TS
+             const captionP = createEl('p', 'caption');
+             captionP.innerHTML = `${m.caption}<span class="wa-space"></span>`; // Span kosong untuk padding/jarak
+             contentHTML += captionP.outerHTML;
         }
         
     } else if (m.type === 'audio') {
@@ -128,7 +132,7 @@ function populateChat(chatBodyElement){
                       </span>`;
     } else if (m.type === 'deleted') {
         // Deleted Message
-        contentHTML = `<em>🚫 ${m.content}</em>`;
+        contentHTML = `<em>Pesan Telah Dihapus</em>`;
     } else {
         // Text Message, replace \n with <br>
         contentHTML = m.content.replace(/\n/g, '<br>');
@@ -136,35 +140,35 @@ function populateChat(chatBodyElement){
     
     txt.innerHTML = contentHTML;
 
-    // Time Stamp and Status (Read/Sent)
+    // --- 2. Buat Timestamp dan Status ---
     const ts = createEl('div', 'ts');
     
     // Status (double checkmark for 'right' side)
-    const readReceipt = m.side === 'right' ? '<span style="color: var(--wa-sent); margin-left: 4px;">✓✓</span>' : '';
+    const waCheckColor = m.side === 'right' ? 'var(--wa-check)' : 'var(--muted)';
+    const readReceipt = m.side === 'right' ? `<span style="color: ${waCheckColor}; margin-left: 4px;">✓✓</span>` : '';
     
-    // Posisikan waktu di dalam bubble
     ts.innerHTML = `${m.ts}${readReceipt}`;
 
-    // Append elements
-    // Hanya masukkan TS ke dalam bubble text jika itu bukan media (karena media punya caption yang menampung TS)
-    if (m.type === 'text' || m.type === 'audio' || m.type === 'deleted') {
-         txt.innerHTML += ts.outerHTML;
-    } else if (m.type === 'image' || m.type === 'sticker') {
-         // Untuk media, kita letakkan TS di luar txt untuk menghindari masalah layout di media-content
-         // Tapi karena kita sudah pakai p.caption, kita tambahkan manual ke caption/media-content.
-         // Mari kita ikuti pola yang lebih sederhana: letakkan TS di luar media-content tapi di dalam txt
-         if (!m.caption || m.type === 'sticker') {
-            txt.innerHTML += ts.outerHTML;
-         }
+    // --- 3. Tempatkan Timestamp ---
+    // Jika ada caption pada Image, masukkan TS ke dalam caption
+    if (m.type === 'image' && m.caption) {
+        const captionEl = txt.querySelector('.caption');
+        if (captionEl) {
+            captionEl.appendChild(ts);
+        }
+    } else {
+        // Untuk semua tipe lain (Text, Audio, Sticker, Deleted, Image tanpa caption)
+        txt.appendChild(ts);
     }
-
 
     wrap.appendChild(txt);
     chatBodyElement.appendChild(wrap);
   });
   
+  // Auto scroll ke bawah setelah chat dimuat
   chatBodyElement.scrollTop = chatBodyElement.scrollHeight;
 }
+
 
 // ===== 4. LOGIKA AUDIO (Hanya untuk songs.html) =====
 function setupAudioListeners(audioElements) {
@@ -249,17 +253,12 @@ function initCarousel(carouselTrack) {
 
 // ===== INISIALISASI SAAT HALAMAN DIMUAT =====
 window.addEventListener('load', () => {
-  // Selalu jalankan menu navigasi
   initNavMenu();
-  
-  // Jalankan fungsi khusus halaman
   runOnElement('#countdown', initCountdown);
   runOnElement('#chatBody', populateChat);
-  // Menggunakan runOnElements untuk semua audio di daftar lagu
   runOnElements('.music-card audio', setupAudioListeners); 
   runOnElement('.carousel-track', initCarousel);
   
-  // Autoplay BGM di halaman utama (kenangan.html)
   runOnElement('#bgm', (bgmElement) => {
     document.addEventListener('click', function handler() {
       if (bgmElement.paused) {
