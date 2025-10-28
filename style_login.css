@@ -1,0 +1,201 @@
+/* --- style_login.css (Gaya Halaman Login yang Profesional dan Elegan) --- */
+
+/* Import variabel dari general style */
+@import url('style_general.css');
+
+/* --- Reset dan Dasar --- */
+html, body { height: 100%; overflow: hidden; } /* Pastikan login page mengisi penuh */
+body {
+    font-family: var(--font-main);
+    background: linear-gradient(135deg, #FAD0C4 0%, #FFD1FF 100%); /* Gradient romantis soft */
+    color: var(--color-text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Page Center & Card --- */
+.page--center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.login-card {
+    background: var(--color-card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--color-shadow-hover);
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-card h2 {
+    font-family: var(--font-script);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.login-card p {
+    color: var(--color-text-muted);
+    margin-bottom: 30px;
+}
+
+/* --- Form Input --- */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 45px 12px 15px; /* Ruang untuk ikon mata */
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--color-text-main);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.3);
+    outline: none;
+}
+
+.input-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.input-icon:hover {
+    color: var(--color-secondary);
+}
+
+/* --- Tombol Login --- */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #E05BA0; /* Darker pink */
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+}
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* --- Shake Effect (Error) --- */
+.shake-effect {
+    animation: shake 0.5s;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+}
+
+/* --- Status Verifikasi (Toast) --- */
+.verify-frame {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    padding: 12px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    min-width: 250px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.verify-frame[hidden] {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -70%); 
+}
+.verify-frame:not([hidden]) {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+.verify-frame.ok { background: #4CAF50; } 
+.verify-frame.fail { background: #F44336; } 
+.verify-icon { font-size: 1.2rem; }
+
+/* --- Loading Page (Typing Sequence) --- */
+#loadingPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.chibi-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite;
+}
+#typingText {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* --- Footer Hint/Contact --- */
+.hint-text {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 2rem;
+}
+.hint-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+.hint-text a:hover {
+    color: #E05BA0;
+}
