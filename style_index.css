@@ -1,11 +1,11 @@
 /* --- MULAI COPY PASTE SELURUHNYA KE FILE style_index.css --- */
 :root {
-    --bg1: #fde4e8; /* Background Lebih Pucat */
-    --bg2: #ffe0f0;
+    --bg1: #fcecf0; /* Background Lebih Soft */
+    --bg2: #ffe6f2;
     --accent: #ff6fb5; /* Pink Utama */
-    --glass-card: rgba(255, 255, 255, 0.95); /* Lebih Solid */
+    --glass-card: rgba(255, 255, 255, 0.95);
     --muted: #806b72;
-    --shadow: 0 16px 40px rgba(15, 10, 20, 0.15);
+    --shadow: 0 12px 32px rgba(200, 100, 150, 0.15); /* Shadow lebih soft */
     --input-focus: #ffc2e4;
     --text-color: #2f1e2b;
     --font-main: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -41,8 +41,8 @@ body {
 /* Card Login */
 .card {
     background: var(--glass-card);
-    border-radius: 2.5rem; 
-    padding: 2.5rem 2rem;
+    border-radius: 2rem; /* Disesuaikan */
+    padding: 2.5rem; /* Disesuaikan */
     text-align: center;
     box-shadow: var(--shadow);
     width: 100%;
@@ -101,7 +101,7 @@ body {
     width: 100%;
     padding: 1rem 1.5rem;
     padding-right: 3.5rem; 
-    border-radius: 1.5rem; 
+    border-radius: 1.25rem; /* Disesuaikan */
     border: 2px solid #ddd;
     font-size: 1.1rem;
     text-align: center;
@@ -135,7 +135,7 @@ body {
 .btn {
     display: inline-block;
     padding: 1rem 1.5rem;
-    border-radius: 1.5rem;
+    border-radius: 1.25rem; /* Disesuaikan */
     cursor: pointer;
     border: none;
     font-weight: 700;
@@ -164,10 +164,10 @@ body {
 
 /* --- PERBAIKAN POSISI POP-UP ERROR (DI TENGAH) --- */
 .verify-frame {
-    position: fixed; /* Ubah ke fixed agar di tengah layar */
+    position: fixed;
     left: 50%;
-    top: 50%; /* Posisikan di tengah vertikal */
-    transform: translate(-50%, -50%); /* Centering sempurna */
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     gap: 12px;
     align-items: center;
@@ -184,7 +184,7 @@ body {
 .verify-frame[hidden] {
     opacity: 0;
     pointer-events: none;
-    transform: translate(-50%, -60%); /* Transisi dari atas saat hilang */
+    transform: translate(-50%, -60%);
 }
 .verify-frame:not([hidden]) {
     opacity: 1;
