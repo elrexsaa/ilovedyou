@@ -8,37 +8,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="sub-page"> <div class="bg-hearts"></div>
+<body class="sub-page"> 
+  
+  <div class="bg-hearts"></div>
 
-  <nav class="mobile-nav-drawer" id="mobileNav">
-    <button class="nav-close-btn" id="closeMenuBtn" aria-label="Tutup Menu">&times;</button>
-    <div class="nav-links">
-      <a href="kenangan.html" class="nav-link">🏠 Home</a>
-      <a href="songs.html" class="nav-link active">🎵 A Song That Reminds You</a>
-      <a href="photos.html" class="nav-link">📸 Foto Kenangan Kita</a>
-      <a href="chat.html" class="nav-link">💬 Awal Dari Segalanya</a>
-      <a href="quotes.html" class="nav-link">📝 Chat Fav</a>
-      <a href="about.html" class="nav-link">💖 Tentang Aku & Kamu</a>
-    </div>
-    <button id="btnLogout" class="nav-logout" onclick="doLogout()">Logout</button>
-  </nav>
-  <div class="nav-overlay" id="navOverlay"></div>
   <main class="page--stack">
     
     <header class="site-header reveal-section">
       <div class="header-content">
-        <h2 id="greeting">🎵 Lagu Kita</h2>
+        <h2 id="greeting">🎵 Playlist</h2>
         <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Buka Menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </header>
-
+    
     <div id="sectionSongs" class="content-section reveal-section">
-      <h3>🎵 A Song That Reminds You</h3>
-      <p>top 3 lagu yang kalo diputer aku selalu inget km hihi, kalo km puter aku pasti lagi nari bareng km di pikiran aku hahaha</p>
+      <h3>🎶 Lagu-Lagu Yang Bikin Kangen</h3>
+      <p>Ini adalah lagu-lagu yang mengingatkan aku sama kamu, setiap nada seakan bercerita tentang kita. Kadang aku muter ini cuma buat ngehalu ada km di pikiran aku hahaha</p>
       
       <div class="track-list">
         <div class="music-card">
@@ -65,18 +56,44 @@
             <audio controls src="sound/sound3.mp3"></audio>
           </div>
         </div>
-      </div>
+        </div>
     </div>
-    </main>
+    
+  </main>
 
+  <audio id="bgm" src="sound/bgm.mp3" loop></audio>
+
+  <nav class="bottom-nav">
+    <a href="kenangan.html" class="nav-item">
+        <i class="fas fa-home"></i><span>Home</span>
+    </a>
+    <a href="songs.html" class="nav-item active">
+        <i class="fas fa-music"></i><span>Lagu</span>
+    </a>
+    <a href="photos.html" class="nav-item">
+        <i class="fas fa-camera-retro"></i><span>Foto</span>
+    </a>
+    <a href="chat.html" class="nav-item">
+        <i class="fas fa-comment"></i><span>Chat</span>
+    </a>
+    <a href="quotes.html" class="nav-item">
+        <i class="fas fa-star"></i><span>Quotes</span>
+    </a>
+  </nav>
   <script src="script.js"></script>
   <script src="animasi.js"></script>
   
   <script>
   const AUTH_KEY = 'kenangan_verified';
   const LOGIN_PAGE = 'index.html';
-  if (sessionStorage.getItem(AUTH_KEY) !== 'true') { window.location.replace(LOGIN_PAGE); }
-  function doLogout() { sessionStorage.removeItem(AUTH_KEY); window.location.replace(LOGIN_PAGE); }
+  if (sessionStorage.getItem(AUTH_KEY) !== 'true') {
+    window.location.replace(LOGIN_PAGE);
+  }
+  
+  function doLogout() {
+      sessionStorage.removeItem(AUTH_KEY);
+      window.location.replace(LOGIN_PAGE);
+  }
   </script>
 </body>
 </html>
