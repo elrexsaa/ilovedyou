@@ -3,21 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Masuk - Our Memories Site</title>
+    <title>Masuk Rahasia - Our Memories Site</title>
 
     <meta property="og:title" content="Our Memories Website💗" />
     <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
     <meta property="og:image" content="img/logo.ico" /> 
-    <meta property="og:url" content="https://elrexsaa.github.io/index.html" /> 
-    <meta property="og:type" content="website" />
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <link rel="stylesheet" href="style_general.css">
-    <link rel="stylesheet" href="style_login.css">
+    <link rel="stylesheet" href="css/style_general.css">
+    <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
+
+    <div class="bg-hearts"></div>
 
     <div id="loadingPage" hidden aria-hidden="true">
         <div class="chibi-icon">⏳</div>
@@ -27,7 +27,7 @@
     <main id="loginPage" class="page--center">
         <div class="card login-card" role="dialog" aria-modal="true">
             <h2>Our Memories</h2>
-            <p>Masukkan kata sandi untuk melihat kenangan kita.</p>
+            <p>Masukkan kata sandi rahasia untuk melihat kenangan kita.</p>
             
             <div class="input-group">
                 <input type="password" id="passwordInput" placeholder="Kata Sandi Rahasia..." required>
@@ -47,19 +47,19 @@
         <span id="verifyText"></span>
     </div>
 
+    <script src="js/animasi.js"></script> 
     <script>
+        // Logika login ditaruh di sini, sementara fungsi pendukung ada di animasi.js dan script.js
         const AUTH_KEY = 'auth_granted';
         const TARGET_PAGE = 'kenangan.html'; 
         const CORRECT_PASSWORD = 'CIANKU'; // Ganti dengan kata sandi Anda
-
+        
         const passwordInput = document.getElementById('passwordInput');
         const togglePassword = document.getElementById('togglePassword');
         const verifyFrame = document.getElementById('verifyFrame');
         const verifyIcon = document.getElementById('verifyIcon');
         const verifyText = document.getElementById('verifyText');
         const loginCard = document.querySelector('.login-card');
-        const loadingPage = document.getElementById('loadingPage');
-        const typingText = document.getElementById('typingText');
 
         // Toggle Password Visibility
         togglePassword.addEventListener('click', function () {
@@ -96,7 +96,9 @@
             if (password === CORRECT_PASSWORD) {
                 sessionStorage.setItem(AUTH_KEY, 'true');
                 showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
-                startTypingSequence();
+                
+                // Panggil fungsi typing dari animasi.js
+                setTimeout(() => startTypingSequence(TARGET_PAGE), 1000);
             } else {
                 showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
                 
@@ -108,41 +110,54 @@
             }
         }
 
-        // Urutan Mengetik (Loading)
-        function startTypingSequence(){
-            document.getElementById('loginPage').hidden = true;
-            loadingPage.hidden = false; 
-            loadingPage.setAttribute('aria-hidden', 'false');
-
-            typingText.textContent = '';
-            const text = 'Memuat Kenangan Romantis...';
-            let i = 0;
-            const speed = 70;
-
-            const t = setInterval(() => {
-                typingText.textContent += text.charAt(i) || '';
-                i++;
-                if (i > text.length){
-                    clearInterval(t);
-                    
-                    setTimeout(() => {
-                        window.location.href = TARGET_PAGE;
-                    }, 800); 
-                }
-            }, speed);
-        }
-
-        // Cek Session saat Halaman Dimuat
+        // Fix Loop Login & Cek Session saat Halaman Dimuat
         document.addEventListener('DOMContentLoaded', () => {
-             loadingPage.hidden = true;
-             loadingPage.setAttribute('aria-hidden', 'true');
-
-             // Bypass login jika sudah ada session
+             // Jika sudah login, langsung redirect ke halaman utama (Mencegah Loop)
              if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
-                 window.location.href = TARGET_PAGE; 
+                 window.location.replace(TARGET_PAGE); // Menggunakan replace()
              }
         });
     </script>
+    <style>
+        /* Style untuk Notifikasi Verifikasi/Toast */
+        .verify-frame {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInOut 4s forwards;
+            z-index: 5000;
+        }
 
+        .verify-frame.ok {
+            background-color: #28a745; 
+        }
+
+        .verify-frame.fail {
+            background-color: #dc3545; 
+            animation: none; /* Jangan fade out otomatis jika error, akan disembunyikan via JS */
+            opacity: 1;
+        }
+
+        .verify-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; bottom: 20px; }
+            10% { opacity: 1; bottom: 30px; }
+            90% { opacity: 1; bottom: 30px; }
+            100% { opacity: 0; bottom: 20px; }
+        }
+    </style>
 </body>
 </html>
