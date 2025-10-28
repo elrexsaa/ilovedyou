@@ -55,10 +55,10 @@
   <script src="animasi.js"></script>
   
   <script>
-    const AUTH_KEY = 'kenangan_verified';
-    const LOGIN_PAGE = 'index.html';
-    if (localStorage.getItem(AUTH_KEY) !== 'true') { window.location.replace(LOGIN_PAGE); }
-    function doLogout() { localStorage.removeItem(AUTH_KEY); window.location.replace(LOGIN_PAGE); }
-  </script>
+  const AUTH_KEY = 'kenangan_verified';
+  const LOGIN_PAGE = 'index.html';
+  if (sessionStorage.getItem(AUTH_KEY) !== 'true') { window.location.replace(LOGIN_PAGE); }
+  function doLogout() { sessionStorage.removeItem(AUTH_KEY); window.location.replace(LOGIN_PAGE); }
+ </script>
 </body>
 </html>
