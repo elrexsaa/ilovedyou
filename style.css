@@ -1,21 +1,26 @@
 /* --- MULAI COPY PASTE SELURUHNYA KE FILE style.css --- */
 :root {
-  --bg1: #fde4e8; /* Background Pink Pucat */
-  --bg2: #ffe0f0;
-  --accent: #ff6fb5; /* Pink Utama */
+  /* Warna Baru: Lebih Dalam, Hangat, dan Romantis */
+  --color-primary: #8a3a5c; /* Maroon/Deep Rose (Warna utama gelap) */
+  --color-secondary: #ff99b0; /* Soft Pink */
+  --color-accent: #e65278; /* Bright Rose for highlights (Warna aksi/sorot) */
+  --color-text: #2c1a24;
+  --color-muted: #5b4b53;
+  
+  --bg-light: #fff8f8; /* Background paling terang */
+  --bg-main: #fcf1f3; /* Body background */
   --glass-card: rgba(255, 255, 255, 0.95);
-  --muted: #806b72;
-  --shadow: 0 16px 40px rgba(15, 10, 20, 0.15);
-  --text-color: #2f1e2b;
+  --shadow-subtle: 0 8px 20px rgba(138, 58, 92, 0.1);
+  --shadow-strong: 0 15px 35px rgba(138, 58, 92, 0.25);
+
   --font-main: 'Inter', sans-serif;
   --font-script: 'Dancing Script', cursive;
-  --header-bg: rgba(255, 255, 255, 0.9);
-  
-  /* WhatsApp Color Palette */
+
+  /* WhatsApp Color Palette (Disesuaikan agar lebih menyatu) */
   --wa-bg: #E5DDD5;
-  --wa-sent: #e2ffc7; /* Hijau muda WA untuk Bubble Kanan */
-  --wa-received: #ffffff; /* Putih untuk Bubble Kiri */
-  --wa-check: #4fc3f7; /* Warna centang biru WA */
+  --wa-sent: #dcf8c6; 
+  --wa-received: #ffffff; 
+  --wa-check: #4fc3f7; 
 }
 
 /* GLOBAL RESET & FONT */
@@ -23,22 +28,24 @@
 html{scroll-behavior:smooth}
 body{
   font-family:var(--font-main);
-  background:linear-gradient(135deg,var(--bg1),var(--bg2));
-  color:var(--text-color);
+  background:var(--bg-main);
+  color:var(--color-text);
   min-height:100vh;
   overflow-x:hidden; 
   line-height: 1.6;
 }
 
+/* Structure & Layout */
 .page--stack{max-width:768px;margin:0 auto;padding:20px 16px 80px}
+.sub-page .page--stack { padding-bottom: 100px; /* Jarak untuk Bottom Nav */ }
+
 
 /* HEADER & NAVIGATION */
 .site-header{
     position:sticky;top:0;
     padding:15px 0; 
-    margin-bottom:24px;
-    background:var(--header-bg);backdrop-filter:blur(10px);z-index:50;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    background:rgba(255, 255, 255, 0.95);backdrop-filter:blur(10px);z-index:50;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
 }
 .header-content {
     display: flex;
@@ -50,393 +57,227 @@ body{
 }
 .site-header h2{
     font-family:var(--font-script);
-    font-size:2.2rem; 
-    color:var(--accent);
+    font-size:2.4rem; 
+    color:var(--color-primary);
     line-height:1.2;
+    letter-spacing: 1px;
 }
-.muted{font-size:.85rem;color:var(--muted)}
+.muted{font-size:.85rem;color:var(--color-muted)}
 
 
-/* --- INTRO SCREEN (Layar Pembuka) --- */
+/* --- INTRO SCREEN FIX (BUG INTRO TEXT DIPERBAIKI) --- */
 .intro-screen {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  background: linear-gradient(135deg, var(--bg-main), var(--bg-light));
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Dancing Script', cursive;
-  font-size: 2rem;
   z-index: 9999;
-  transition: opacity 0.5s ease;
+  opacity: 1;
+  transition: opacity 0.7s ease-out;
 }
-
 .intro-screen.fade-out {
   opacity: 0;
+  pointer-events: none;
 }
-
-/* KOREKSI: Hapus positioning absolut agar centering oleh flex berfungsi */
+/* Kunci Fix: Menghilangkan positioning absolut dari Intro Text */
 .intro-text {
-  font-size: 2.8rem;
-  font-family: 'Dancing Script', cursive;
-  color: var(--accent);
+  font-size: 3rem;
+  font-family: var(--font-script);
+  color: var(--color-primary);
   text-align: center;
-  letter-spacing: 1px;
+  padding: 0 15px;
   opacity: 0; 
-  /* Semua kode position, top, transform dihapus/digantikan */
   transition: opacity 0.8s ease-in-out; 
 }
 .intro-text.is-visible {
     opacity: 1;
 }
-/* --- AKHIR INTRO SCREEN --- */
 
 
-/* Menu Mobile: Overhaul Total (Stabil) */
-.nav-overlay {
-    position: fixed;inset: 0;background: rgba(0, 0, 0, 0.6);
-    z-index: 100;opacity: 0;visibility: hidden;transition: opacity 0.3s ease;
+/* --- BOTTOM NAVIGATION BAR (BARU: SANGAT RESPONSIVE) --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 768px;
+    margin: 0 auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
-.nav-overlay.show {opacity: 1;visibility: visible;}
-
-.mobile-nav-drawer {
-    position: fixed;top: 0;right: 0;
-    width: 80%; max-width: 300px;
-    height: 100%;
-    background: #fff; 
-    box-shadow: -6px 0 20px rgba(0, 0, 0, 0.2);
-    z-index: 101;
-    transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-    padding: 25px;
-    display: flex;flex-direction: column;
-}
-.mobile-nav-drawer.show {transform: translateX(0);}
-.nav-close-btn {
-    position: absolute;top: 15px;right: 15px;
-    background: none;border: none;font-size: 2.5rem;
-    color: var(--muted);cursor: pointer;line-height: 1;
-}
-.nav-links {
-    display: flex;flex-direction: column;gap: 10px;
-    padding-top: 50px;flex-grow: 1;
-}
-.nav-link {
-    text-decoration: none;color: var(--text-color);
-    font-size: 1.1rem;font-weight: 600;
-    padding: 12px 15px;border-radius: 12px;
-    transition: all 0.2s ease;
-}
-.nav-link:hover, .nav-link.active {
-    background: var(--accent);
-    color: white;
-    box-shadow: 0 4px 10px rgba(255,105,181,0.4);
-}
-.nav-logout {
-    margin-top: 20px;background: var(--accent);
-    color: white;border: none;padding: 12px;border-radius: 12px;
-    font-weight: 700;cursor: pointer;transition: background 0.2s ease;
-}
-.nav-logout:hover {background: #ff85c6;}
-
-.menu-toggle-btn {
-    width: 30px;height: 24px;background: none;
-    border: none;display: flex;flex-direction: column;
-    justify-content: space-between;cursor: pointer;
-}
-.menu-toggle-btn span {
-    display: block;width: 100%;height: 3px;
-    background: var(--text-color);border-radius: 2px;
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-muted);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 12px;
     transition: all 0.3s ease;
+    min-width: 60px;
+}
+.nav-item i {
+    font-size: 1.2rem;
+    margin-bottom: 3px;
+}
+.nav-item.active, .nav-item:hover {
+    color: var(--color-primary);
+    background: var(--bg-light);
+}
+.nav-item.active {
+    position: relative;
+}
+.nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 20px;
+    height: 3px;
+    background: var(--color-accent);
+    border-radius: 2px;
+}
+/* Sembunyikan Tombol Burger di Mobile */
+@media (max-width: 768px) {
+    .menu-toggle-btn { display: none !important; }
+    .site-header { margin-bottom: 0; }
+}
+/* Menu Drawer Lama: Dikonversi menjadi Navigasi Horizontal di Desktop */
+@media (min-width: 769px) {
+     .bottom-nav { display: none; }
+     .mobile-nav-drawer {
+        position: static; width: auto; max-width: none; height: auto;
+        background: none; box-shadow: none; transform: translateX(0) !important;
+        padding: 0; display: flex; flex-direction: row; gap: 20px;
+     }
+     .nav-close-btn, .nav-overlay { display: none !important; }
+     .nav-links { padding-top: 0; flex-direction: row; gap: 15px; }
+     .nav-link { font-size: 1rem; padding: 8px 12px; border-radius: 8px; }
+     .nav-logout { margin-top: 0; padding: 8px 15px; }
 }
 
-/* Konten Section (Stabil) */
+
+/* Konten Section */
 .content-section{
-  padding-top:50px;margin-top:-50px;margin-bottom:40px;
+  padding-top:20px;margin-bottom:40px;
 }
 .content-section h3{
   font-family: 'Poppins', sans-serif;
-  font-size:1.6rem;font-weight:700;
-  color:var(--accent);margin-bottom:20px;
-  border-left:5px solid var(--accent);
+  font-size:1.5rem;font-weight:700;
+  color:var(--color-primary);margin-bottom:15px;
+  border-left:5px solid var(--color-accent);
   padding-left:12px;
   line-height: 1.3;
 }
-.content-section p{font-size:1rem;color:#4a4a4a;margin-bottom:16px}
+.content-section p{font-size:1rem;color:var(--color-text);margin-bottom:16px}
+.content-section p.text-center { text-align: center; }
 
-
-/* --- KOMPONEN BERBAGAI HALAMAN (Stabil) --- */
-/* Countdown */
+/* --- KOMPONEN UTAMA --- */
+/* Countdown (Lebih Elegan) */
 .countdown-container{
   text-align:center;background:var(--glass-card);
-  padding:20px;border-radius:20px;
-  box-shadow:var(--shadow);margin-bottom:30px;
+  padding:25px;border-radius:20px;
+  box-shadow:var(--shadow-subtle);margin-bottom:30px;
 }
-.countdown-title{font-size:.9rem;font-weight:700;color:var(--accent);margin-bottom:5px}
-#countdown{font-size:1.8rem;font-weight:800;color:var(--text-color)}
+.countdown-title{font-size:.9rem;font-weight:700;color:var(--color-accent);margin-bottom:8px}
+#countdown{
+    font-family: 'Poppins', sans-serif;
+    font-size:2rem;font-weight:800;color:var(--color-primary);
+    letter-spacing: 1px;
+}
 
-/* Menu Grid */
+/* Menu Grid (Kartu Lebih Profesional) */
 .menu-grid{display:grid;gap:16px;margin-bottom:40px}
 @media(min-width:640px){.menu-grid{grid-template-columns:1fr 1fr}}
 .card{
-  background:var(--glass-card);border-radius:24px;
-  padding:24px;box-shadow:var(--shadow);transition:.3s ease;
+  background:var(--glass-card);border-radius:18px;
+  padding:20px;box-shadow:var(--shadow-subtle);transition:.3s ease;
   cursor:pointer;
+  border: 1px solid rgba(138, 58, 92, 0.1);
 }
 .card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 15px 30px rgba(255,105,180,0.35);
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:var(--shadow-strong);
 }
-.card-title{font-size:1.25rem;font-weight:800;margin-bottom:4px}
-.card-sub{font-size:.85rem;color:var(--muted)}
+.card-title{font-size:1.2rem;font-weight:700;margin-bottom:4px;color:var(--color-primary)}
+.card-sub{font-size:.8rem;color:var(--color-muted)}
+
 
 /* Music Card (Songs Page) */
 .music-card {
     display: flex; align-items: center;
-    background: var(--glass-card);padding: 15px;
-    border-radius: 18px;margin-bottom: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background: var(--glass-card);padding: 12px;
+    border-radius: 15px;margin-bottom: 12px;
+    box-shadow: var(--shadow-subtle);
 }
-.track-cover {
-    width: 60px; height: 60px;object-fit: cover;
-    border-radius: 8px;margin-right: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-.track-info {flex-grow: 1;display: flex;flex-direction: column;}
-.tmeta {font-weight: 700;font-size: 1rem;}
-.tsub {font-size: 0.8rem;color: var(--muted);margin-bottom: 8px;}
+.track-cover { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; margin-right: 15px; }
+.tmeta {font-weight: 700;font-size: 0.95rem; color: var(--color-primary);}
+.tsub {font-size: 0.75rem;color: var(--color-muted);margin-bottom: 5px;}
 .music-card audio {
     width: 100%;height: 30px; 
-    filter: sepia(100%) saturate(200%) hue-rotate(290deg) brightness(80%) contrast(100%); 
+    filter: sepia(100%) saturate(150%) hue-rotate(330deg) brightness(90%) contrast(100%); 
 }
 
-/* Carousel (Photos Page) */
-.carousel-container {overflow: hidden; margin: 20px 0;}
+/* Carousel (Photos Page) - Lebih interaktif dan portrait */
 .carousel-track {
-    display: flex;overflow-x: scroll;scroll-snap-type: x mandatory; 
-    scroll-behavior: smooth;gap: 20px; 
-    padding: 0 12.5%; 
-    scrollbar-width: none;-ms-overflow-style: none;
+    padding: 0 10%; 
 }
-.carousel-track::-webkit-scrollbar {display: none;}
 .carousel-slide {
-    flex: 0 0 75%;max-width: 75%;aspect-ratio: 1 / 1; 
-    scroll-snap-align: center;transition: all 0.4s ease-in-out;
+    flex: 0 0 80%; 
+    max-width: 80%;
+    aspect-ratio: 4 / 5; 
 }
 .carousel-slide img {
-    width: 100%;height: 100%;object-fit: cover;
-    border-radius: 16px;box-shadow: var(--shadow);
-    filter: blur(8px) brightness(0.6);transform: scale(0.9); 
-    transition: all 0.4s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    filter: brightness(0.7);transform: scale(0.9); 
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .carousel-slide.active img {
-    filter: blur(0) brightness(1); transform: scale(1); 
-    box-shadow: 0 8px 30px rgba(255,105,181,0.6); 
+    filter: brightness(1); transform: scale(1); 
+    box-shadow: 0 10px 40px rgba(230, 82, 120, 0.6); 
 }
 
-/* Fav Chat (Quotes Page) */
-.fav-chat-container {padding: 10px 0;}
-.fav-chat-bubble {
-    display: inline-block;max-width: 85%;margin-bottom: 15px;
-}
-.fav-chat-bubble.right {
-    background: var(--accent); color: white;
-    padding: 8px 12px 4px 12px; 
-    border-radius: 12px 12px 4px 12px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-    line-height: 1.4;position: relative;float: right;clear: both; 
-}
-.fav-chat-bubble .text {font-size: 1rem;margin-bottom: 4px;}
-.fav-chat-bubble .meta {
-    display: flex;justify-content: flex-end;align-items: center;
-    font-size: 0.75rem;color: rgba(255, 255, 255, 0.7); 
-}
-.favorite-star {margin-left: 5px;font-size: 0.8rem;}
-
-/* --- GAYA CHAT FRAME WHATSAPP BARU (CHAT PAGE) --- */
+/* --- CHAT FRAME WHATSAPP (Stabil & Rapi) --- */
 .chat-frame{
-  background:var(--wa-bg); 
-  border-radius:20px;
-  padding:15px; 
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
-  max-height:70vh; 
-  overflow-y:auto;
-  position: relative; 
+  background:var(--wa-bg); border-radius:15px; padding:15px; 
+  box-shadow:var(--shadow-subtle); max-height:80vh; overflow-y:auto;
 }
-.chat-frame::-webkit-scrollbar { width: 6px; }
-.chat-frame::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+.bubble { max-width: 90%; } 
+.bubble.right .txt{ background:var(--wa-sent); }
+.bubble.left .txt{ background:var(--wa-received); }
 
-.chat-header{
-  padding:10px 0;margin-bottom:10px;
-  border-bottom:1px solid #ddd;
-  display:flex;justify-content:space-between;align-items:center;
-  position: sticky; top: 0; background: var(--wa-bg); z-index: 2;
-}
-.contact{font-weight:700;color:#2f1e2b}
+.bubble.right .ts span { color: var(--wa-check); } /* Centang biru */
 
-/* Bubble Wrapper */
-.bubble{
-    margin-bottom: 8px;
-    display: block; 
-    max-width: 85%;
-    clear: both; 
-    position: relative;
-}
-.bubble.left{float: left;}
-.bubble.right{float: right;}
-
-/* Bubble Content (The main box) */
-.bubble .txt{
-  background:var(--wa-received); 
-  padding:8px 12px;
-  border-radius: 12px 12px 12px 4px; 
-  box-shadow:0 1px 1px rgba(0,0,0,0.08); 
-  line-height:1.4;
-  white-space: pre-wrap; 
-  position: relative;
-  overflow: hidden;
-  font-size: 1rem; 
-  min-width: 60px; 
-}
-
-/* Bubble Kanan (Sent) */
-.bubble.right .txt{
-  background:var(--wa-sent); 
-  color:var(--text-color);
-  border-radius: 12px 12px 4px 12px; 
-}
-
-/* Time Stamp dan Status */
-.bubble .ts{
-  font-size:.7rem;
-  color:var(--muted);
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 4px;
-  right: 8px;
-  z-index: 10;
-  min-width: 35px; 
-}
-
-/* Style untuk text */
-.bubble.text .txt {
-    padding-right: 45px; 
-}
-.bubble.right.text .ts {
-    color: rgba(47, 30, 43, 0.6); 
-}
-
-/* --- Media (Image) Bubble --- */
-.bubble.image .txt {
-    padding: 6px; 
-    box-shadow: 0 1px 1px rgba(0,0,0,0.08);
-}
-.bubble.image.right .txt {
-    background: var(--accent); 
-    color: white;
-}
-.bubble.image .media-content img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    border-radius: 8px; 
-    min-width: 150px; 
-}
-.bubble .caption {
-    font-size: 0.9rem;
-    margin: 5px 0 0 0;
-    padding: 0 5px 20px 5px; 
-    position: relative; 
-    color: inherit;
-}
-.bubble.image .ts {
-    bottom: 8px; 
-    right: 12px;
-}
-.bubble.image.right .ts {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* Sticker Only: Hapus Background */
-.bubble.sticker .txt {
-    background: transparent !important; 
-    box-shadow: none !important;
-    padding: 0;
-    max-width: 150px;
-    min-width: 0;
-}
-.bubble.sticker .ts {
-    right: -2px; 
-    bottom: -15px;
-    color: var(--muted);
-}
-.bubble.sticker {
-    margin-bottom: 20px; 
-}
-
-/* Deleted Message Style */
-.bubble.deleted .txt {
-    font-style: italic;
-    font-size: 0.95rem;
-    color: #999;
-    background: var(--wa-received);
-}
-.bubble.deleted.right .txt {
-    background: var(--wa-sent);
-}
-.bubble.deleted .txt:before {
-    content: '🚫 ';
-}
-
-/* Audio Placeholder Style (Voice Note) */
-.bubble.audio .txt {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-right: 45px;
-}
-/* --- AKHIR GAYA CHAT FRAME WHATSAPP BARU --- */
+.bubble.image.right .txt { background: var(--color-primary); color: white; padding: 8px; }
+.bubble.image.right .ts { color: rgba(255, 255, 255, 0.9); }
+/* --- AKHIR GAYA CHAT FRAME WHATSAPP --- */
 
 
-/* --- ANIMASI & BG (Stabil) --- */
-.fade-in{opacity:0;animation:fadeIn .8s ease forwards}
-.fade-up{opacity:0;transform:translateY(20px);animation:fadeUp 1s ease forwards}
-@keyframes fadeIn{to{opacity:1}}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-
-.typewriter{
-  overflow:hidden;
-  border-right:2px solid var(--accent);
-  white-space:nowrap;
-  animation:typing 4s steps(40,end), blink .8s infinite;
-}
-@keyframes typing{from{width:0}to{width:100%}}
-@keyframes blink{50%{border-color:transparent}}
-
-.bg-hearts {
-  position: fixed;top: 0; left: 0; right: 0; bottom: 0;
-  overflow: hidden;z-index: -1;
-}
-.bg-hearts span {
-  position: absolute;
-  color: rgba(255, 111, 181, 0.5);
-  font-size: 20px;
-  animation: floatUp linear infinite;
-  filter: blur(2px);
-}
-@keyframes floatUp {
-  0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
-  30% { opacity: 1; }
-  100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-}
+/* --- ANIMASI & BG (Lebih Halus) --- */
+.hidden { display: none; } 
+/* Animasi Reveal yang lebih Smooth */
 .reveal-section {
   opacity: 0;transform: translateY(30px);
-  transition: all 1.3s ease;
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); 
 }
 .reveal-section.show {
   opacity: 1;transform: translateY(0);
 }
+
+.typewriter{
+  overflow:hidden; border-right:2px solid var(--color-accent); white-space:nowrap;
+  animation:typing 4s steps(40,end), blink .8s infinite; display: block; width: fit-content; max-width: 100%;
+}
+@keyframes typing{from{width:0}to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
 /* --- AKHIR COPY PASTE SELURUHNYA KE FILE style.css --- */
