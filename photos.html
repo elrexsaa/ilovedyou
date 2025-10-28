@@ -8,8 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <link rel="stylesheet" href="style_general.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style_general.css">
   
   <style>
     /* Styling spesifik untuk Carousel */
@@ -22,9 +21,9 @@
     }
     .carousel-track {
         display: flex; 
-        overflow-x: hidden; 
         width: 100%; 
-        aspect-ratio: 4/3; /* Rasio gambar */
+        aspect-ratio: 4/3; 
+        transition: transform 0.5s ease-in-out; /* Animasi perpindahan slide */
     }
     .carousel-slide {
         flex-shrink: 0; 
@@ -41,7 +40,7 @@
         position: absolute; 
         top: 50%; 
         transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.4); 
+        background: rgba(255, 105, 180, 0.7); /* Pink semi-transparan */
         color: white; 
         border: none;
         padding: 10px;
@@ -49,19 +48,26 @@
         cursor: pointer;
         z-index: 5;
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
         transition: background 0.3s;
     }
     .carousel-nav-btn:hover {
-        background: rgba(0, 0, 0, 0.6);
+        background: var(--color-secondary);
     }
     .carousel-nav-btn.prev { left: 10px; }
     .carousel-nav-btn.next { right: 10px; }
+    
+    .photo-caption {
+        text-align: center;
+        margin-top: 15px;
+        font-style: italic;
+        color: var(--color-text-main);
+    }
   </style>
 </head>
 <body>
-  <audio id="bgm" src="audio.mp3" loop></audio>
+  <audio id="bgm" src="sound/audio.mp3" loop></audio>
   <button id="bgm-toggle" aria-label="Toggle Background Music">🔇</button>
   
   <div class="bg-hearts"></div>
@@ -69,12 +75,12 @@
   <main class="hidden">
     <header class="header-main">
         <h1>📸 Momen Indah Kita</h1>
-        <p>Setiap foto menceritakan kisah cinta kita.</p>
+        <p>Setiap foto menceritakan kisah cinta kita yang tak terlupakan.</p>
     </header>
 
     <section id="sectionPhotos" class="content-section">
       <h2>Our Photo Booth</h2>
-      <p style="color: var(--color-text-muted); margin-bottom: 20px;">sedikit foto kenangan kita bareng hehe, sayang banget kita dikit ngabadiin momen bareng bareng yaa, next setiap detik harus di abadiin biar aku masukin kesini hehehehe. **(Geser ke samping untuk lihat semua)**</p>
+      <p style="color: var(--color-text-muted); margin-bottom: 20px;">sedikit foto kenangan kita bareng hehe, sayang banget kita dikit ngabadiin momen bareng bareng yaa. Next, setiap detik harus di abadiin biar aku masukin kesini hehehehe. **(Geser tombol panah untuk navigasi)**</p>
       
       <div class="carousel-container">
         
@@ -91,6 +97,7 @@
         <button class="carousel-nav-btn next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
         
       </div>
+      <p class="photo-caption">Senyummu adalah favoritku, Sayang.</p>
     </section>
   </main>
     
@@ -121,6 +128,7 @@
     </a>
   </nav>
 
-  <script src="animasi.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/animasi.js"></script>
 </body>
 </html>
