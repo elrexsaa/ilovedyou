@@ -12,8 +12,8 @@
     <meta property="og:type" content="website" />
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style_index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -30,97 +30,102 @@
             </div>
 
             <h1 id="loginTitle">All Memories</h1>
-            <p class="muted">halaman ini berisi kenangan pribadi. masukkan kata sandi untuk melanjutkan.</p>
+            <p class="muted">Hai sayang, password untuk masuk ke website kenangan kita adalah...
+            <br>Tgl Jadian Kita Ya Sayangku, Angka Semua.
+            <br>Contoh: 01012025</p>
 
-            <div class="input-wrapper">
-                <label for="pw" class="visually-hidden">Masukkan Password</label>
-                <input id="pw" class="input" type="password" placeholder="password" autocomplete="off" aria-label="kata sandi">
-                <span id="togglePw" aria-label="tampilkan password">👁️</span> 
-            </div>
-
-            <button id="btnEnter" class="btn btn--primary" aria-describedby="hint">verifikasi</button>
-            
-            <div id="verifyFrame" class="verify-frame" role="status" aria-live="polite" hidden>
-                <div id="verifyIcon" class="verify-icon" aria-hidden="true"></div>
-                <div id="verifyText" class="verify-text"></div>
-            </div>
-
-            <p class="hint-text" id="hint">
-                kalau lupa, hub author:
-                <a href="https://wa.me/6287896507726" target="_blank">@elgarexsaa</a>
-            </p>
+            <form id="loginForm">
+                <div class="input-wrapper">
+                    <input type="password" id="password" class="input" placeholder="Tgl Jadian (cth: 01012025)" required>
+                    <i id="togglePw" class="fas fa-eye" aria-label="Tampilkan Password"></i>
+                </div>
+                <button type="submit" class="btn btn--primary">Masuk ke Kenangan</button>
+            </form>
         </div>
+
+        <div id="verifyFrame" class="verify-frame" hidden>
+            <span id="verifyIcon" class="verify-icon"></span>
+            <span id="verifyMessage"></span>
+        </div>
+
+        <p class="hint-text">
+            *Website ini dilindungi kamera, jika kamu bukan Nikita atau Elga, data kamu akan terkirim.
+        </p>
     </main>
 
     <script>
-        /* SCRIPT LOGIKA LOGIN */
+        const CORRECT_PASSWORD = '14102024'; // GANTI DENGAN TANGGAL JADIAN KAMU (ddmmyyyy)
+        const AUTH_KEY = 'kenangan_verified';
+        const TARGET_PAGE = 'kenangan.html';
 
-        /* ===== easy settings (ubah di sini) ===== */
-        const PASSWORD_TO_CHANGE = '01112024'; 
-        const AUTHOR_HANDLE = '@elgarexsaa';
-        const TARGET_PAGE = 'kenangan.html'; 
-        const AUTH_KEY = 'kenangan_verified'; 
-        
-        // elements
-        const pw = document.getElementById('pw');
-        const btnEnter = document.getElementById('btnEnter');
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('password');
         const verifyFrame = document.getElementById('verifyFrame');
         const verifyIcon = document.getElementById('verifyIcon');
-        const verifyText = document.getElementById('verifyText');
-        const loginPage = document.getElementById('loginPage');
+        const verifyMessage = document.getElementById('verifyMessage');
+        const loginCard = document.querySelector('.login-card');
         const loadingPage = document.getElementById('loadingPage');
         const typingText = document.getElementById('typingText');
+        const AUTHOR_HANDLE = 'elga'; // GANTI DENGAN NAMA TELEGRAM/SOSMED MU
+        
+        // ===================================
+        // NEW LOGIC: PASSWORD TOGGLE
+        // ===================================
         const togglePw = document.getElementById('togglePw');
-        const loginCard = document.querySelector('.login-card'); // Elemen card login
-        
-        // event listeners
-        pw.addEventListener('keydown', (e) => { 
-            if (e.key === 'Enter') {
-                e.preventDefault(); 
-                attemptEnter(); 
-            }
-        });
-        btnEnter.addEventListener('click', attemptEnter);
-        
-        // LOGIKA TOGGLE PASSWORD (ICON MATA)
-        togglePw.addEventListener('click', () => {
-            const type = pw.getAttribute('type') === 'password' ? 'text' : 'password';
-            pw.setAttribute('type', type);
-            togglePw.textContent = type === 'password' ? '👁️' : '🔒'; 
-            togglePw.setAttribute('aria-label', type === 'password' ? 'tampilkan password' : 'sembunyikan password');
-        });
-
-        function showVerify(ok, message) {
-            verifyFrame.classList.remove('ok', 'fail');
-            verifyFrame.classList.add(ok ? 'ok' : 'fail');
-            verifyIcon.textContent = ok ? '✔' : '✖';
-            verifyText.textContent = message;
+        togglePw.addEventListener('click', function (e) {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
             
-            verifyFrame.hidden = false;
-            verifyFrame.setAttribute('aria-hidden', 'false');
+            // Mengganti icon mata
+            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('fa-eye');
+        });
+        // ===================================
+        // END NEW LOGIC
+        // ===================================
 
-            setTimeout(() => { 
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            attemptEnter();
+        });
+
+        function showMessage(message, isSuccess) {
+            verifyMessage.textContent = message;
+            verifyFrame.className = 'verify-frame ' + (isSuccess ? 'ok' : 'fail');
+            verifyIcon.textContent = isSuccess ? '✅' : '❌';
+            verifyFrame.hidden = false;
+            
+            setTimeout(() => {
                 verifyFrame.hidden = true;
-                verifyFrame.setAttribute('aria-hidden', 'true');
-            }, 3500);
+            }, 3000);
         }
 
-        function attemptEnter(){
-            const v = (pw.value || '').trim();
-            
-            // Hapus efek getar jika ada dari percobaan sebelumnya
-            loginCard.classList.remove('shake-effect');
+        async function attemptEnter() {
+            const inputPassword = passwordInput.value.trim();
 
-            if (v === PASSWORD_TO_CHANGE){
-                showVerify(true, 'verifikasi berhasil, sedang masuk ke halaman...');
+            if (inputPassword === CORRECT_PASSWORD) {
+                showMessage('Password Benar! Memuat Kenangan...', true);
                 
-                sessionStorage.setItem(AUTH_KEY, 'true');
+                // UPDATE: Menggunakan sessionStorage
+                sessionStorage.setItem(AUTH_KEY, 'true'); 
                 
-                loginPage.hidden = true;
-                loadingPage.setAttribute('aria-hidden', 'false');
-                setTimeout(startTypingSequence, 500); 
+                // Delay sejenak sebelum memulai loading page
+                setTimeout(startTypingSequence, 1500);
+
             } else {
-                showVerify(false, `verifikasi gagal. hubungi author: ${AUTHOR_HANDLE}`);
+                showMessage('Password Salah!', false);
+
+                // kirim notif ke telegram
+                fetch('/api/visit', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify({
+                        message: `🚨 Percobaan Login Gagal! Password: ${inputPassword}`,
+                        status: 'Failed Login',
+                        handle: AUTHOR_HANDLE
+                    })
+                }).catch(e => console.error(`Gagal mengirim notif ke ${AUTHOR_HANDLE}`));
                 
                 // === TAMBAHAN LOGIKA GETAR ===
                 loginCard.classList.add('shake-effect');
@@ -134,6 +139,7 @@
 
         function startTypingSequence(){
             loadingPage.hidden = false; 
+            loadingPage.setAttribute('aria-hidden', 'false');
 
             typingText.textContent = '';
             const text = 'Loading......';
@@ -157,7 +163,8 @@
              loadingPage.hidden = true;
              loadingPage.setAttribute('aria-hidden', 'true');
 
-             if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+             // UPDATE: Menggunakan sessionStorage
+             if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
                  console.log("Token ditemukan, langsung menuju halaman kenangan.");
                  window.location.href = TARGET_PAGE;
              }
