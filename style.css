@@ -23,7 +23,7 @@ body{
   background:linear-gradient(135deg,var(--bg1),var(--bg2));
   color:var(--text-color);
   min-height:100vh;
-  overflow-x:auto;
+  overflow-x:hidden; /* Perbaiki agar tidak ada scrollbar horizontal */
 }
 
 .page--stack{max-width:768px;margin:0 auto;padding:20px 16px 80px}
@@ -87,6 +87,7 @@ body{
 }
 #btnLogout:hover{background:#fee}
 
+/* --- COUNTDOWN (OK) --- */
 .countdown-container{
   text-align:center;
   background:var(--glass-card);
@@ -132,7 +133,7 @@ body{
 }
 .content-section p{font-size:1rem;line-height:1.6;color:#4a4a4a;margin-bottom:16px}
 
-/* --- GAYA SPOTIFY MUSIC CARD --- */
+/* --- GAYA SPOTIFY MUSIC CARD (OK) --- */
 .music-card {
     display: flex; 
     align-items: center;
@@ -172,11 +173,12 @@ body{
 .music-card audio {
     width: 100%;
     height: 30px; 
+    /* Filter untuk memberi warna pink pada audio player */
     filter: sepia(100%) saturate(200%) hue-rotate(290deg) brightness(80%) contrast(100%); 
 }
 /* --- AKHIR GAYA SPOTIFY MUSIC CARD --- */
 
-/* --- GAYA CHAT FAVORIT BARU (WHATSAPP STAR) --- */
+/* --- GAYA CHAT FAVORIT BARU (QUOTES PAGE - OK) --- */
 .fav-chat-container {
     padding: 10px 0;
 }
@@ -185,19 +187,19 @@ body{
     display: inline-block;
     max-width: 85%;
     margin-bottom: 15px;
-    margin-left: auto; /* Memastikan bubble di kanan */
+    margin-left: auto; 
 }
 
 .fav-chat-bubble.right {
-    background: var(--accent); /* Warna pink sesuai tema */
+    background: var(--accent); 
     color: white;
     padding: 8px 12px 4px 12px; 
-    border-radius: 12px 12px 4px 12px; /* Gaya bubble chat kanan */
+    border-radius: 12px 12px 4px 12px; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     line-height: 1.4;
     position: relative;
-    float: right; /* Memastikan bubble ada di kanan */
-    clear: both; /* Agar bubble berikutnya berada di bawahnya */
+    float: right; 
+    clear: both; 
 }
 
 .fav-chat-bubble .text {
@@ -207,20 +209,20 @@ body{
 
 .fav-chat-bubble .meta {
     display: flex;
-    justify-content: flex-end; /* Time dan Star di kanan */
+    justify-content: flex-end; 
     align-items: center;
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7); /* Warna abu-abu muda */
+    color: rgba(255, 255, 255, 0.7); 
 }
 
 .favorite-star {
     margin-left: 5px;
-    font-size: 0.8rem; /* Ukuran bintang lebih kecil */
+    font-size: 0.8rem; 
 }
 /* --- AKHIR GAYA CHAT FAVORIT BARU --- */
 
 
-/* --- GAYA CAROUSEL FOTO BARU & ESTETIK --- */
+/* --- GAYA CAROUSEL FOTO BARU & ESTETIK (OK) --- */
 .carousel-container {
     overflow: hidden; 
     margin: 20px 0;
@@ -268,14 +270,13 @@ body{
 /* --- AKHIR GAYA CAROUSEL FOTO BARU & ESTETIK --- */
 
 
-/* --- GAYA CHAT FRAME WHATSAPP BARU --- */
+/* --- GAYA CHAT FRAME WHATSAPP BARU (OK) --- */
 .chat-frame{
-  /* Ganti dengan warna background WhatsApp (terkadang ada pattern, tapi kita gunakan warna solid) */
   background:#E5DDD5; 
   border-radius:20px;
-  padding:10px 15px; /* Kurangi padding vertikal */
+  padding:10px 15px; 
   box-shadow:0 8px 20px rgba(0,0,0,0.1);
-  max-height:60vh; /* Tambah tinggi chat frame */
+  max-height:60vh; 
   overflow-y:auto;
 }
 .chat-header{
@@ -284,28 +285,33 @@ body{
   display:flex;justify-content:space-between;align-items:center;
 }
 .contact{font-weight:700;color:#2f1e2b}
-.bubble{margin-bottom:8px;display:flex;flex-direction:column;max-width:85%}
-.bubble.left{align-items:flex-start}
-.bubble.right{align-items:flex-end;margin-left:auto}
+.bubble{
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+    clear: both; /* Penting untuk mencegah tumpang tindih */
+}
+.bubble.left{align-items:flex-start; float: left;}
+.bubble.right{align-items:flex-end;margin-left:auto; float: right;}
 
 /* Gaya Bubble Chat Umum (Text) */
 .bubble .txt{
-  background:var(--wa-received); /* Warna bubble kiri */
+  background:var(--wa-received); 
   padding:8px 12px;
-  /* Radius Kiri: Top-Left, Top-Right, Bottom-Right, Bottom-Left */
   border-radius: 12px 12px 12px 4px; 
-  box-shadow:0 1px 1px rgba(0,0,0,0.08); /* Shadow tipis */
+  box-shadow:0 1px 1px rgba(0,0,0,0.08); 
   line-height:1.4;
-  white-space: pre-wrap; /* Penting untuk menangani \n */
+  white-space: pre-wrap; 
   position: relative;
   overflow: hidden;
+  font-size: 1rem; /* Tambah ukuran font agar terbaca */
 }
 
 /* Gaya Bubble Chat Kanan (Text) */
 .bubble.right .txt{
-  background:var(--accent); /* Warna pink dari tema (Mirip WA Hijau) */
+  background:var(--accent); 
   color:white;
-  /* Radius Kanan: Top-Left, Top-Right, Bottom-Right, Bottom-Left */
   border-radius: 12px 12px 4px 12px;
 }
 
@@ -313,9 +319,6 @@ body{
 .bubble .ts{
   font-size:.7rem;
   color:var(--muted);
-  margin-top:2px;
-  margin-right:2px;
-  align-self: flex-end; /* Memastikan waktu di pojok kanan bawah bubble */
   line-height: 1;
   display: flex;
   align-items: center;
@@ -323,7 +326,6 @@ body{
   bottom: 4px;
   right: 8px;
   z-index: 10;
-  
 }
 .bubble.right .ts {
     color: rgba(255, 255, 255, 0.7);
@@ -331,26 +333,28 @@ body{
 .bubble .txt p { margin: 0; padding: 0;}
 
 /* Perbaikan Padding untuk Text di dalam Bubble */
-.bubble:not(.image):not(.sticker) .txt {
-    padding-right: 45px; /* Tambah padding kanan untuk waktu */
+.bubble:not(.image):not(.sticker):not(.audio) .txt {
+    padding-right: 45px; 
 }
 
 
 /* --- Media Bubble (Image/Sticker) --- */
 .bubble.image .txt, 
 .bubble.sticker .txt {
-    padding: 4px; /* Minimal padding */
-    border-radius: 12px; /* Uniform rounded corners for media frame */
-    max-width: 70%; /* Batasi lebar untuk image */
+    padding: 4px; 
+    border-radius: 12px; 
+    max-width: 70%; 
+    background: transparent; /* Hapus latar belakang untuk media */
+    box-shadow: none;
 }
-.bubble.image.right .txt,
-.bubble.sticker.right .txt {
+.bubble.image .txt {
+    background: var(--wa-received); /* Khusus image beri latar belakang lagi */
+    box-shadow: 0 1px 1px rgba(0,0,0,0.08);
+}
+.bubble.image.right .txt {
     background: var(--accent);
 }
-.bubble.image.left .txt,
-.bubble.sticker.left .txt {
-    background: var(--wa-received);
-}
+
 
 .bubble .media-content {
     line-height: 0;
@@ -362,13 +366,13 @@ body{
     height: auto;
     display: block;
     object-fit: cover;
-    border-radius: 8px; /* Lebih kecil dari container */
-    min-width: 150px; /* Minimal lebar untuk gambar */
+    border-radius: 8px; 
+    min-width: 150px; 
 }
 .bubble .caption {
     font-size: 0.9rem;
     margin: 5px 0 0 0;
-    padding: 0 5px 20px 5px; /* Padding bawah untuk waktu */
+    padding: 0 5px 20px 5px; 
     color: inherit;
 }
 .bubble.right .caption {
@@ -380,24 +384,19 @@ body{
 
 /* Sticker Only: Ukuran lebih kecil */
 .bubble.sticker .txt {
-    background: transparent !important; /* Hapus warna latar belakang untuk stiker */
+    background: transparent !important; 
     box-shadow: none !important;
     padding: 0;
     max-width: 150px;
 }
-.bubble.sticker .media-content img {
-    border-radius: 0;
-}
 
 /* Deleted Message Style */
 .bubble.deleted .txt {
-    background: var(--wa-received);
-    color: #999;
     font-style: italic;
     font-size: 0.95rem;
+    color: #999;
 }
 .bubble.deleted.right .txt {
-    background: var(--accent);
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -411,6 +410,111 @@ body{
 /* --- AKHIR GAYA CHAT FRAME WHATSAPP BARU --- */
 
 
+/* --- NAVIGASI MOBILE (OK) --- */
+.nav-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+.nav-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+.mobile-nav-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: 280px;
+    height: 100%;
+    background: var(--bg2);
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 101;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.mobile-nav-drawer.show {
+    transform: translateX(0);
+}
+
+.nav-close-btn {
+    position: absolute;
+    top: 15px; right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--muted);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 50px; /* Jarak dari tombol close */
+    flex-grow: 1;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 12px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    background: var(--accent);
+    color: white;
+}
+
+.nav-logout {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+.nav-logout:hover {
+    opacity: 0.9;
+}
+
+.menu-toggle-btn {
+    position: absolute;
+    top: 25px; 
+    right: 16px; 
+    width: 30px;
+    height: 24px;
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 51;
+}
+
+.menu-toggle-btn span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--text-color);
+    border-radius: 2px;
+}
+/* --- AKHIR NAVIGASI MOBILE --- */
+
+
 /* animasi */
 .fade-in{opacity:0;animation:fadeIn .8s ease forwards}
 .fade-up{opacity:0;transform:translateY(20px);animation:fadeUp 1s ease forwards}
@@ -419,7 +523,7 @@ body{
 
 /* efek teks ketik */
 .typewriter{
-  overflow:auto;
+  overflow:hidden; /* Perbaiki typo di sini, dari 'auto' menjadi 'hidden' */
   border-right:2px solid var(--accent);
   white-space:nowrap;
   animation:typing 4s steps(40,end), blink .8s infinite;
@@ -467,8 +571,6 @@ body{
 }
 
 /* animasi reveal tiap section */
-.hidden { display: none; }
-
 .reveal-section {
   opacity: 0;
   transform: translateY(30px);
