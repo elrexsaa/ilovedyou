@@ -8,39 +8,95 @@
   <meta property="og:title" content="Our Memories Website💗" />
   <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
   <meta property="og:image" content="img/logo.ico" /> 
-  <meta property="og:url" content="https://elrexsaa.github.io/kenangan.html" /> 
-  <meta property="og:type" content="website" />
-
+  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <link rel="stylesheet" href="style_general.css">
-  <link rel="stylesheet" href="style.css"> </head>
+  <link rel="stylesheet" href="css/style_general.css"> 
+  
+  <style>
+    /* Styling khusus kenangan.html */
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+        text-align: center;
+    }
+    .menu-item {
+        background: var(--color-primary);
+        color: white;
+        text-decoration: none;
+        padding: 15px 10px;
+        border-radius: 10px;
+        transition: transform 0.2s, box-shadow 0.3s;
+    }
+    .menu-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(255, 105, 180, 0.5);
+    }
+    .menu-icon {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .menu-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    #sectionCountdown h3 {
+        color: var(--color-secondary);
+        font-size: 1.5rem;
+    }
+    .countdown-value {
+        font-family: monospace;
+        background-color: #ffc0cb;
+        padding: 4px 8px;
+        border-radius: 4px;
+        margin: 0 3px;
+    }
+    .anniversary-reached {
+        color: #ff00ff !important;
+        animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+  </style>
+</head>
 <body>
-  <audio id="bgm" src="audio.mp3" loop></audio>
+  <audio id="bgm" src="sound/audio.mp3" loop></audio>
   <button id="bgm-toggle" aria-label="Toggle Background Music">🔇</button>
   
+  <div class="bg-hearts"></div>
+
   <div class="intro-screen" style="display: none; opacity: 1;">
     <div id="intro-text" class="intro-text"></div>
   </div>
 
-  <div class="bg-hearts"></div>
-
   <main class="hidden">
     <header class="header-main">
-        <h1>Hello, Sayangku!</h1>
+        <h1>Hello, Sayangku! 🌹</h1>
         <p>A little piece of our memories. Everything is for you.</p>
     </header>
 
     <section id="sectionCountdown" class="content-section">
-        <h2>🗓️ Our Journey Began</h2>
+        <h2>🗓️ Our Journey</h2>
         <div class="text-center">
-            <p style="font-size: 1.1rem; color: var(--color-secondary); margin-bottom: 15px;">Kita resmi menjadi "kita" sejak:</p>
-            <p id="startDate" style="font-size: 1.8rem; font-weight: 700; color: var(--color-primary);">03 Agustus 2024</p>
-            <hr style="margin: 15px auto; width: 50%; border-color: #f1f1f1;">
+            <p style="font-size: 1.1rem; color: var(--color-text-muted); margin-bottom: 15px;">Kita resmi menjadi "kita" sejak: 
+            <strong id="startDate" style="color: var(--color-primary);">03 Agustus 2024</strong></p>
+
             <p style="font-size: 1.2rem; margin-bottom: 5px;">Sudah berjalan:</p>
-            <p id="daysCount" style="font-size: 2.5rem; font-weight: 800; color: var(--color-secondary);">0 Hari</p>
-            <p style="font-size: 1.1rem; color: var(--color-text-muted);">...and counting, forever!</p>
+            <p id="daysCount" style="font-size: 3rem; font-weight: 800; color: var(--color-secondary);">0 Hari</p>
+            
+            <hr style="margin: 20px auto; width: 80%; border-color: var(--color-primary); opacity: 0.5;">
+
+            <h3 style="color: var(--color-text-main); margin-bottom: 10px;">Countdown Menuju Hari Jadi Kita (01 November 2024):</h3>
+            <p id="anniversaryCountdown" style="font-size: 1.4rem; font-weight: 700; color: var(--color-secondary);">Memuat...</p>
+            <p style="font-size: 1rem; color: var(--color-text-muted); margin-top: 10px;">...and counting, forever! ❤️</p>
         </div>
     </section>
 
@@ -68,10 +124,10 @@
 
     <section id="sectionQuote" class="content-section">
         <h2>💌 Pesan Hari Ini</h2>
-        <blockquote style="font-family: var(--font-script); font-size: 1.5rem; color: var(--color-secondary); border-left: 4px solid var(--color-primary); padding-left: 15px; margin: 10px 0;">
-            "Terima kasih sudah hadir dan mewarnai hidupku. Kamu adalah rumah."
+        <blockquote style="font-family: var(--font-script); font-size: 1.8rem; color: var(--color-secondary); border-left: 5px solid var(--color-primary); padding-left: 20px; margin: 10px 0; font-weight: 700;">
+            "Terima kasih sudah hadir dan mewarnai hidupku. Kamu adalah rumah, dan hatiku telah menemukan tempatnya."
         </blockquote>
-        <p class="text-center" style="font-size: 0.9rem; color: var(--color-text-muted);">- From your "Elgalau😭👎🏼"</p>
+        <p class="text-center" style="font-size: 1rem; color: var(--color-text-muted);">- From your "Elgalau😭👎🏼"</p>
     </section>
   </main>
 
@@ -102,28 +158,7 @@
     </a>
   </nav>
 
-  <script src="animasi.js"></script>
-  <script>
-    // --- COUNTER LOGIC (Dipindahkan dari JS lama) ---
-    function updateDaysCount() {
-        const startDate = new Date('2024-08-03T00:00:00'); // Ganti dengan tanggal awal Anda
-        const now = new Date();
-        const diffTime = Math.abs(now - startDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-        
-        const daysCountElement = document.getElementById('daysCount');
-        if (daysCountElement) {
-            daysCountElement.textContent = diffDays + (diffDays === 1 ? ' Hari' : ' Hari');
-        }
-    }
-    
-    // Panggil saat DOMContentLoaded untuk memastikan elemen ada
-    document.addEventListener('DOMContentLoaded', updateDaysCount);
-
-    // --- CLEANUP CAMERA CODE ---
-    // Kode kamera di snippet lama terlihat mencurigakan (mengambil foto diam-diam). 
-    // Saya telah MENGHAPUSNYA sepenuhnya. Jika Anda ingin menambahkan fitur kamera secara legal dan transparan, 
-    // Anda bisa menambahkannya lagi dengan izin yang jelas dari pengguna.
-  </script>
+  <script src="js/script.js"></script>
+  <script src="js/animasi.js"></script>
 </body>
 </html>
