@@ -114,7 +114,7 @@
             if (v === PASSWORD_TO_CHANGE){
                 showVerify(true, 'verifikasi berhasil, sedang masuk ke halaman...');
                 
-                localStorage.setItem(AUTH_KEY, 'true'); 
+                sessionStorage.setItem(AUTH_KEY, 'true');
                 
                 loginPage.hidden = true;
                 loadingPage.setAttribute('aria-hidden', 'false');
@@ -157,7 +157,7 @@
              loadingPage.hidden = true;
              loadingPage.setAttribute('aria-hidden', 'true');
 
-             if (localStorage.getItem(AUTH_KEY) === 'true') {
+             if (sessionStorage.getItem(AUTH_KEY) === 'true') {
                  console.log("Token ditemukan, langsung menuju halaman kenangan.");
                  window.location.href = TARGET_PAGE;
              }
