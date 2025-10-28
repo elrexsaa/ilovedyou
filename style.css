@@ -1,6 +1,6 @@
 /* --- MULAI COPY PASTE SELURUHNYA KE FILE style.css --- */
 :root {
-  --bg1: #fde4e8;
+  --bg1: #fde4e8; /* Background Pink Pucat */
   --bg2: #ffe0f0;
   --accent: #ff6fb5; /* Pink Utama */
   --glass-card: rgba(255, 255, 255, 0.95);
@@ -56,7 +56,43 @@ body{
 }
 .muted{font-size:.85rem;color:var(--muted)}
 
-/* Menu Mobile: Overhaul Total */
+
+/* --- INTRO SCREEN (Layar Pembuka) --- */
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.intro-screen.fade-out {
+  opacity: 0;
+}
+
+/* KOREKSI: Hapus positioning absolut agar centering oleh flex berfungsi */
+.intro-text {
+  font-size: 2.8rem;
+  font-family: 'Dancing Script', cursive;
+  color: var(--accent);
+  text-align: center;
+  letter-spacing: 1px;
+  opacity: 0; 
+  /* Semua kode position, top, transform dihapus/digantikan */
+  transition: opacity 0.8s ease-in-out; 
+}
+.intro-text.is-visible {
+    opacity: 1;
+}
+/* --- AKHIR INTRO SCREEN --- */
+
+
+/* Menu Mobile: Overhaul Total (Stabil) */
 .nav-overlay {
     position: fixed;inset: 0;background: rgba(0, 0, 0, 0.6);
     z-index: 100;opacity: 0;visibility: hidden;transition: opacity 0.3s ease;
@@ -67,11 +103,11 @@ body{
     position: fixed;top: 0;right: 0;
     width: 80%; max-width: 300px;
     height: 100%;
-    background: #fff; /* Background putih bersih */
+    background: #fff; 
     box-shadow: -6px 0 20px rgba(0, 0, 0, 0.2);
     z-index: 101;
     transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animasi lebih halus */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
     padding: 25px;
     display: flex;flex-direction: column;
 }
@@ -114,7 +150,7 @@ body{
     transition: all 0.3s ease;
 }
 
-/* Konten Section */
+/* Konten Section (Stabil) */
 .content-section{
   padding-top:50px;margin-top:-50px;margin-bottom:40px;
 }
@@ -129,7 +165,7 @@ body{
 .content-section p{font-size:1rem;color:#4a4a4a;margin-bottom:16px}
 
 
-/* --- KOMPONEN BERBAGAI HALAMAN --- */
+/* --- KOMPONEN BERBAGAI HALAMAN (Stabil) --- */
 /* Countdown */
 .countdown-container{
   text-align:center;background:var(--glass-card);
@@ -223,9 +259,9 @@ body{
   border-radius:20px;
   padding:15px; 
   box-shadow:0 8px 20px rgba(0,0,0,0.1);
-  max-height:70vh; /* Naikkan tinggi agar lebih realistis */
+  max-height:70vh; 
   overflow-y:auto;
-  position: relative; /* Penting untuk chat time absolute */
+  position: relative; 
 }
 .chat-frame::-webkit-scrollbar { width: 6px; }
 .chat-frame::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
@@ -241,7 +277,7 @@ body{
 /* Bubble Wrapper */
 .bubble{
     margin-bottom: 8px;
-    display: block; /* Agar bisa pakai float */
+    display: block; 
     max-width: 85%;
     clear: both; 
     position: relative;
@@ -253,21 +289,21 @@ body{
 .bubble .txt{
   background:var(--wa-received); 
   padding:8px 12px;
-  border-radius: 12px 12px 12px 4px; /* Kiri: Top-L, Top-R, Bottom-R, Bottom-L */
+  border-radius: 12px 12px 12px 4px; 
   box-shadow:0 1px 1px rgba(0,0,0,0.08); 
   line-height:1.4;
   white-space: pre-wrap; 
   position: relative;
   overflow: hidden;
   font-size: 1rem; 
-  min-width: 60px; /* Minimal lebar */
+  min-width: 60px; 
 }
 
 /* Bubble Kanan (Sent) */
 .bubble.right .txt{
   background:var(--wa-sent); 
   color:var(--text-color);
-  border-radius: 12px 12px 4px 12px; /* Kanan: Top-L, Top-R, Bottom-R, Bottom-L */
+  border-radius: 12px 12px 4px 12px; 
 }
 
 /* Time Stamp dan Status */
@@ -281,15 +317,15 @@ body{
   bottom: 4px;
   right: 8px;
   z-index: 10;
-  min-width: 35px; /* Biar centang tidak nabrak */
+  min-width: 35px; 
 }
 
 /* Style untuk text */
 .bubble.text .txt {
-    padding-right: 45px; /* Tambah padding kanan untuk waktu */
+    padding-right: 45px; 
 }
 .bubble.right.text .ts {
-    color: rgba(47, 30, 43, 0.6); /* Warna teks untuk bubble kanan */
+    color: rgba(47, 30, 43, 0.6); 
 }
 
 /* --- Media (Image) Bubble --- */
@@ -298,7 +334,7 @@ body{
     box-shadow: 0 1px 1px rgba(0,0,0,0.08);
 }
 .bubble.image.right .txt {
-    background: var(--accent); /* Menggunakan warna accent untuk foto kanan */
+    background: var(--accent); 
     color: white;
 }
 .bubble.image .media-content img {
@@ -312,8 +348,8 @@ body{
 .bubble .caption {
     font-size: 0.9rem;
     margin: 5px 0 0 0;
-    padding: 0 5px 20px 5px; /* Padding bawah untuk waktu */
-    position: relative; /* Untuk menampung TS */
+    padding: 0 5px 20px 5px; 
+    position: relative; 
     color: inherit;
 }
 .bubble.image .ts {
@@ -333,12 +369,12 @@ body{
     min-width: 0;
 }
 .bubble.sticker .ts {
-    right: -2px; /* Geser waktu ke luar stiker */
+    right: -2px; 
     bottom: -15px;
     color: var(--muted);
 }
 .bubble.sticker {
-    margin-bottom: 20px; /* Tambah jarak untuk waktu di bawah */
+    margin-bottom: 20px; 
 }
 
 /* Deleted Message Style */
@@ -365,7 +401,7 @@ body{
 /* --- AKHIR GAYA CHAT FRAME WHATSAPP BARU --- */
 
 
-/* --- ANIMASI & BG (TIDAK BERUBAH) --- */
+/* --- ANIMASI & BG (Stabil) --- */
 .fade-in{opacity:0;animation:fadeIn .8s ease forwards}
 .fade-up{opacity:0;transform:translateY(20px);animation:fadeUp 1s ease forwards}
 @keyframes fadeIn{to{opacity:1}}
