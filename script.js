@@ -21,19 +21,23 @@ function updateCountdown() {
 const countdownInterval = setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// ===== SCROLL =====
+// ===== SCROLL (UPDATED) =====
 function scrollToTarget(button){
   const targetId = button.getAttribute('data-target');
   const targetElement = document.querySelector(targetId);
   if(targetElement){
-    const headerHeight = document.querySelector('.mem-header').offsetHeight;
-    const countdownHeight = document.querySelector('.countdown-container').offsetHeight;
-    const offset = targetElement.offsetTop - (headerHeight + countdownHeight) - 20;
-    window.scrollTo({top:offset,behavior:'smooth'});
+    // LOGIKA BARU: Hitung tinggi header sticky
+    const headerHeight = document.querySelector('.site-header').offsetHeight;
+    const offset = targetElement.offsetTop - headerHeight - 20; // 20px buffer
+    
+    window.scrollTo({
+      top: offset,
+      behavior: 'smooth'
+    });
   }
 }
 
-// ===== CHAT =====
+// ===== CHAT (TETAP SAMA) =====
 const demoChat = [
   {side: 'left', text: 'kiw kiw', ts: '16:09'},
   {side: 'right', text: 'tkg paket kah?', ts: '16:10'},
