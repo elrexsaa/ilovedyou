@@ -177,7 +177,6 @@ body{
 .nav-logout:hover {
   background: var(--accent-soft);
 }
-#btnLogout { display: none; } /* Sembunyikan tombol logout lama */
 
 
 /* ===== MENU DASHBOARD (TETAP SAMA) ===== */
