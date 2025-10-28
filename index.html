@@ -35,103 +35,27 @@
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="input-group">
                     <label for="password">Kata Sandi (Tanggal Jadian)</label>
-                    <input type="password" id="password" placeholder="DDMMYYYY" required maxlength="8" autocomplete="off" inputmode="numeric">
+                    <div class="password-toggle-container">
+                        <input type="password" id="password" placeholder="DDMMYYYY" required maxlength="8" autocomplete="off" inputmode="numeric">
+                        <button type="button" id="togglePassword" class="toggle-password-btn" aria-label="Tampilkan Password">
+                            <i class="fas fa-eye"></i> 
+                        </button>
+                    </div>
                 </div>
 
-                <button type="submit" id="loginBtn" class="btn btn-primary">
-                    Buka Memories
-                </button>
+                <div id="verificationMessage" class="verify-frame" hidden>
+                    <span id="verifyIcon" class="verify-icon"></span>
+                    <span id="verifyText"></span>
+                </div>
+                
+                <button type="submit" id="loginButton">Masuk</button>
             </form>
 
-            <div id="verifyFrame" class="verify-frame" hidden>
-                <span id="verifyIcon" class="verify-icon"></span>
-                <span id="verifyMessage"></span>
-            </div>
-            
-            <div class="hint-text">
-                Lupa? Hubungi 
-                <a href="https://wa.me/6287896507726?text=Sayang,%20aku%20lupa%20password%20memories%20site%20nih..." target="_blank">
-                    Aku (Elga) 
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-            </div>
+            <p class="hint-text">Lupa kata sandi? <a href="https://wa.me/6287896507726" target="_blank">Hubungi Developer</a></p>
         </div>
     </main>
     
-    <script>
-        const CORRECT_PASSWORD = '01112024'; 
-        const AUTH_KEY = 'kenangan_verified';
-        const TARGET_PAGE = 'kenangan.html';
-        
-        const loginCard = document.querySelector('.login-card');
-        const passwordInput = document.getElementById('password');
-        const verifyFrame = document.getElementById('verifyFrame');
-        const verifyIcon = document.getElementById('verifyIcon');
-        const verifyMessage = document.getElementById('verifyMessage');
-        const loadingPage = document.getElementById('loadingPage');
-        const typingText = document.getElementById('typingText');
-
-        function showVerification(success, message) {
-            verifyFrame.hidden = false;
-            verifyFrame.className = 'verify-frame ' + (success ? 'ok' : 'fail');
-            verifyIcon.textContent = success ? '✅' : '❌';
-            verifyMessage.textContent = message;
-
-            setTimeout(() => {
-                verifyFrame.hidden = true;
-            }, 3000);
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const enteredPassword = passwordInput.value.replace(/[^0-9]/g, '');
-
-            if (enteredPassword === CORRECT_PASSWORD) {
-                // Menggunakan sessionStorage agar sesi hilang saat browser ditutup
-                sessionStorage.setItem(AUTH_KEY, 'true'); 
-                showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
-                startTypingSequence();
-            } else {
-                showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
-                
-                loginCard.classList.add('shake-effect');
-                setTimeout(() => {
-                    loginCard.classList.remove('shake-effect');
-                }, 500);
-            }
-        }
-
-        function startTypingSequence(){
-            loadingPage.hidden = false; 
-            loadingPage.setAttribute('aria-hidden', 'false');
-
-            typingText.textContent = '';
-            const text = 'Memuat Kenangan...';
-            let i = 0;
-            const speed = 70;
-
-            const t = setInterval(() => {
-                typingText.textContent += text.charAt(i) || '';
-                i++;
-                if (i > text.length){
-                    clearInterval(t);
-                    
-                    setTimeout(() => {
-                        window.location.href = TARGET_PAGE;
-                    }, 500); 
-                }
-            }, speed);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-             loadingPage.hidden = true;
-             loadingPage.setAttribute('aria-hidden', 'true');
-
-             if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
-                 window.location.href = TARGET_PAGE; 
-             }
-        });
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
