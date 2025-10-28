@@ -15,20 +15,23 @@ function runOnElements(selector, func) {
   }
 }
 
-// ===== 1. LOGIKA MENU HAMBURGER BARU (GLOBAL) =====
+// ===== 1. LOGIKA NAVIGASI (Bottom Nav & Logout) =====
 function initNavMenu() {
+  // Hanya diperlukan untuk logika logout/desktop fallback menu
   const menuToggleBtn = document.getElementById('menuToggleBtn');
   const closeMenuBtn = document.getElementById('closeMenuBtn');
   const mobileNav = document.getElementById('mobileNav');
   const navOverlay = document.getElementById('navOverlay');
-
+  
+  // Logic Menu Drawer (Desktop/Fallback)
   if (menuToggleBtn && mobileNav && navOverlay && closeMenuBtn) {
     const openMenu = () => {
-      mobileNav.classList.add('show');
-      navOverlay.classList.add('show');
-      document.body.style.overflow = 'hidden'; 
+      if (window.innerWidth > 768) { // Hanya aktif di desktop
+          mobileNav.classList.add('show');
+          navOverlay.classList.add('show');
+          document.body.style.overflow = 'hidden'; 
+      }
     };
-
     const closeMenu = () => {
       mobileNav.classList.remove('show');
       navOverlay.classList.remove('show');
@@ -40,8 +43,10 @@ function initNavMenu() {
     navOverlay.addEventListener('click', closeMenu);
   }
 }
+window.initNavMenu = initNavMenu;
 
-// ===== 2. LOGIKA COUNTDOWN (Hanya untuk kenangan.html) =====
+
+// ===== 2. LOGIKA COUNTDOWN (kenangan.html) =====
 function initCountdown(element) {
   const TARGET_DATE = '2025-11-01T00:00:00'; 
   const targetTime = new Date(TARGET_DATE).getTime();
@@ -56,7 +61,7 @@ function initCountdown(element) {
 
     if (distance < 0) {
       clearInterval(countdownInterval);
-      element.innerHTML = "<span style='color: var(--accent);'>🎉 HAPPY ANNIVERSARY! 🎉</span>";
+      element.innerHTML = "<span style='color: var(--color-accent);'>🎉 HAPPY ANNIVERSARY! 🎉</span>";
     } else {
       element.innerHTML = `${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
     }
@@ -65,30 +70,20 @@ function initCountdown(element) {
   updateCountdown();
 }
 
-// ===== 3. LOGIKA CHAT (Hanya untuk chat.html - WA Style) =====
-// Ganti path/URL gambar di sini!
-const STICKER_URL = "https://cdn.jsdelivr.net/gh/twemoji/twemoji@14.0.2/assets/svg/1f92c.svg"; // Emoji 🤬 untuk placeholder sticker
-const IMAGE_URL_1 = "https://picsum.photos/id/401/300/300"; // Ganti dengan foto kamu
-const IMAGE_URL_2 = "https://picsum.photos/id/237/300/300"; // Ganti dengan foto kamu lainnya
+
+// ===== 3. LOGIKA CHAT (chat.html - WA Style) =====
+const STICKER_URL = "https://cdn.jsdelivr.net/gh/twemoji/twemoji@14.0.2/assets/svg/1f92c.svg"; 
+const IMAGE_URL_1 = "https://picsum.photos/id/401/300/300"; 
+const IMAGE_URL_2 = "https://picsum.photos/id/237/300/300"; 
 
 const whatsappChat = [
   {type: 'text', side: 'left', content: 'kiw kiw', ts: '16:09'},
   {type: 'text', side: 'right', content: 'tkg paket kah?', ts: '16:10'},
-  {type: 'text', side: 'left', content: 'iya mau nganter paket ini', ts: '16:10'},
-  {type: 'image', side: 'right', content: IMAGE_URL_1, caption: 'Ihh lucu banget yaaa foto ini. Aku upload di sini hihi!', ts: '16:15'},
+  {type: 'image', side: 'right', content: IMAGE_URL_1, caption: 'Ihh lucu banget yaaa foto ini hihi!', ts: '16:15'},
   {type: 'sticker', side: 'left', content: STICKER_URL, ts: '16:16'},
-  {type: 'text', side: 'right', content: 'km intel kah😞😞', ts: '16:28'},
-  {type: 'text', side: 'left', content: 'YAHHH\nketauan😭😭😭😭', ts: '16:30'}, 
-  {type: 'text', side: 'right', content: 'NAH KAN ANJIR', ts: '16:31'},
-  {type: 'text', side: 'left', content: 'yauda maap ya😔🙏🏻', ts: '16:33'},
-  {type: 'audio', side: 'right', content: '0:15', ts: '16:34'}, // Voice Note Placeholder
-  {type: 'text', side: 'left', content: 'pliss\nnnti paketnya aku kasih free ongkir deh', ts: '16:34'},
-  {type: 'image', side: 'left', content: IMAGE_URL_2, caption: 'Ini foto kita pas jalan² pertama kali, malu tapi mau 😜', ts: '17:10'},
+  {type: 'audio', side: 'right', content: '0:15', ts: '16:34'}, 
   {type: 'deleted', side: 'right', content: 'Pesan Telah Dihapus', ts: '20:03'},
   {type: 'text', side: 'right', content: 'EH SALKIR', ts: '20:03'},
-  {type: 'text', side: 'left', content: 'salkir itu yang tingkah orang aneh liat crush nya bukan?', ts: '20:04'},
-  {type: 'text', side: 'left', content: 'kemana?', ts: '20:04'},
-  {type: 'text', side: 'right', content: 'salting itumah', ts: '20:05'},
 ];
 
 function populateChat(chatBodyElement){
@@ -107,7 +102,6 @@ function populateChat(chatBodyElement){
     let contentHTML = '';
     const isMedia = m.type === 'image' || m.type === 'sticker';
     
-    // --- 1. Buat Konten Pesan ---
     if (isMedia) {
         const media = createEl('div', 'media-content');
         const img = createEl('img');
@@ -118,59 +112,48 @@ function populateChat(chatBodyElement){
         contentHTML += media.outerHTML;
 
         if (m.caption && m.type === 'image') {
-             // Caption akan menampung TS
              const captionP = createEl('p', 'caption');
-             captionP.innerHTML = `${m.caption}<span class="wa-space"></span>`; // Span kosong untuk padding/jarak
+             captionP.innerHTML = `${m.caption}`; 
              contentHTML += captionP.outerHTML;
         }
         
     } else if (m.type === 'audio') {
-        // Voice Note
         contentHTML = `<span style="display: flex; align-items: center; gap: 8px;">
                         <span style="font-size: 1.5rem;">🎙️</span> 
                         Voice Note (${m.content})
                       </span>`;
     } else if (m.type === 'deleted') {
-        // Deleted Message
         contentHTML = `<em>Pesan Telah Dihapus</em>`;
     } else {
-        // Text Message, replace \n with <br>
         contentHTML = m.content.replace(/\n/g, '<br>');
     }
     
     txt.innerHTML = contentHTML;
 
-    // --- 2. Buat Timestamp dan Status ---
     const ts = createEl('div', 'ts');
-    
-    // Status (double checkmark for 'right' side)
-    const waCheckColor = m.side === 'right' ? 'var(--wa-check)' : 'var(--muted)';
+    const waCheckColor = 'var(--wa-check)';
     const readReceipt = m.side === 'right' ? `<span style="color: ${waCheckColor}; margin-left: 4px;">✓✓</span>` : '';
     
     ts.innerHTML = `${m.ts}${readReceipt}`;
 
-    // --- 3. Tempatkan Timestamp ---
-    // Jika ada caption pada Image, masukkan TS ke dalam caption
     if (m.type === 'image' && m.caption) {
         const captionEl = txt.querySelector('.caption');
         if (captionEl) {
-            captionEl.appendChild(ts);
+            captionEl.appendChild(ts); 
         }
     } else {
-        // Untuk semua tipe lain (Text, Audio, Sticker, Deleted, Image tanpa caption)
-        txt.appendChild(ts);
+        txt.appendChild(ts); 
     }
 
     wrap.appendChild(txt);
     chatBodyElement.appendChild(wrap);
   });
   
-  // Auto scroll ke bawah setelah chat dimuat
   chatBodyElement.scrollTop = chatBodyElement.scrollHeight;
 }
 
 
-// ===== 4. LOGIKA AUDIO (Hanya untuk songs.html) =====
+// ===== 4. LOGIKA AUDIO (songs.html) =====
 function setupAudioListeners(audioElements) {
   const bgm = document.getElementById('bgm'); 
 
@@ -195,14 +178,14 @@ function setupAudioListeners(audioElements) {
   }
 }
 
-// ===== 5. LOGIKA CAROUSEL (Hanya untuk photos.html) =====
+// ===== 5. LOGIKA CAROUSEL (photos.html) =====
 function initCarousel(carouselTrack) {
+    if (!carouselTrack) return;
     const slides = carouselTrack.querySelectorAll('.carousel-slide');
     if (slides.length === 0) return;
 
     let autoSlideTimer;
     let currentIndex = 0;
-    
     const slideGap = 20; 
     
     function updateActiveSlide() {
@@ -223,9 +206,10 @@ function initCarousel(carouselTrack) {
     function nextSlide() {
         const slideWidth = slides[0].offsetWidth; 
         const nextIndex = (currentIndex + 1) % slides.length;
+        const targetScroll = nextIndex * (slideWidth + slideGap);
         
         carouselTrack.scroll({
-            left: nextIndex * (slideWidth + slideGap),
+            left: targetScroll,
             behavior: 'smooth'
         });
         
@@ -240,32 +224,44 @@ function initCarousel(carouselTrack) {
     carouselTrack.addEventListener('scroll', () => {
         updateActiveSlide(); 
         clearInterval(autoSlideTimer);
-        autoSlideTimer = setInterval(nextSlide, 5000);
+        setTimeout(() => startAutoSlide(), 3000); 
+    });
+    
+    window.addEventListener('resize', () => {
+        updateActiveSlide();
     });
 
-    // Inisialisasi
     carouselTrack.scrollLeft = 0;
+    slides[0].classList.add('active'); 
     setTimeout(() => {
         updateActiveSlide();
         startAutoSlide();
     }, 100); 
 }
+window.initCarousel = initCarousel;
+
 
 // ===== INISIALISASI SAAT HALAMAN DIMUAT =====
 window.addEventListener('load', () => {
-  initNavMenu();
   runOnElement('#countdown', initCountdown);
-  runOnElement('#chatBody', populateChat);
+  runOnElement('#chatBody', (el) => {
+    populateChat(el); 
+    // Jika elemen chat ada, pastikan carousel tidak diinisialisasi
+    // (Ini hanya untuk mencegah inisialisasi ganda jika initCarousel ada di animasi.js)
+  });
   runOnElements('.music-card audio', setupAudioListeners); 
-  runOnElement('.carousel-track', initCarousel);
   
+  // Audio Autoplay pada interaksi pertama (untuk BGM)
   runOnElement('#bgm', (bgmElement) => {
-    document.addEventListener('click', function handler() {
+    const handleInitialInteraction = () => {
       if (bgmElement.paused) {
         bgmElement.play().catch(e => console.log('Autoplay BGM diblokir.'));
       }
-      document.removeEventListener('click', handler);
-    });
+      document.removeEventListener('click', handleInitialInteraction);
+      document.removeEventListener('touchstart', handleInitialInteraction);
+    };
+    document.addEventListener('click', handleInitialInteraction);
+    document.addEventListener('touchstart', handleInitialInteraction);
   });
 });
 /* --- AKHIR COPY PASTE SELURUHNYA KE FILE script.js --- */
