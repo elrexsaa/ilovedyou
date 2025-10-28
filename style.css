@@ -1,11 +1,11 @@
 /* --- MULAI COPY PASTE SELURUHNYA KE FILE style.css --- */
 :root {
-  --bg1: #fde4e8; /* Background Pink Pucat */
+  --bg1: #fde4e8; /* Background Pink Pucat (Hangat) */
   --bg2: #ffe0f0;
-  --accent: #ff6fb5; /* Pink Utama */
-  --glass-card: rgba(255, 255, 255, 0.95);
+  --accent: #ff6fb5; /* Pink Utama (Romantis) */
+  --glass-card: rgba(255, 255, 255, 0.9); /* Sedikit lebih transparan */
   --muted: #806b72;
-  --shadow: 0 16px 40px rgba(15, 10, 20, 0.15);
+  --shadow: 0 10px 30px rgba(255, 105, 180, 0.15); /* Shadow lebih soft dan romantis */
   --text-color: #2f1e2b;
   --font-main: 'Inter', sans-serif;
   --font-script: 'Dancing Script', cursive;
@@ -13,10 +13,10 @@
   
   /* WhatsApp Color Palette */
   --wa-bg: #E5DDD5; 
-  --wa-sent: #e2ffc7; /* Hijau muda WA untuk Bubble Kanan (Pengirim) */
-  --wa-received: #ffffff; /* Putih untuk Bubble Kiri (Penerima) */
-  --wa-check-blue: #4fc3f7; /* Warna centang biru WA (read) */
-  --wa-check-gray: rgba(0, 0, 0, 0.45); /* Warna centang abu-abu (sent) */
+  --wa-sent: #e2ffc7; 
+  --wa-received: #ffffff; 
+  --wa-check-blue: #4fc3f7; 
+  --wa-check-gray: rgba(0, 0, 0, 0.45); 
   --wa-font-color: #1f2933; 
 
   /* Penyesuaian Carousel */
@@ -35,8 +35,13 @@ body{
   line-height: 1.6;
 }
 
-/* Padding untuk Nav Bawah (70px + 10px buffer) */
-.page--stack{max-width:768px;margin:0 auto;padding:20px 16px 80px}
+/* Konten Utama (Bug Fix: Padding Bawah disesuaikan untuk nav-bottom) */
+/* Nav Bawah memiliki tinggi 65px. Padding bawah 85px memberikan buffer yang cukup. */
+.page--stack{
+    max-width:768px;
+    margin:0 auto;
+    padding:20px 16px 85px; /* Diperbarui dari 80px ke 85px */
+}
 
 /* HEADER & NAVIGATION ATAS */
 .site-header, .mem-header{
@@ -74,144 +79,266 @@ body{
 .mobile-nav-drawer.is-open { transform: translateX(0); }
 .nav-overlay {
     position: fixed;top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5);
-    z-index: 999; visibility: hidden;opacity: 0;
+    z-index: 999; visibility: hidden;opacity: 0; 
     transition: opacity 0.4s ease, visibility 0s 0.4s;
 }
-.nav-overlay.is-open { visibility: visible;opacity: 1; transition: opacity 0.4s ease, visibility 0s 0s; }
+.nav-overlay.is-open { 
+    visibility: visible;opacity: 1; 
+    transition: opacity 0.4s ease, visibility 0s 0s;
+}
 .nav-links { flex-grow: 1;}
-.nav-logout {
-    margin-top: 20px;padding: 10px 15px; background: var(--accent);color: white;
-    border: none;border-radius: 8px;cursor: pointer; font-size: 1rem;font-weight: 700;
-    text-align: center;
+.nav-logout { 
+    margin-top: 20px;padding: 10px 15px;width: 100%;
+    background: var(--accent);color: white;border: none;
+    border-radius: 8px;cursor: pointer;font-weight: 700;
+    transition: background 0.2s ease;
 }
-.nav-close-btn {
-    position: absolute; top: 10px; right: 10px; background: none; border: none;
-    font-size: 2rem; color: var(--muted); cursor: pointer; line-height: 1;
-}
+.nav-logout:hover { background: #e65c9c; }
 
-
-/* ===== BOTTOM NAVIGATION BAR BARU ===== */
+/* === NAVIGASI BAWAH (Responsive & Professional) === */
 .nav-bottom {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 90; 
-    background: var(--header-bg); backdrop-filter: blur(10px);
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.15); height: 70px; 
-    display: flex; justify-content: space-around; align-items: center;
-    max-width: 768px; margin: 0 auto; 
-    border-top-left-radius: 15px; border-top-right-radius: 15px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0; 
+    height: 65px; 
+    transition: transform 0.3s ease;
 }
 
 .nav-item {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-decoration: none; color: var(--muted); font-size: 0.7rem; font-weight: 600;
-    width: 16.66%; height: 100%; transition: color 0.2s; -webkit-tap-highlight-color: transparent;
-}
-.nav-item:hover, .nav-item.active { color: var(--accent); }
-.nav-item .icon { font-size: 1.4rem; margin-bottom: 4px; }
-.nav-item[href="about.html"] .icon { font-size: 1.3rem; }
-
-
-/* ===== CHAT FRAME WHATSAPP BARU ===== */
-.chat-frame {
-    background-color: var(--wa-bg); 
-    border-radius: 12px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    height: 450px; 
-    max-height: 60vh;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.75rem; 
+    flex: 1; 
+    max-width: 100px; 
+    padding: 0 5px;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.chat-header {
-    background-color: #075E54; 
+.nav-item:hover, .nav-item.active {
+    color: var(--accent); 
+    transform: translateY(-2px);
+}
+
+.nav-item .icon {
+    font-size: 1.5rem;
+    margin-bottom: 3px;
+    line-height: 1;
+}
+
+.nav-item .label {
+    white-space: nowrap; 
+    font-weight: 600;
+}
+
+/* BUTTONS (General Styling) */
+.btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--accent);
     color: white;
-    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 111, 181, 0.3);
+}
+.btn-primary:hover {
+    background: #e65c9c; 
+    box-shadow: 0 6px 15px rgba(255, 111, 181, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Grid Menu (Responsif) */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsif: 2-4 kolom */
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.menu-btn {
+    padding: 20px 10px;
+    background: white;
+    border: 1px solid rgba(255, 111, 181, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0; /* Penting untuk menjaga header tetap di atas */
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.chat-header .contact { font-size: 1.1rem; font-weight: 700; line-height: 1.2; }
-.chat-header .status { font-size: 0.8rem; font-weight: 400; color: #e0f7fa; }
-
-.chat-body {
-    flex-grow: 1;
-    padding: 15px 10px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.menu-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 111, 181, 0.2);
+    background: var(--bg1);
 }
 
-.bubble { display: flex; width: 100%; }
-.bubble.right { justify-content: flex-end; }
-.bubble.left { justify-content: flex-start; }
-
-.bubble .txt {
-    max-width: 80%;
-    padding: 8px 10px 6px;
-    border-radius: 7px;
-    position: relative;
-    font-size: 0.95rem;
-    line-height: 1.3;
-    word-wrap: break-word;
-    color: var(--wa-font-color);
+.menu-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
 }
 
-.bubble.right .txt {
-    background: var(--wa-sent);
-    margin-left: auto;
-    border-top-right-radius: 0;
-}
-
-.bubble.left .txt {
-    background: var(--wa-received);
-    margin-right: auto;
-    border-top-left-radius: 0;
-    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
-}
-
-/* Timestamp dan Checkmark (Meta) */
-.bubble .meta {
-    display: flex; align-items: center; justify-content: flex-end;
-    gap: 4px; margin-top: 3px; font-size: 0.65rem; line-height: 1;
-    color: var(--wa-check-gray);
-    position: relative;
-    bottom: -3px; /* Dorong ke bawah sedikit agar pas */
-}
-
-.bubble.right .meta .checkmark.sent { color: var(--wa-check-gray); }
-.bubble.right .meta .checkmark.read { color: var(--wa-check-blue); font-size: 0.85rem; }
-
-
-/* Deleted Message Style */
-.bubble.deleted .txt {
-    background: #f0f0f0; 
-    color: var(--muted); 
-    font-style: italic;
-    box-shadow: none;
-}
-.bubble.deleted .txt:before { content: '🚫 '; }
-.bubble.deleted .meta .checkmark.read { display: none; }
-/* Hanya 1 centang abu-abu untuk pesan terhapus oleh pengirim */
-.bubble.deleted.right .meta .checkmark.sent { font-size: 0.7rem; } 
-
-
-/* --- Bagian Lain (Stabil) --- */
+/* Bagian Konten & Style Card (Modern & Hangat) */
 .content-section {
     background: var(--glass-card);
     padding: 20px;
     border-radius: 16px;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow); /* Menggunakan shadow yang lebih romantis */
     margin-bottom: 24px;
     opacity: 0; 
     transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.6); /* Garis tepi halus */
 }
 .content-section.show { opacity: 1; transform: translateY(0); }
+.content-section h3 {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--input-focus);
+    padding-bottom: 5px;
+}
+/* ... (Bagian CSS lainnya tetap) ... */
 
-/* Carousel */
+
+/* Countdown */
+.countdown-display {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    text-align: center;
+}
+
+/* Chat Bubbles (WhatsApp Style) */
+.chat-container {
+    padding: 10px;
+    background: var(--wa-bg);
+    border-radius: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh; /* Sesuaikan untuk chat.html */
+}
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: var(--wa-received);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin: -10px -10px 10px -10px;
+}
+.chat-body {
+    padding-top: 10px;
+}
+
+.chat-bubble, .fav-chat-bubble {
+    padding: 8px 10px;
+    border-radius: 10px;
+    margin-bottom: 7px;
+    max-width: 85%;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: var(--wa-font-color);
+}
+.chat-bubble.left, .fav-chat-bubble.left {
+    background: var(--wa-received);
+    margin-right: auto;
+    border-bottom-left-radius: 2px;
+}
+.chat-bubble.right, .fav-chat-bubble.right {
+    background: var(--wa-sent);
+    margin-left: auto;
+    border-bottom-right-radius: 2px;
+}
+.meta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 0.7rem;
+    color: var(--wa-check-gray);
+    margin-top: 3px;
+}
+.timestamp {
+    margin-right: 5px;
+}
+.read-status {
+    color: var(--wa-check-blue);
+    margin-left: 2px;
+}
+.favorite-star {
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+/* Music Card (Responsif) */
+.music-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.music-card {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+.music-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(255, 111, 181, 0.1);
+}
+.track-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+.track-info {
+    flex-grow: 1;
+}
+.tmeta {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--accent);
+}
+.tsub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 5px;
+}
+.music-card audio {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Carousel (Responsive) */
 .carousel-container {
     position: relative; overflow: hidden; border-radius: 12px; margin-top: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -219,22 +346,45 @@ body{
 .carousel-track {
     display: flex; overflow-x: scroll; scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
-    width: 100%; aspect-ratio: 4/3; 
+    width: 100%; aspect-ratio: 4/3; /* Memastikan rasio aspek yang baik */
 }
 .carousel-slide {
     flex-shrink: 0; width: 100%; height: 100%; scroll-snap-align: center;
 }
-.carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carousel-slide img { 
+    width: 100%; height: 100%; object-fit: cover; display: block; 
+    /* Optimasi gambar di ponsel */
+    max-width: 100%;
+    height: auto;
+}
 .carousel-nav-btn {
     position: absolute; top: 50%; transform: translateY(-50%);
     background: var(--carousel-nav-bg); border: none; color: var(--text-color);
-    padding: 10px; font-size: 1.2rem; cursor: pointer; z-index: 10;
-    border-radius: 50%; width: 40px; height: 40px; display: flex;
-    align-items: center; justify-content: center; transition: background 0.3s;
+    font-size: 1.5rem; padding: 10px; border-radius: 50%; cursor: pointer;
+    opacity: 0.8; transition: opacity 0.2s ease; z-index: 20;
 }
-.carousel-nav-btn:hover { background: rgba(255, 255, 255, 1); }
-.carousel-nav-btn.prev-btn { left: 10px; }
-.carousel-nav-btn.next-btn { right: 10px; }
+.carousel-nav-btn:hover {
+    opacity: 1;
+}
+.carousel-nav-btn.prev { left: 10px; }
+.carousel-nav-btn.next { right: 10px; }
 
-
+/* Desktop/Tablet Adjustment (Responsif: Di atas 768px) */
+@media (min-width: 768px) {
+    .page--stack {
+        padding: 40px 24px; /* Padding lebih besar di desktop */
+    }
+    .header-content {
+        padding: 0 24px;
+    }
+    /* Sembunyikan Navigasi Bawah di desktop jika diperlukan,
+       tapi biarkan tetap ada untuk konsistensi */
+    .nav-bottom {
+        /* Optional: sembunyikan atau pindahkan jika ada desktop nav terpisah */
+        /* display: none; */ 
+        max-width: 768px; /* Batasi lebar di desktop agar tidak terlalu lebar */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
 /* --- AKHIR COPY PASTE SELURUHNYA KE FILE style.css --- */
