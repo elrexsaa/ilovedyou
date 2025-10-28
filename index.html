@@ -12,7 +12,6 @@
     <meta property="og:type" content="website" />
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style_index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -48,15 +47,14 @@
             
             <p class="hint-text">
                 <i class="fas fa-heart-crack"></i> 
-                **Kode** adalah tanggal jadian kitaa ya sayang :D
+                **Kode** adalah kata/kalimat yang **kita buat berdua** ya sayang :D
             </p>
 
         </div>
     </main>
 
     <script>
-        // Logika sederhana untuk simulasi login. 
-        // Anda harus menyertakan skrip ini di file index.html atau di file terpisah.
+        // Logika sederhana untuk simulasi login.
         
         const loginForm = document.getElementById('loginForm');
         const passwordInput = document.getElementById('passwordInput');
@@ -68,7 +66,7 @@
 
         const AUTH_KEY = 'kenangan_verified';
         const TARGET_PAGE = 'kenangan.html';
-        const CORRECT_PASSWORD = '01112024'; // Ganti dengan kode rahasia yang asli
+        const CORRECT_PASSWORD = 'nikita'; // Ganti dengan kode rahasia yang asli
 
         function showVerifyMessage(message, isSuccess) {
             verifyFrame.hidden = false;
@@ -76,7 +74,6 @@
             verifyMessage.textContent = message;
             verifyFrame.querySelector('.verify-icon').innerHTML = isSuccess ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
             
-            // Sembunyikan pesan setelah 3 detik
             setTimeout(() => {
                 verifyFrame.hidden = true;
             }, 3000);
