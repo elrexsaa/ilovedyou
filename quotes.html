@@ -66,26 +66,30 @@
     </div>
     </main>
 
-  <nav class="bottom-nav">
-    <a href="kenangan.html" aria-label="Home">
-      <i class="fas fa-house"></i>
-      <span>Home</span>
+  <nav class="nav-bottom">
+    <a href="kenangan.html" class="nav-item">
+      <span class="icon">🏠</span>
+      <span class="label">Home</span>
     </a>
-    <a href="songs.html" aria-label="Songs">
-      <i class="fas fa-music"></i>
-      <span>Songs</span>
+    <a href="songs.html" class="nav-item">
+      <span class="icon">🎵</span>
+      <span class="label">Lagu</span>
     </a>
-    <a href="photos.html" aria-label="Photos">
-      <i class="fas fa-camera"></i>
-      <span>Photos</span>
+    <a href="photos.html" class="nav-item">
+      <span class="icon">📸</span>
+      <span class="label">Foto</span>
     </a>
-    <a href="chat.html" aria-label="Chat">
-      <i class="fas fa-comment-dots"></i>
-      <span>Chat</span>
+    <a href="chat.html" class="nav-item">
+      <span class="icon">💬</span>
+      <span class="label">Chat</span>
     </a>
-    <a href="about.html" aria-label="About Us">
-      <i class="fas fa-heart"></i>
-      <span>About</span>
+    <a href="quotes.html" class="nav-item">
+      <span class="icon">💖</span>
+      <span class="label">Favorit</span>
+    </a>
+    <a href="about.html" class="nav-item">
+      <span class="icon">ℹ️</span>
+      <span class="label">Tentang</span>
     </a>
   </nav>
 
@@ -93,15 +97,9 @@
   <script src="animasi.js"></script>
   
   <script>
-  const AUTH_KEY = 'kenangan_verified';
-  const LOGIN_PAGE = 'index.html';
-  if (sessionStorage.getItem(AUTH_KEY) !== 'true') {
-    window.location.href = LOGIN_PAGE;
-  }
-  function doLogout() {
-      sessionStorage.removeItem(AUTH_KEY);
-      window.location.href = LOGIN_PAGE;
-  }
+    // Konstanta otentikasi
+    const AUTH_KEY = 'kenangan_verified';
+    const LOGIN_PAGE = 'index.html';
   </script>
 </body>
 </html>
