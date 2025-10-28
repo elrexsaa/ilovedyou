@@ -38,7 +38,7 @@
                     <div class="password-toggle-container">
                         <input type="password" id="password" placeholder="DDMMYYYY" required maxlength="8" autocomplete="off" inputmode="numeric">
                         <button type="button" id="togglePassword" class="toggle-password-btn" aria-label="Tampilkan Password">
-                            <i class="fas fa-eye"></i> 
+                            <i class="fas fa-eye"></i>
                         </button>
                     </div>
                 </div>
@@ -51,11 +51,103 @@
                 <button type="submit" id="loginButton">Masuk</button>
             </form>
 
-            <p class="hint-text">Lupa kata sandi? <a href="https://wa.me/6287896507726" target="_blank">Hubungi Developer</a></p>
+            <p class="hint-text">Lupa kata sandi? <a href="https://wa.me/yourwhatsapp" target="_blank">Hubungi Developer</a></p>
         </div>
     </main>
-    
-    <script src="script.js"></script>
+
+    <script>
+        const TARGET_PAGE = 'kenangan.html';
+        const AUTH_KEY = 'auth_ok';
+        // GANTI DENGAN KATA SANDI YANG BENAR (misal: 141022)
+        const CORRECT_PASSWORD = '141022'; 
+
+        const passwordInput = document.getElementById('password');
+        const loginCard = document.querySelector('.login-card');
+        const verificationMessage = document.getElementById('verificationMessage');
+        const verifyText = document.getElementById('verifyText');
+        const verifyIcon = document.getElementById('verifyIcon');
+        const loadingPage = document.getElementById('loadingPage');
+        const typingText = document.getElementById('typingText');
+        
+        // --- Password Toggle Functionality (FITUR BARU) ---
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        togglePasswordBtn.addEventListener('click', function () {
+            // Toggle type dari password ke text
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle icon mata
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+            
+            // Update ARIA label
+            const newLabel = type === 'password' ? 'Tampilkan Password' : 'Sembunyikan Password';
+            this.setAttribute('aria-label', newLabel);
+        });
+        // --- Akhir Password Toggle ---
+
+        function showVerification(isSuccess, message) {
+            verificationMessage.hidden = false;
+            verificationMessage.classList.remove('ok', 'fail');
+            verificationMessage.classList.add(isSuccess ? 'ok' : 'fail');
+            verifyText.textContent = message;
+            verifyIcon.className = 'verify-icon fas ' + (isSuccess ? 'fa-check-circle' : 'fa-times-circle');
+            
+            setTimeout(() => {
+                verificationMessage.hidden = true;
+            }, 3000); 
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const enteredPassword = passwordInput.value.trim();
+
+            if (enteredPassword === CORRECT_PASSWORD) {
+                sessionStorage.setItem(AUTH_KEY, 'true'); 
+                showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
+                startTypingSequence();
+            } else {
+                showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
+                
+                // Animasi goyang untuk feedback bug login salah
+                loginCard.classList.add('shake-effect');
+                setTimeout(() => {
+                    loginCard.classList.remove('shake-effect');
+                }, 500);
+            }
+        }
+
+        function startTypingSequence(){
+            loadingPage.hidden = false; 
+            loadingPage.setAttribute('aria-hidden', 'false');
+
+            typingText.textContent = '';
+            const text = 'Memuat Kenangan...';
+            let i = 0;
+            const speed = 70;
+
+            const t = setInterval(() => {
+                typingText.textContent += text.charAt(i) || '';
+                i++;
+                if (i > text.length){
+                    clearInterval(t);
+                    
+                    setTimeout(() => {
+                        window.location.href = TARGET_PAGE;
+                    }, 500); 
+                }
+            }, speed);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+             loadingPage.hidden = true;
+             loadingPage.setAttribute('aria-hidden', 'true');
+
+             if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
+                 window.location.href = TARGET_PAGE; 
+             }
+        });
+    </script>
 
 </body>
 </html>
