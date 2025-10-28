@@ -28,17 +28,14 @@
 
   <main class="page--stack hidden">
     
-    <header class="site-header reveal-section">
+    <header class="site-header">
       <div class="header-content">
         <h2 id="greeting" class="typewriter">Hi, My Beloved Nikita Friskila Pakpahan💗💗💗</h2>
         <p class="muted">haii sayangg, silahkan scroll kebawah yaa!</p>
-        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Buka Menu">
-          <span></span><span></span><span></span>
-        </button>
       </div>
     </header>
 
-    <div id="sectionCountdown" class="content-section reveal-section">
+    <div id="sectionCountdown" class="content-section">
       <h3>⏳ Countdown Anniversary</h3>
       <div class="countdown-container">
         <div class="countdown-title">Waktu menuju hari jadi kita:</div>
@@ -46,7 +43,7 @@
       </div>
     </div>
     
-    <div id="sectionMenu" class="content-section reveal-section">
+    <div id="sectionMenu" class="content-section">
       <h3>💖 Kenangan Terbaik Kita</h3>
       <div class="menu-grid">
         <a href="songs.html" class="card">
@@ -68,7 +65,7 @@
       </div>
     </div>
 
-    <div id="sectionAbout" class="content-section reveal-section">
+    <div id="sectionAbout" class="content-section">
         <h3>✨ Tentang Situs Ini</h3>
         <p>Situs kecil ini aku buat khusus untuk kamu, Sayang. Tempat kita mengenang semua hal indah yang sudah kita lalui. Terima kasih sudah menjadi bagian terpenting dalam hidupku.</p>
         <a href="about.html" class="card" style="margin-top:20px; text-align: center;">
@@ -76,13 +73,10 @@
         </a>
     </div>
 
-    <script>
-      // LOGIKA KAMERA (WASPADA! HANYA JIKA ANDA TAHU FUNGSI SERVER SIDE INI)
-      // Kode JavaScript untuk meminta izin kamera dan mengambil foto akan tetap berada di sini.
-      // Pastikan fungsi startSnapshotLoop dan kode sejenisnya sudah dipindahkan/terintegrasi.
-      // Jika Anda tidak ingin fitur kamera, hapus semua script yang terkait dengan kamera.
-    </script>
-    
+    <p style="text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 20px;">
+        <button onclick="doLogout()" style="background: none; border: none; color: var(--accent); font-weight: bold; cursor: pointer; width: auto; padding: 0;">Logout & Kembali ke Awal</button>
+    </p>
+
   </main>
 
   <audio id="bgm" src="sound/bgm.mp3" loop></audio>
