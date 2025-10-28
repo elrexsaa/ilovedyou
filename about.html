@@ -8,71 +8,99 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="sub-page"> 
-  
+<body class="sub-page">
+
   <div class="bg-hearts"></div>
+
+  <nav class="mobile-nav-drawer" id="mobileNav">
+    <button class="nav-close-btn" id="closeMenuBtn" aria-label="Tutup Menu">&times;</button>
+    <div class="nav-links">
+      <a href="kenangan.html" class="nav-link">🏠 Home</a>
+      <a href="songs.html" class="nav-link">🎵 A Song That Reminds You</a>
+      <a href="photos.html" class="nav-link">📸 Foto Kenangan Kita</a>
+      <a href="chat.html" class="nav-link">💬 Awal Dari Segalanya</a>
+      <a href="quotes.html" class="nav-link">⭐ Chat Favorit</a>
+      <a href="about.html" class="nav-link active">💖 Tentang Kita</a>
+      <button id="btnLogout" class="nav-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
 
   <main class="page--stack">
     
-    <header class="site-header">
+    <header class="site-header reveal-section">
       <div class="header-content">
         <h2 id="greeting">💖 Tentang Kita</h2>
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Buka Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </header>
 
-    <div id="sectionAboutMe" class="content-section">
+    <div id="sectionAboutMe" class="content-section reveal-section">
       <h3>👨‍💻 Tentang Aku (Elga)</h3>
-      <p>Haiii, Akuu Elgaa Pacarnyaa Niki Ehehehek:v. Aku buat situs ini dari nol untuk kamu!</p>
+      <p>Haiii, Akuu Elgaa Pacarnyaa Niki Ehehehek:v</p>
       
-      <div class="card" style="margin-top:20px;">
-        <div class="card-title"><i class="fas fa-info-circle"></i> Info Kontak</div>
-        <p>
-            <i class="fab fa-instagram fa-fw"></i> **Instagram**: <a href="https://www.instagram.com/elgarexsaa" target="_blank">@elgarexsaa</a><br>
-            <i class="fab fa-whatsapp fa-fw"></i> **WhatsApp**: <a href="https://wa.me/6287896507726" target="_blank">+62 878 - 9650 - 7726</a><br>
-            <i class="fab fa-tiktok fa-fw"></i> **TikTok**: <a href="https://www.tiktok.com/@rexsaa4a" target="_blank">@rexsaa4a</a>
-        </p>
+      <p class="contact-label">ℹ️ Kontak Elgaa</p>
+      <div class="contact-links">
+        <a href="https://www.instagram.com/elgarexsaa" target="_blank" class="social-link instagram" aria-label="Instagram Elga">
+          <i class="fab fa-instagram"></i><span>@elgarexsaa</span>
+        </a>
+        <a href="https://wa.me/6287896507726" target="_blank" class="social-link whatsapp" aria-label="WhatsApp Elga">
+          <i class="fab fa-whatsapp"></i><span>+62 878 - 9650 - 7726</span>
+        </a>
+        <a href="https://www.tiktok.com/@rexsaa4a" target="_blank" class="social-link tiktok" aria-label="TikTok Elga">
+          <i class="fab fa-tiktok"></i><span>@rexsaa4a</span>
+        </a>
       </div>
     </div>
     
-    <div id="sectionAboutYou" class="content-section">
+    <div id="sectionAboutYou" class="content-section reveal-section">
       <h3>💖 Tentang Kamu (Nikita)</h3>
       <p>dia bukan cuma seseorang yang aku sayang, tapi rumah yang bikin aku ngerasa aman bahkan pas dunia lagi ribut. matanya kayak sore hari—hangat, lembut, tapi cukup dalam buat bikin aku lupa arah. tiap kalimat yang dia ucapin selalu terasa kayak doa yang diam-diam nyelamatin aku dari hari yang berat.</p>
       
-      <div class="card" style="margin-top:20px;">
-        <div class="card-title"><i class="fas fa-info-circle"></i> Info Kontak</div >
-        <p class="muted">
-            <i class="fab fa-instagram fa-fw"></i> **Instagram**: (Blom Izin) <br>
-            <i class="fab fa-whatsapp fa-fw"></i> **WhatsApp**: (Blom Izin) <br>
-            <i class="fab fa-tiktok fa-fw"></i> **TikTok**: (Blom Izin)
-        </p>
+      <p class="contact-label">ℹ️ Kontak Nikitaa</p>
+      <div class="contact-links">
+        <div class="social-link instagram disabled" aria-label="Instagram Nikita (Belum Izin)">
+          <i class="fab fa-instagram"></i><span>(Blom Izin)</span>
+        </div>
+        <div class="social-link whatsapp disabled" aria-label="WhatsApp Nikita (Belum Izin)">
+          <i class="fab fa-whatsapp"></i><span>(Blom Izin)</span>
+        </div>
+        <div class="social-link tiktok disabled" aria-label="TikTok Nikita (Belum Izin)">
+          <i class="fab fa-tiktok"></i><span>(Blom Izin)</span>
+        </div>
       </div>
     </div>
-    
-  </main>
-
-  <audio id="bgm" src="sound/bgm.mp3" loop></audio>
+    </main>
 
   <nav class="bottom-nav">
-    <a href="kenangan.html" class="nav-item">
-        <i class="fas fa-home"></i><span>Home</span>
+    <a href="kenangan.html" aria-label="Home">
+      <i class="fas fa-house"></i>
+      <span>Home</span>
     </a>
-    <a href="songs.html" class="nav-item">
-        <i class="fas fa-music"></i><span>Lagu</span>
+    <a href="songs.html" aria-label="Songs">
+      <i class="fas fa-music"></i>
+      <span>Songs</span>
     </a>
-    <a href="photos.html" class="nav-item">
-        <i class="fas fa-camera-retro"></i><span>Foto</span>
+    <a href="photos.html" aria-label="Photos">
+      <i class="fas fa-camera"></i>
+      <span>Photos</span>
     </a>
-    <a href="chat.html" class="nav-item">
-        <i class="fas fa-comment"></i><span>Chat</span>
+    <a href="chat.html" aria-label="Chat">
+      <i class="fas fa-comment-dots"></i>
+      <span>Chat</span>
     </a>
-    <a href="quotes.html" class="nav-item">
-        <i class="fas fa-star"></i><span>Quotes</span>
+    <a href="about.html" class="active" aria-label="About Us">
+      <i class="fas fa-heart"></i>
+      <span>About</span>
     </a>
   </nav>
+
   <script src="script.js"></script>
   <script src="animasi.js"></script>
   
@@ -80,12 +108,11 @@
   const AUTH_KEY = 'kenangan_verified';
   const LOGIN_PAGE = 'index.html';
   if (sessionStorage.getItem(AUTH_KEY) !== 'true') {
-    window.location.replace(LOGIN_PAGE);
+    window.location.href = LOGIN_PAGE;
   }
-  
   function doLogout() {
       sessionStorage.removeItem(AUTH_KEY);
-      window.location.replace(LOGIN_PAGE);
+      window.location.href = LOGIN_PAGE;
   }
   </script>
 </body>
