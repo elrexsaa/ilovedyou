@@ -27,7 +27,7 @@ function initNavMenu() {
     const openMenu = () => {
       mobileNav.classList.add('show');
       navOverlay.classList.add('show');
-      document.body.style.overflow = 'hidden'; // Mencegah scroll di belakang
+      document.body.style.overflow = 'hidden'; 
     };
 
     const closeMenu = () => {
@@ -44,7 +44,8 @@ function initNavMenu() {
 
 // ===== 2. LOGIKA COUNTDOWN (Hanya untuk kenangan.html) =====
 function initCountdown(element) {
-  const TARGET_DATE = '2025-11-01T00:00:00';
+  // Ganti tanggal ini dengan tanggal anniversary kamu
+  const TARGET_DATE = '2025-11-01T00:00:00'; 
   const targetTime = new Date(TARGET_DATE).getTime();
 
   function updateCountdown() {
@@ -66,9 +67,8 @@ function initCountdown(element) {
   updateCountdown();
 }
 
-// ===== 3. LOGIKA CHAT (Hanya untuk chat.html) =====
-// Ganti path/URL gambar di sini!
-const STICKER_URL = "https://cdn.jsdelivr.net/gh/twemoji/twemoji@14.0.2/assets/svg/1f92c.svg"; // Emoji 🤬 untuk placeholder sticker
+// ===== 3. LOGIKA CHAT (Hanya untuk chat.html - WA Style) =====
+const STICKER_URL = "https://cdn.jsdelivr.net/gh/twemoji/twemoji@14.0.2/assets/svg/1f92c.svg"; // Placeholder Sticker
 const IMAGE_URL_1 = "https://picsum.photos/id/401/300/300"; // Ganti dengan foto kamu
 const IMAGE_URL_2 = "https://picsum.photos/id/237/300/300"; // Ganti dengan foto kamu lainnya
 
@@ -95,7 +95,6 @@ const whatsappChat = [
 function populateChat(chatBodyElement){
   chatBodyElement.innerHTML = '';
   
-  // Fungsi untuk membuat elemen HTML dengan class tertentu
   const createEl = (tag, className) => {
       const el = document.createElement(tag);
       if (className) el.className = className;
@@ -143,31 +142,38 @@ function populateChat(chatBodyElement){
     // Status (double checkmark for 'right' side)
     const readReceipt = m.side === 'right' ? '<span style="color: var(--wa-sent); margin-left: 4px;">✓✓</span>' : '';
     
-    // Posisikan waktu di dalam bubble (menggunakan CSS absolute)
+    // Posisikan waktu di dalam bubble
     ts.innerHTML = `${m.ts}${readReceipt}`;
 
     // Append elements
-    txt.appendChild(ts); // Masukkan timestamp ke dalam bubble text
+    // Hanya masukkan TS ke dalam bubble text jika itu bukan media (karena media punya caption yang menampung TS)
+    if (m.type === 'text' || m.type === 'audio' || m.type === 'deleted') {
+         txt.innerHTML += ts.outerHTML;
+    } else if (m.type === 'image' || m.type === 'sticker') {
+         // Untuk media, kita letakkan TS di luar txt untuk menghindari masalah layout di media-content
+         // Tapi karena kita sudah pakai p.caption, kita tambahkan manual ke caption/media-content.
+         // Mari kita ikuti pola yang lebih sederhana: letakkan TS di luar media-content tapi di dalam txt
+         if (!m.caption || m.type === 'sticker') {
+            txt.innerHTML += ts.outerHTML;
+         }
+    }
+
+
     wrap.appendChild(txt);
     chatBodyElement.appendChild(wrap);
   });
   
-  // Auto scroll ke bawah setelah chat dimuat
   chatBodyElement.scrollTop = chatBodyElement.scrollHeight;
 }
 
 // ===== 4. LOGIKA AUDIO (Hanya untuk songs.html) =====
 function setupAudioListeners(audioElements) {
-  // Ambil BGM dari kenangan.html (jika ada)
   const bgm = document.getElementById('bgm'); 
 
   function stopAllAudio(currentPlaying) {
-    // 1. Stop BGM jika ada
     if (bgm && currentPlaying !== bgm && !bgm.paused) {
       bgm.pause();
     }
-
-    // 2. Stop semua lagu di daftar
     audioElements.forEach(track => {
       if (track !== currentPlaying && !track.paused) {
         track.pause();
@@ -176,12 +182,10 @@ function setupAudioListeners(audioElements) {
     });
   }
 
-  // Event listener untuk setiap lagu di daftar
   audioElements.forEach(track => {
     track.addEventListener('play', () => stopAllAudio(track));
   });
 
-  // Jika BGM ada, tambahkan listener
   if (bgm) {
     bgm.addEventListener('play', () => stopAllAudio(bgm));
   }
@@ -195,12 +199,10 @@ function initCarousel(carouselTrack) {
     let autoSlideTimer;
     let currentIndex = 0;
     
-    // Gunakan scrollWidth untuk mengukur jarak slide
-    const slideGap = 20; // Sesuai dengan CSS gap
+    const slideGap = 20; 
     
     function updateActiveSlide() {
         const scrollLeft = carouselTrack.scrollLeft;
-        // Hitung indeks tengah dengan memperhitungkan lebar slide + gap
         const slideWidth = slides[0].offsetWidth; 
         const centerIndex = Math.round(scrollLeft / (slideWidth + slideGap)); 
 
@@ -215,7 +217,6 @@ function initCarousel(carouselTrack) {
     }
 
     function nextSlide() {
-        // Hitung jarak scroll untuk slide berikutnya
         const slideWidth = slides[0].offsetWidth; 
         const nextIndex = (currentIndex + 1) % slides.length;
         
@@ -224,7 +225,6 @@ function initCarousel(carouselTrack) {
             behavior: 'smooth'
         });
         
-        // Update active class setelah animasi scroll selesai
         setTimeout(updateActiveSlide, 450); 
     }
     
@@ -235,7 +235,6 @@ function initCarousel(carouselTrack) {
     
     carouselTrack.addEventListener('scroll', () => {
         updateActiveSlide(); 
-        // Reset timer setiap kali user scroll manual
         clearInterval(autoSlideTimer);
         autoSlideTimer = setInterval(nextSlide, 5000);
     });
@@ -256,10 +255,11 @@ window.addEventListener('load', () => {
   // Jalankan fungsi khusus halaman
   runOnElement('#countdown', initCountdown);
   runOnElement('#chatBody', populateChat);
-  runOnElements('.music-card audio', setupAudioListeners);
+  // Menggunakan runOnElements untuk semua audio di daftar lagu
+  runOnElements('.music-card audio', setupAudioListeners); 
   runOnElement('.carousel-track', initCarousel);
   
-  // Autoplay BGM di halaman utama
+  // Autoplay BGM di halaman utama (kenangan.html)
   runOnElement('#bgm', (bgmElement) => {
     document.addEventListener('click', function handler() {
       if (bgmElement.paused) {
