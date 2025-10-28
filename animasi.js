@@ -5,16 +5,15 @@ const bg = document.querySelector('.bg-hearts');
 const introScreenOverlay = document.querySelector('.intro-screen'); 
 const mainPage = document.querySelector('main');
 
-// Seleksi elemen spesifik untuk animasi berurutan
-const header = document.querySelector('.mem-header');
+// Seleksi elemen spesifik untuk animasi berurutan (UPDATED)
+const header = document.querySelector('.site-header');
 const countdownContainer = document.querySelector('.countdown-container');
-const menuGrid = document.querySelector('.menu-grid');
+const mainMenu = document.querySelector('.main-menu'); // Ganti dari .menu-grid
 const contentSections = document.querySelectorAll('.content-section'); 
 
 // Elemen Audio
 const bgm = document.getElementById('bgm');
-// FIX: MENGGANTI SELECTOR AGAR SESUAI DENGAN CLASS BARU (music-card)
-const allTracks = document.querySelectorAll('.music-card audio'); // <- SUDAH DIPERBAIKI
+const allTracks = document.querySelectorAll('.music-card audio');
 
 const introTexts = [
   "our memories website",
@@ -60,7 +59,7 @@ function setupAudioListeners() {
     // Event listener untuk BGM
     bgm.addEventListener('play', () => stopAllAudio(bgm));
     
-    // Event listener untuk setiap lagu di daftar (SUDAH BENAR)
+    // Event listener untuk setiap lagu di daftar
     allTracks.forEach(track => {
         track.addEventListener('play', () => stopAllAudio(track));
     });
@@ -173,27 +172,32 @@ function showNextText() {
 }
 
 
-// --- 3. LOGIKA REVEAL SEQUENTIAL (VIDEO EFFECT) ---
+// --- 3. LOGIKA REVEAL SEQUENTIAL (UPDATED) ---
 function startMemoryReveal() {
+    // Animasi header
     setTimeout(() => {
-        header.classList.add('show');
+        if (header) header.classList.add('show');
     }, INITIAL_DELAY);
 
+    // Animasi countdown (dibuat terpisah agar ada efek cascade)
     setTimeout(() => {
-        countdownContainer.classList.add('show');
+        if (countdownContainer) countdownContainer.classList.add('show');
     }, INITIAL_DELAY + SECTION_DELAY);
 
+    // Animasi menu utama (menggantikan menuGrid)
     setTimeout(() => {
-        menuGrid.classList.add('show');
+        if (mainMenu) mainMenu.classList.add('show');
     }, INITIAL_DELAY + SECTION_DELAY * 2);
 
-    // Step 4: Reveal Content Sections satu per satu
+    // Animasi content sections
     setTimeout(() => {
         contentSections.forEach((section, index) => {
-            const delay = SECTION_DELAY * (index + 3);
+            // Delay dihitung agar muncul setelah menu
+            const delay = (SECTION_DELAY * (index + 3)); 
             setTimeout(() => {
                 section.classList.add('show');
                 
+                // Inisiasi carousel saat section foto muncul
                 if (section.id === 'sectionPhotos') {
                     const carouselTrack = section.querySelector('.carousel-track');
                     if (carouselTrack) {
@@ -203,7 +207,7 @@ function startMemoryReveal() {
 
             }, delay); 
         });
-    }, INITIAL_DELAY); 
+    }, INITIAL_DELAY); // Mulai hitung delay section bersamaan
 }
 
 
