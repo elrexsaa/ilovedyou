@@ -11,6 +11,15 @@
   <link rel="stylesheet" href="style_general.css">
   <link rel="stylesheet" href="style_chat.css">
   <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* Override untuk kontainer quotes agar mirip WA */
+    #quotes-container main {
+        padding: 20px 10px;
+        background-color: var(--wa-bg); /* Background WA */
+        min-height: calc(100vh - 60px);
+    }
+  </style>
 </head>
 <body>
   <audio id="bgm" src="audio.mp3" loop></audio>
@@ -20,29 +29,53 @@
 
   <div id="quotes-container">
     <main class="hidden">
-      <header class="header-main content-section show">
+      <header class="header-main show">
         <h1>💖 Chat Favorit Kita</h1>
         <p>Kata-kata yang paling aku suka dari kamu, Sayang.</p>
       </header>
 
-      <div class="chat-body content-section show" style="background-color: transparent; box-shadow: none;">
-          <div class="fav-chat-bubble left">
-            <div class="text">AKUU SLALUU SUPPORT KM SAYANG, BAHKAN KALAU DUNIA GA BERPIHAK SM KAMUU ADAA AK DISINI</div>
-            <div class="meta"><span class="timestamp">00:05</span><span class="favorite-star">⭐</span></div>
+      <section id="sectionQuotes" class="content-section show" style="background-color: transparent; box-shadow: none;">
+        <p style="color: var(--color-text-main); text-align: center; margin-bottom: 15px;">kalo chat dari kamu yang paling aku suka ini, ngga ngerti lagi deh, kamu sweet banget. makasi udah mau jadi pacar aku yaa!</p>
+
+        <div class="chat-body" style="padding: 10px 0;">
+
+          <div class="fav-chat-bubble right">
+            <div class="text">yasudaa intinyaa km bisaa, AKUUU YAKINN SAYANGGKU...</div>
+            <div class="meta">
+              <span class="timestamp">23:36</span>
+              <span class="favorite-star"><i class="fas fa-star"></i></span>
+              <span class="checkmark read"><i class="fas fa-check-double"></i></span>
+            </div>
           </div>
+
+          <div class="fav-chat-bubble right">
+            <div class="text">oalaa, kalo suda ngampus masuk biasa semangatt buat ngejalanin nya yaa, capai smua yg km critain aku pokokna hrs tauu klo km berhasill</div>
+            <div class="meta">
+              <span class="timestamp">23:49</span>
+              <span class="favorite-star"><i class="fas fa-star"></i></span>
+              <span class="checkmark read"><i class="fas fa-check-double"></i></span>
+            </div>
+          </div>
+
+          <div class="fav-chat-bubble right">
+            <div class="text">AKUU SLALUU SUPPORT KM SAYANG, BAHKAN KALAU DUNIA GA BERPIHAK SM KAMUU ADAA AK DISINI</div>
+            <div class="meta">
+              <span class="timestamp">00:05</span>
+              <span class="favorite-star"><i class="fas fa-star"></i></span>
+              <span class="checkmark read"><i class="fas fa-check-double"></i></span>
+            </div>
+          </div>
+
           <div class="fav-chat-bubble right">
             <div class="text">km kan cinta nyaa aku</div>
-            <div class="meta"><span class="timestamp">16:42</span><span class="favorite-star">⭐</span><span class="checkmark read"><i class="fas fa-check-double"></i></span></div>
+            <div class="meta">
+              <span class="timestamp">16:42</span>
+              <span class="favorite-star"><i class="fas fa-star"></i></span>
+              <span class="checkmark read"><i class="fas fa-check-double"></i></span>
+            </div>
           </div>
-          <div class="fav-chat-bubble left">
-            <div class="text">Kamu itu terbaik dan terindah yang pernah kumiliki.</div>
-            <div class="meta"><span class="timestamp">11:11</span><span class="favorite-star">⭐</span></div>
-          </div>
-          <div class="fav-chat-bubble right">
-            <div class="text">Aku sayang kamu lebih dari kata-kata.</div>
-            <div class="meta"><span class="timestamp">11:12</span><span class="favorite-star">⭐</span><span class="checkmark read"><i class="fas fa-check-double"></i></span></div>
-          </div>
-      </div>
+        </div>
+      </section>
     </main>
   </div>
 
