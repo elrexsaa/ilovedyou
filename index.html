@@ -3,23 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Memories Site - Login</title>
+    <title>Masuk - Our Memories Site</title>
 
     <meta property="og:title" content="Our Memories Website💗" />
     <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
     <meta property="og:image" content="img/logo.ico" /> 
-    <meta property="og:url" content="https://elrexsaa.github.io/testingpages/index.html" /> 
+    <meta property="og:url" content="https://elrexsaa.github.io/index.html" /> 
     <meta property="og:type" content="website" />
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style_index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
     <div id="loadingPage" aria-hidden="true">
-        <div class="chibi-icon" style="opacity: 0.8;"><i class="fas fa-heart fa-beat"></i></div>
+        <div class="chibi-icon" style="opacity: 0.8;">⏳</div>
         <div id="typingText"></div>
     </div>
 
@@ -27,73 +26,74 @@
         <div class="card login-card" role="dialog" aria-labelledby="loginTitle">
 
             <div class="chibi-icon" aria-hidden="true">
-                🎞️
+                🔐
             </div>
 
-            <h1 id="loginTitle">All Memories</h1>
-            <p class="muted">Silahkan masukkan kode rahasia untuk melanjutkan, Sayangku!</p>
+            <h1 id="loginTitle">Portal Kenangan</h1>
+            <p class="muted subtitle">Masukkan tanggal spesial kita untuk melihat isinya.</p>
 
-            <form id="loginForm" onsubmit="doLogin(event)">
+            <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="input-group">
-                    <input type="password" id="passwordInput" placeholder="Masukkan Kode Rahasia" required autocomplete="off">
+                    <label for="password">Kata Sandi (Tanggal Jadian)</label>
+                    <input type="password" id="password" placeholder="DDMMYYYY" required maxlength="8" autocomplete="off" inputmode="numeric">
                 </div>
-                <button type="submit" id="loginBtn">Masuk</button>
+
+                <button type="submit" id="loginBtn" class="btn btn-primary">
+                    Buka Memories
+                </button>
             </form>
-            
+
             <div id="verifyFrame" class="verify-frame" hidden>
-                <div class="verify-icon"></div>
-                <div id="verifyMessage"></div>
+                <span id="verifyIcon" class="verify-icon"></span>
+                <span id="verifyMessage"></span>
             </div>
             
-            <p class="hint-text">
-                <i class="fas fa-heart-crack"></i> 
-                **Kode** adalah kata/kalimat yang **kita buat berdua** ya sayang :D
-            </p>
-
+            <div class="hint-text">
+                Lupa? Hubungi 
+                <a href="https://wa.me/6287896507726?text=Sayang,%20aku%20lupa%20password%20memories%20site%20nih..." target="_blank">
+                    Aku (Elga) 
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
         </div>
     </main>
-
+    
     <script>
-        // Logika sederhana untuk simulasi login.
-        
-        const loginForm = document.getElementById('loginForm');
-        const passwordInput = document.getElementById('passwordInput');
-        const loginCard = document.querySelector('.login-card');
-        const verifyFrame = document.getElementById('verifyFrame');
-        const verifyMessage = document.getElementById('verifyMessage');
-        const typingText = document.getElementById('typingText');
-        const loadingPage = document.getElementById('loadingPage');
-
+        const CORRECT_PASSWORD = '01112024'; 
         const AUTH_KEY = 'kenangan_verified';
         const TARGET_PAGE = 'kenangan.html';
-        const CORRECT_PASSWORD = 'nikita'; // Ganti dengan kode rahasia yang asli
+        
+        const loginCard = document.querySelector('.login-card');
+        const passwordInput = document.getElementById('password');
+        const verifyFrame = document.getElementById('verifyFrame');
+        const verifyIcon = document.getElementById('verifyIcon');
+        const verifyMessage = document.getElementById('verifyMessage');
+        const loadingPage = document.getElementById('loadingPage');
+        const typingText = document.getElementById('typingText');
 
-        function showVerifyMessage(message, isSuccess) {
+        function showVerification(success, message) {
             verifyFrame.hidden = false;
-            verifyFrame.className = `verify-frame ${isSuccess ? 'ok' : 'fail'}`;
+            verifyFrame.className = 'verify-frame ' + (success ? 'ok' : 'fail');
+            verifyIcon.textContent = success ? '✅' : '❌';
             verifyMessage.textContent = message;
-            verifyFrame.querySelector('.verify-icon').innerHTML = isSuccess ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
-            
+
             setTimeout(() => {
                 verifyFrame.hidden = true;
             }, 3000);
         }
 
-        function doLogin(e) {
+        function handleLogin(e) {
             e.preventDefault();
-            const password = passwordInput.value.toLowerCase().trim();
+            const enteredPassword = passwordInput.value.replace(/[^0-9]/g, '');
 
-            if (password === CORRECT_PASSWORD) {
-                sessionStorage.setItem(AUTH_KEY, 'true');
-                showVerifyMessage('Kode Benar! Selamat Datang Sayangku.', true);
-                loginForm.style.pointerEvents = 'none'; // Disable form
-                
-                setTimeout(startTypingSequence, 1500);
+            if (enteredPassword === CORRECT_PASSWORD) {
+                // Menggunakan sessionStorage agar sesi hilang saat browser ditutup
+                sessionStorage.setItem(AUTH_KEY, 'true'); 
+                showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
+                startTypingSequence();
             } else {
-                sessionStorage.setItem(AUTH_KEY, 'false');
-                passwordInput.value = ''; // Kosongkan input
+                showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
                 
-                showVerifyMessage('Kode salah, coba lagi yaa!', false);
                 loginCard.classList.add('shake-effect');
                 setTimeout(() => {
                     loginCard.classList.remove('shake-effect');
@@ -106,7 +106,7 @@
             loadingPage.setAttribute('aria-hidden', 'false');
 
             typingText.textContent = '';
-            const text = 'Memuat Kenangan Kita......';
+            const text = 'Memuat Kenangan...';
             let i = 0;
             const speed = 70;
 
@@ -128,7 +128,7 @@
              loadingPage.setAttribute('aria-hidden', 'true');
 
              if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
-                 window.location.href = TARGET_PAGE;
+                 window.location.href = TARGET_PAGE; 
              }
         });
     </script>
