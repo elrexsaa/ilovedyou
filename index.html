@@ -11,105 +11,96 @@
     <meta property="og:url" content="https://elrexsaa.github.io/index.html" /> 
     <meta property="og:type" content="website" />
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style_index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="style_general.css">
+    <link rel="stylesheet" href="style_login.css">
 </head>
 <body>
 
-    <div id="loadingPage" aria-hidden="true">
-        <div class="chibi-icon" style="opacity: 0.8;">⏳</div>
+    <div id="loadingPage" hidden aria-hidden="true">
+        <div class="chibi-icon">⏳</div>
         <div id="typingText"></div>
     </div>
 
     <main id="loginPage" class="page--center">
-        <div class="card login-card" role="dialog" aria-labelledby="loginTitle">
-
-            <div class="chibi-icon" aria-hidden="true">
-                🔐
+        <div class="card login-card" role="dialog" aria-modal="true">
+            <h2>Our Memories</h2>
+            <p>Masukkan kata sandi untuk melihat kenangan kita.</p>
+            
+            <div class="input-group">
+                <input type="password" id="passwordInput" placeholder="Kata Sandi Rahasia..." required>
+                <i class="fas fa-eye input-icon" id="togglePassword" aria-label="Tampilkan Kata Sandi"></i>
             </div>
-
-            <h1 id="loginTitle">Portal Kenangan</h1>
-            <p class="muted subtitle">Masukkan tanggal spesial kita untuk melihat isinya.</p>
-
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="input-group">
-                    <label for="password">Kata Sandi (Tanggal Jadian)</label>
-                    <div class="password-toggle-container">
-                        <input type="password" id="password" placeholder="DDMMYYYY" required maxlength="8" autocomplete="off" inputmode="numeric">
-                        <button type="button" id="togglePassword" class="toggle-password-btn" aria-label="Tampilkan Password">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div id="verificationMessage" class="verify-frame" hidden>
-                    <span id="verifyIcon" class="verify-icon"></span>
-                    <span id="verifyText"></span>
-                </div>
-                
-                <button type="submit" id="loginButton">Masuk</button>
-            </form>
-
-            <p class="hint-text">Lupa kata sandi? <a href="https://wa.me/yourwhatsapp" target="_blank">Hubungi Developer</a></p>
+            
+            <button class="login-btn" onclick="checkPassword()">Masuk Sekarang</button>
+            
+            <p class="hint-text">
+                Lupa? Tanya <a href="https://wa.me/6282110292723" target="_blank" rel="noopener noreferrer">Elgalau😭👎🏼</a>
+            </p>
         </div>
     </main>
+    
+    <div id="verifyFrame" class="verify-frame" hidden role="alert" aria-live="polite">
+        <span class="verify-icon" id="verifyIcon"></span>
+        <span id="verifyText"></span>
+    </div>
 
     <script>
-        const TARGET_PAGE = 'kenangan.html';
-        const AUTH_KEY = 'auth_ok';
-        // GANTI DENGAN KATA SANDI YANG BENAR (misal: 141022)
-        const CORRECT_PASSWORD = '141022'; 
+        const AUTH_KEY = 'auth_granted';
+        const TARGET_PAGE = 'kenangan.html'; 
+        const CORRECT_PASSWORD = 'CIANKU'; // Ganti dengan kata sandi Anda
 
-        const passwordInput = document.getElementById('password');
-        const loginCard = document.querySelector('.login-card');
-        const verificationMessage = document.getElementById('verificationMessage');
-        const verifyText = document.getElementById('verifyText');
+        const passwordInput = document.getElementById('passwordInput');
+        const togglePassword = document.getElementById('togglePassword');
+        const verifyFrame = document.getElementById('verifyFrame');
         const verifyIcon = document.getElementById('verifyIcon');
+        const verifyText = document.getElementById('verifyText');
+        const loginCard = document.querySelector('.login-card');
         const loadingPage = document.getElementById('loadingPage');
         const typingText = document.getElementById('typingText');
-        
-        // --- Password Toggle Functionality (FITUR BARU) ---
-        const togglePasswordBtn = document.getElementById('togglePassword');
-        togglePasswordBtn.addEventListener('click', function () {
-            // Toggle type dari password ke text
+
+        // Toggle Password Visibility
+        togglePassword.addEventListener('click', function () {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
-            
-            // Toggle icon mata
-            this.querySelector('i').classList.toggle('fa-eye');
-            this.querySelector('i').classList.toggle('fa-eye-slash');
-            
-            // Update ARIA label
-            const newLabel = type === 'password' ? 'Tampilkan Password' : 'Sembunyikan Password';
-            this.setAttribute('aria-label', newLabel);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
         });
-        // --- Akhir Password Toggle ---
 
+        // Tampilkan Notifikasi (Toast)
         function showVerification(isSuccess, message) {
-            verificationMessage.hidden = false;
-            verificationMessage.classList.remove('ok', 'fail');
-            verificationMessage.classList.add(isSuccess ? 'ok' : 'fail');
+            verifyFrame.hidden = false;
             verifyText.textContent = message;
-            verifyIcon.className = 'verify-icon fas ' + (isSuccess ? 'fa-check-circle' : 'fa-times-circle');
+            verifyFrame.classList.remove('ok', 'fail');
             
-            setTimeout(() => {
-                verificationMessage.hidden = true;
-            }, 3000); 
+            if (isSuccess) {
+                verifyFrame.classList.add('ok');
+                verifyIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+            } else {
+                verifyFrame.classList.add('fail');
+                verifyIcon.innerHTML = '<i class="fas fa-times-circle"></i>';
+                
+                // Sembunyikan notifikasi error setelah 3 detik
+                setTimeout(() => {
+                    verifyFrame.hidden = true;
+                }, 3000);
+            }
         }
 
-        function handleLogin(event) {
-            event.preventDefault();
-            const enteredPassword = passwordInput.value.trim();
-
-            if (enteredPassword === CORRECT_PASSWORD) {
-                sessionStorage.setItem(AUTH_KEY, 'true'); 
+        // Cek Kata Sandi
+        function checkPassword() {
+            const password = passwordInput.value.trim().toUpperCase();
+            
+            if (password === CORRECT_PASSWORD) {
+                sessionStorage.setItem(AUTH_KEY, 'true');
                 showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
                 startTypingSequence();
             } else {
                 showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
                 
-                // Animasi goyang untuk feedback bug login salah
+                // Efek Goyang (Shake)
                 loginCard.classList.add('shake-effect');
                 setTimeout(() => {
                     loginCard.classList.remove('shake-effect');
@@ -117,12 +108,14 @@
             }
         }
 
+        // Urutan Mengetik (Loading)
         function startTypingSequence(){
+            document.getElementById('loginPage').hidden = true;
             loadingPage.hidden = false; 
             loadingPage.setAttribute('aria-hidden', 'false');
 
             typingText.textContent = '';
-            const text = 'Memuat Kenangan...';
+            const text = 'Memuat Kenangan Romantis...';
             let i = 0;
             const speed = 70;
 
@@ -134,15 +127,17 @@
                     
                     setTimeout(() => {
                         window.location.href = TARGET_PAGE;
-                    }, 500); 
+                    }, 800); 
                 }
             }, speed);
         }
 
+        // Cek Session saat Halaman Dimuat
         document.addEventListener('DOMContentLoaded', () => {
              loadingPage.hidden = true;
              loadingPage.setAttribute('aria-hidden', 'true');
 
+             // Bypass login jika sudah ada session
              if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
                  window.location.href = TARGET_PAGE; 
              }
