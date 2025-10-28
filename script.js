@@ -67,80 +67,92 @@ function initCountdown(element) {
 }
 
 // ===== 3. LOGIKA CHAT (Hanya untuk chat.html) =====
-const demoChat = [
-  {side: 'left', text: 'kiw kiw', ts: '16:09'},
-  {side: 'right', text: 'tkg paket kah?', ts: '16:10'},
-  {side: 'left', text: 'iya mau nganter paket ini', ts: '16:10'},
-  {side: 'right', text: 'oalaa', ts: '16:11'},
-  {side: 'left', text: 'rumahnya dimana yaa?', ts: '16:12'},
-  {side: 'right', text: 'kan jgo sulap, psti tau dong', ts: '16:13'},
-  {side: 'left', text: 'wet wet sebentar', ts: '16:14'},
-  {side: 'right', text: 'sipp', ts: '16:17'},
-  {side: 'left', text: '📷titiknya disini cok', ts: '16:27'},
-  {side: 'right', text: 'km intel kah😞😞', ts: '16:28'},
-  {side: 'left', text: 'bnr kah?', ts: '16:29'},
-  {side: 'right', text: 'km tmen nya gabriel ya?', ts: '16:29'},
-  {side: 'right', text: 'soalnya td dia nnya', ts: '16:30'},
-  {side: 'left', text: 'YAHHH', ts: '16:30'},
-  {side: 'left', text: 'ketauan😭😭😭😭', ts: '16:30'},
-  {side: 'right', text: 'NAH KAN ANJIR', ts: '16:31'},
-  {side: 'left', text: 'yauda maap ya😔🙏🏻', ts: '16:33'},
-  {side: 'right', text: 'tida mau', ts: '16:34'},
-  {side: 'left', text: 'pliss', ts: '16:34'},
-  {side: 'left', text: 'nnti paketnya aku kasih free ongkir deh', ts: '16:34'},
-  {side: 'right', text: 'apakh ini ril', ts: '16:36'},
-  {side: 'left', text: 'SANGAT RILL SEKALI', ts: '16:37'},
-  {side: 'right', text: 'ok tengs ya dik', ts: '17:15'},
-  {side: 'left', text: 'iya kak, dimaafin ga ni kak?', ts: '17:16'},
-  {side: 'right', text: 'iya dimaapin dek', ts: '17:17'},
-  {side: 'left', text: 'anjayy gitu dong', ts: '18:47'},
-  {side: 'left', text: '📞Panggilan Tak Terjawab', ts: '18:47'},
-  {side: 'left', text: 'eh kepencet', ts: '18:50'},
-  {side: 'right', text: '[STICKER]', ts: '19:21'},
-  {side: 'right', text: 'iyaa', ts: '19:21'},
-  {side: 'left', text: 'wanginyaaa', ts: '19:22'},
-  {side: 'left', text: 'baru mandi?', ts: '19:22'},
-  {side: 'right', text: 'HA KO TAU', ts: '19:22'},
-  {side: 'left', text: 'UDAH DIBILANG KAN?', ts: '19:23'},
-  {side: 'right', text: 'woi anjir la', ts: '19:23'},
-  {side: 'left', text: 'HAHAHAHA', ts: '19:24'},
-  {side: 'left', text: 'LUCU BANGET LOH REK🤓', ts: '19:24'},
-  {side: 'right', text: 'ktauan bgt ya off nya buat mandi😭', ts: '19:24'},
-  {side: 'left', text: 'ya iya lah', ts: '19:25'},
-  {side: 'right', text: '😞😞', ts: '19:27'},
-  {side: 'left', text: 'ga keluar dek?', ts: '20:02'},
-  {side: 'right', text: '🚫Pesan Telah Dihapus🚫', ts: '20:03'},
-  {side: 'right', text: 'EH SALKIR', ts: '20:03'},
-  {side: 'right', text: 'ga, td uda', ts: '20:03'},
-  {side: 'left', text: 'salkir itu yang tingkah orang aneh liat crush nya bukan?', ts: '20:04'},
-  {side: 'left', text: 'kemana?', ts: '20:04'},
-  {side: 'right', text: 'salting itumah', ts: '20:05'},
-  {side: 'right', text: 'krumaa temen', ts: '20:05'},
-  {side: 'left', text: 'oh iyaa', ts: '20:08'},
-  {side: 'left', text: 'kirain salkir', ts: '20:08'},
-  {side: 'left', text: 'loh kirain muter2 sampe puyeng', ts: '20:09'},
-  {side: 'right', text: '[STICKER (PEMUDA LUCU)]', ts: '20:11'},
-  {side: 'right', text: 'niatnya si gitu', ts: '20:11'},
-  {side: 'left', text: 'kenapa gajadi?', ts: '20:12'},
-  {side: 'right', text: 'mager dek', ts: '20:13'},
-  {side: 'left', text: 'dari kapan?', ts: '20:14'},
+// Ganti path/URL gambar di sini!
+const STICKER_URL = "https://cdn.jsdelivr.net/gh/twemoji/twemoji@14.0.2/assets/svg/1f92c.svg"; // Emoji 🤬 untuk placeholder sticker
+const IMAGE_URL_1 = "https://picsum.photos/id/401/300/300"; // Ganti dengan foto kamu
+const IMAGE_URL_2 = "https://picsum.photos/id/237/300/300"; // Ganti dengan foto kamu lainnya
+
+const whatsappChat = [
+  {type: 'text', side: 'left', content: 'kiw kiw', ts: '16:09'},
+  {type: 'text', side: 'right', content: 'tkg paket kah?', ts: '16:10'},
+  {type: 'text', side: 'left', content: 'iya mau nganter paket ini', ts: '16:10'},
+  {type: 'image', side: 'right', content: IMAGE_URL_1, caption: 'Ihh lucu banget yaaa foto ini. Aku upload di sini hihi!', ts: '16:15'},
+  {type: 'sticker', side: 'left', content: STICKER_URL, ts: '16:16'},
+  {type: 'text', side: 'right', content: 'km intel kah😞😞', ts: '16:28'},
+  {type: 'text', side: 'left', content: 'YAHHH\nketauan😭😭😭😭', ts: '16:30'}, // \n akan menjadi <br>
+  {type: 'text', side: 'right', content: 'NAH KAN ANJIR', ts: '16:31'},
+  {type: 'text', side: 'left', content: 'yauda maap ya😔🙏🏻', ts: '16:33'},
+  {type: 'audio', side: 'right', content: '0:15', ts: '16:34'}, // Voice Note Placeholder
+  {type: 'text', side: 'left', content: 'pliss\nnnti paketnya aku kasih free ongkir deh', ts: '16:34'},
+  {type: 'image', side: 'left', content: IMAGE_URL_2, caption: 'Ini foto kita pas jalan² pertama kali, malu tapi mau 😜', ts: '17:10'},
+  {type: 'deleted', side: 'right', content: 'Pesan Telah Dihapus', ts: '20:03'},
+  {type: 'text', side: 'right', content: 'EH SALKIR', ts: '20:03'},
+  {type: 'text', side: 'left', content: 'salkir itu yang tingkah orang aneh liat crush nya bukan?', ts: '20:04'},
+  {type: 'text', side: 'left', content: 'kemana?', ts: '20:04'},
+  {type: 'text', side: 'right', content: 'salting itumah', ts: '20:05'},
 ];
 
 function populateChat(chatBodyElement){
   chatBodyElement.innerHTML = '';
-  demoChat.forEach(m=>{
-    const wrap = document.createElement('div');
-    wrap.className = 'bubble ' + (m.side === 'right' ? 'right' : 'left');
-    const txt = document.createElement('div');
-    txt.className = 'txt';
-    txt.textContent = m.text;
-    const ts = document.createElement('div');
-    ts.className = 'ts';
-    ts.textContent = m.ts;
+  
+  // Fungsi untuk membuat elemen HTML dengan class tertentu
+  const createEl = (tag, className) => {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      return el;
+  }
+
+  whatsappChat.forEach(m => {
+    const wrap = createEl('div', `bubble ${m.side} ${m.type}`); 
+    const txt = createEl('div', 'txt');
+    
+    let contentHTML = '';
+
+    if (m.type === 'image' || m.type === 'sticker') {
+        const media = createEl('div', 'media-content');
+        const img = createEl('img');
+        img.src = m.content;
+        img.alt = m.type === 'image' ? (m.caption || 'Photo') : 'Sticker';
+        
+        media.appendChild(img);
+        contentHTML += media.outerHTML;
+
+        if (m.caption && m.type === 'image') {
+            contentHTML += `<p class="caption">${m.caption}</p>`;
+        }
+        
+    } else if (m.type === 'audio') {
+        // Voice Note
+        contentHTML = `<span style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.5rem;">🎙️</span> 
+                        Voice Note (${m.content})
+                      </span>`;
+    } else if (m.type === 'deleted') {
+        // Deleted Message
+        contentHTML = `<em>🚫 ${m.content}</em>`;
+    } else {
+        // Text Message, replace \n with <br>
+        contentHTML = m.content.replace(/\n/g, '<br>');
+    }
+    
+    txt.innerHTML = contentHTML;
+
+    // Time Stamp and Status (Read/Sent)
+    const ts = createEl('div', 'ts');
+    
+    // Status (double checkmark for 'right' side)
+    const readReceipt = m.side === 'right' ? '<span style="color: var(--wa-sent); margin-left: 4px;">✓✓</span>' : '';
+    
+    // Posisikan waktu di dalam bubble (menggunakan CSS absolute)
+    ts.innerHTML = `${m.ts}${readReceipt}`;
+
+    // Append elements
+    txt.appendChild(ts); // Masukkan timestamp ke dalam bubble text
     wrap.appendChild(txt);
-    wrap.appendChild(ts);
     chatBodyElement.appendChild(wrap);
   });
+  
+  // Auto scroll ke bawah setelah chat dimuat
   chatBodyElement.scrollTop = chatBodyElement.scrollHeight;
 }
 
@@ -183,11 +195,14 @@ function initCarousel(carouselTrack) {
     let autoSlideTimer;
     let currentIndex = 0;
     
-    const slideWidth = slides[0].offsetWidth + 20; // 20 adalah gap
-
+    // Gunakan scrollWidth untuk mengukur jarak slide
+    const slideGap = 20; // Sesuai dengan CSS gap
+    
     function updateActiveSlide() {
         const scrollLeft = carouselTrack.scrollLeft;
-        const centerIndex = Math.round(scrollLeft / slideWidth); 
+        // Hitung indeks tengah dengan memperhitungkan lebar slide + gap
+        const slideWidth = slides[0].offsetWidth; 
+        const centerIndex = Math.round(scrollLeft / (slideWidth + slideGap)); 
 
         slides.forEach((slide, idx) => {
           if (idx === centerIndex) {
@@ -200,11 +215,15 @@ function initCarousel(carouselTrack) {
     }
 
     function nextSlide() {
-        currentIndex = (currentIndex + 1) % slides.length;
+        // Hitung jarak scroll untuk slide berikutnya
+        const slideWidth = slides[0].offsetWidth; 
+        const nextIndex = (currentIndex + 1) % slides.length;
+        
         carouselTrack.scroll({
-            left: currentIndex * slideWidth,
+            left: nextIndex * (slideWidth + slideGap),
             behavior: 'smooth'
         });
+        
         // Update active class setelah animasi scroll selesai
         setTimeout(updateActiveSlide, 450); 
     }
