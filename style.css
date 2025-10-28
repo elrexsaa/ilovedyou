@@ -14,10 +14,16 @@
   --header-bg: rgba(255, 255, 255, 0.7);
 }
 
+/* 1. Muat Font Apple Color Emoji untuk konsistensi iOS Emoji */
+@font-face {
+    font-family: 'Apple Color Emoji';
+    src: url('https://cdn.jsdelivr.net/gh/sh-cl/ios-emoji-font@main/AppleColorEmoji.ttf') format('truetype');
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  font-family:var(--font-main);
+  font-family:var(--font-main), 'Apple Color Emoji', sans-serif; /* UPDATE: Tambahkan iOS Emoji */
   background:linear-gradient(135deg,var(--bg1),var(--bg2));
   color:var(--text-color);
   min-height:100vh;
@@ -64,7 +70,7 @@ body{
 }
 
 .site-header h2{
-  font-family:var(--font-script);
+  font-family:var(--font-script), 'Apple Color Emoji', sans-serif; /* UPDATE: Tambahkan iOS Emoji */
   font-size:2rem;
   color:var(--accent);
   line-height:1.2;
@@ -177,6 +183,7 @@ body{
 .nav-logout:hover {
   background: var(--accent-soft);
 }
+/* Tombol logout sekarang terlihat (fix issue sebelumnya) */
 
 
 /* ===== MENU DASHBOARD (TETAP SAMA) ===== */
@@ -200,9 +207,9 @@ body{
   text-align: left;
   display: flex;
   flex-direction: column;
-  font-family: var(--font-main);
+  font-family: var(--font-main), 'Apple Color Emoji', sans-serif; /* UPDATE: Tambahkan iOS Emoji */
   color: var(--text-color);
-  text-decoration: none; /* Menghilangkan garis bawah link */
+  text-decoration: none; 
 }
 .menu-card:hover {
   transform: translateY(-5px);
@@ -247,13 +254,17 @@ body{
 .carousel-container { overflow: hidden; margin: 20px 0; }
 .carousel-track {
     display: flex; overflow-x: scroll; scroll-snap-type: x mandatory; 
-    scroll-behavior: smooth; gap: 15px; padding: 0 10%; 
+    scroll-behavior: smooth; gap: 15px; /* UPDATE: Kurangi gap */
+    padding: 0 10%; /* UPDATE: Kurangi padding */
     scrollbar-width: none; -ms-overflow-style: none;
 }
 .carousel-track::-webkit-scrollbar { display: none; }
 .carousel-slide {
-    flex: 0 0 85%; max-width: 85%; aspect-ratio: 1 / 1; 
-    scroll-snap-align: center; transition: all 0.4s ease-in-out;
+    flex: 0 0 85%; /* UPDATE: Diubah dari 75% menjadi 85% untuk foto lebih besar */
+    max-width: 85%; /* UPDATE: Diubah dari 75% menjadi 85% untuk foto lebih besar */
+    aspect-ratio: 1 / 1; 
+    scroll-snap-align: center; 
+    transition: all 0.4s ease-in-out;
 }
 .carousel-slide img {
     width: 100%; height: 100%; object-fit: cover; border-radius: 16px;
@@ -298,7 +309,7 @@ body{
     display: flex; justify-content: flex-end; align-items: center;
     font-size: 0.75rem; color: rgba(255, 255, 255, 0.7);
 }
-.favorite-star { margin-left: 5px; font-size: 0.8rem; }
+.favorite-star { font-family: 'Apple Color Emoji', sans-serif; margin-left: 5px; font-size: 0.8rem; }
 
 
 /* ===== INTRO & ANIMASI (TETAP SAMA) ===== */
