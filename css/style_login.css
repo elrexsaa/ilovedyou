@@ -1,0 +1,143 @@
+/* ============================================================= */
+/* File: love/css/style_login.css */
+/* ============================================================= */
+@import url('style_general.css');
+
+body {
+    background: linear-gradient(135deg, #FFC0CB 0%, #FF69B4 100%); /* Gradient Romantis */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+main#loginPage {
+    min-height: auto;
+    padding: 0;
+    margin: 0;
+    max-width: 400px;
+    width: 100%;
+}
+
+.login-card {
+    background-color: var(--color-card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.login-card h2 {
+    font-size: 2.5rem;
+    font-family: var(--font-script);
+    color: var(--color-secondary);
+    margin-bottom: 10px;
+}
+
+.login-card p {
+    color: var(--color-text-muted);
+    margin-bottom: 25px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#passwordInput {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+#passwordInput:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    cursor: pointer;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.login-btn:hover {
+    background-color: var(--color-secondary);
+}
+.login-btn:active {
+    transform: scale(0.98);
+}
+
+.hint-text {
+    font-size: 0.85rem;
+    margin-top: 15px;
+    color: var(--color-text-muted);
+}
+.hint-text a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Animasi Shake (Bug Fix) */
+.shake-effect {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Loading Page */
+#loadingPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-primary);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    z-index: 3000;
+}
+.chibi-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
