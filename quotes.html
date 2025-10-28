@@ -8,37 +8,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <link rel="stylesheet" href="style_general.css">
-  <link rel="stylesheet" href="style_chat.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style_general.css">
+  <link rel="stylesheet" href="css/style_chat.css">
   
   <style>
-    /* Override untuk kontainer quotes agar mirip WA */
+    /* Override agar mirip WA, tapi tetap di dalam main container */
     #quotes-container main {
-        padding: 20px 10px;
+        padding: 0;
         background-color: var(--wa-bg); /* Background WA */
-        min-height: calc(100vh - 60px);
+        min-height: calc(100vh - var(--nav-height));
+        box-shadow: none;
+        max-width: 100%; /* Agar full width di dalam main */
+    }
+    
+    .quotes-intro {
+        padding: 20px;
+        background-color: var(--color-card-bg);
+        box-shadow: var(--color-shadow-light);
+        margin-bottom: 10px;
+        border-radius: 0 0 10px 10px;
+    }
+    
+    /* Style untuk bubble favorit (mirip chat bubble, tapi khusus untuk Quotes) */
+    .fav-chat-bubble {
+        display: inline-block;
+        max-width: 85%;
+        padding: 10px 12px;
+        margin: 8px 15px;
+        border-radius: 10px;
+        line-height: 1.4;
+        position: relative;
+        box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+        background-color: #DCF8C6; /* WA Right Bubble */
+        border-top-right-radius: 0;
+        float: right;
+    }
+    
+    /* Bersihkan float */
+    .chat-body::after {
+        content: "";
+        display: table;
+        clear: both;
     }
   </style>
 </head>
 <body>
-  <audio id="bgm" src="audio.mp3" loop></audio>
+  <audio id="bgm" src="sound/audio.mp3" loop></audio>
   <button id="bgm-toggle" aria-label="Toggle Background Music">🔇</button>
   
   <div class="bg-hearts"></div>
 
   <div id="quotes-container">
     <main class="hidden">
-      <header class="header-main show">
+      <header class="quotes-intro">
         <h1>💖 Chat Favorit Kita</h1>
-        <p>Kata-kata yang paling aku suka dari kamu, Sayang.</p>
+        <p style="color: var(--color-text-main);">Kata-kata yang paling aku suka dari kamu, Sayang. Semua ini penyemangatku.</p>
       </header>
 
-      <section id="sectionQuotes" class="content-section show" style="background-color: transparent; box-shadow: none;">
-        <p style="color: var(--color-text-main); text-align: center; margin-bottom: 15px;">kalo chat dari kamu yang paling aku suka ini, ngga ngerti lagi deh, kamu sweet banget. makasi udah mau jadi pacar aku yaa!</p>
+      <section id="sectionQuotes" style="padding: 10px 0;">
+        <p style="color: var(--color-text-main); text-align: center; margin: 15px 10px;">kalo chat dari kamu yang paling aku suka ini, ngga ngerti lagi deh, kamu sweet banget. makasi udah mau jadi pacar aku yaa!</p>
 
-        <div class="chat-body" style="padding: 10px 0;">
-
+        <div class="chat-body">
+            
           <div class="fav-chat-bubble right">
             <div class="text">yasudaa intinyaa km bisaa, AKUUU YAKINN SAYANGGKU...</div>
             <div class="meta">
@@ -47,7 +78,7 @@
               <span class="checkmark read"><i class="fas fa-check-double"></i></span>
             </div>
           </div>
-
+            
           <div class="fav-chat-bubble right">
             <div class="text">oalaa, kalo suda ngampus masuk biasa semangatt buat ngejalanin nya yaa, capai smua yg km critain aku pokokna hrs tauu klo km berhasill</div>
             <div class="meta">
@@ -74,6 +105,9 @@
               <span class="checkmark read"><i class="fas fa-check-double"></i></span>
             </div>
           </div>
+            
+          <p style="clear: both; padding-top: 20px; font-size: 0.9rem; color: var(--color-text-muted); text-align: center;">-- Terakhir Diperbarui: 29 Oktober --</p>
+            
         </div>
       </section>
     </main>
@@ -106,6 +140,7 @@
     </a>
   </nav>
 
-  <script src="animasi.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/animasi.js"></script>
 </body>
 </html>
