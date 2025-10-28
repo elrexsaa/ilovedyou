@@ -1,11 +1,11 @@
 /* --- MULAI COPY PASTE SELURUHNYA KE FILE style_index.css --- */
 :root {
-    --bg1: #fcecf0; /* Background Lebih Soft */
+    --bg1: #fcecf0; /* Background Lebih Soft & Hangat */
     --bg2: #ffe6f2;
-    --accent: #ff6fb5; /* Pink Utama */
-    --glass-card: rgba(255, 255, 255, 0.95);
+    --accent: #ff6fb5; /* Pink Utama (Romantis) */
+    --glass-card: rgba(255, 255, 255, 0.9); /* Sedikit lebih transparan */
     --muted: #806b72;
-    --shadow: 0 12px 32px rgba(200, 100, 150, 0.15); /* Shadow lebih soft */
+    --shadow: 0 10px 30px rgba(255, 105, 180, 0.15); /* Shadow lebih soft dan romantis (pink base) */
     --input-focus: #ffc2e4;
     --text-color: #2f1e2b;
     --font-main: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -35,7 +35,7 @@ body {
     position: relative; 
 }
 
-/* Container Halaman */
+/* Container Halaman (Responsif) */
 .page--center {
     width: 100%;
     max-width: 400px;
@@ -57,7 +57,19 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.6); 
     position: relative;
     z-index: 10;
+    transition: transform 0.2s ease;
 }
+
+.login-card.shake-effect {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% {transform: translateX(0);}
+  20%, 60% {transform: translateX(-10px);}
+  40%, 80% {transform: translateX(10px);}
+}
+
 
 .login-card h1 {
     font-size: 1.8rem;
@@ -76,6 +88,7 @@ body {
     margin-bottom: 1rem;
     animation: pulse 2s infinite;
 }
+
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -85,77 +98,95 @@ body {
 /* Input Group */
 .input-group {
     text-align: left;
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px; 
 }
 
 .input-group label {
     display: block;
-    font-size: 0.9rem;
+    margin-bottom: 8px;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
     color: var(--text-color);
 }
 
-#password {
+.input-group input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #ccc;
+    border: 1px solid rgba(200, 100, 150, 0.2); 
     border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-align: center;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    outline: none;
-    background: white;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.8); 
+    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
-#password:focus {
+.input-group input:focus {
+    outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--input-focus);
+    background: #ffffff;
 }
 
-/* Button */
-.btn {
+/* === FITUR BARU: PASSWORD TOGGLE === */
+.password-toggle-container {
+    position: relative;
+    display: flex; 
+    align-items: center; 
+}
+
+.password-toggle-container input {
+    padding-right: 45px; /* Tambahkan ruang untuk tombol */
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 5px; 
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    color: var(--muted); 
+    font-size: 1rem;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    z-index: 20; 
+}
+
+.toggle-password-btn:hover {
+    color: var(--accent); 
+    opacity: 0.9;
+}
+/* === AKHIR PASSWORD TOGGLE === */
+
+/* Tombol Masuk */
+#loginButton {
     width: 100%;
     padding: 14px;
+    background: var(--accent);
+    color: white;
     border: none;
     border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
+    transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 111, 181, 0.4);
+    margin-top: 10px; 
 }
 
-.btn-primary {
-    background-color: var(--accent);
-    color: white;
+#loginButton:hover {
+    background: #e65c9c; /* Warna lebih gelap saat hover */
+    box-shadow: 0 8px 20px rgba(255, 111, 181, 0.5);
+    transform: translateY(-2px);
 }
 
-.btn-primary:hover {
-    background-color: #e55fa4;
-    transform: translateY(-1px);
-}
-
-/* Animasi Gagal (Shake Effect) */
-.shake-effect {
-    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
-@keyframes shake {
-  10%, 90% { transform: translate3d(-1px, 0, 0); }
-  20%, 80% { transform: translate3d(+2px, 0, 0); }
-  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-  40%, 60% { transform: translate3d(+4px, 0, 0); }
-}
-
-
-/* Pop-up Verifikasi */
+/* Pesan Verifikasi */
 .verify-frame {
     position: absolute;
-    top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%; /* Awalnya terpusat */
     padding: 10px 20px;
     border-radius: 15px;
     color: white;
@@ -171,7 +202,7 @@ body {
 .verify-frame[hidden] {
     opacity: 0;
     pointer-events: none;
-    transform: translate(-50%, -60%); 
+    transform: translate(-50%, -60%); /* Animasi keluar ke atas */
 }
 .verify-frame:not([hidden]) {
     opacity: 1;
@@ -179,10 +210,10 @@ body {
 }
 
 .verify-frame.ok { 
-    background: #4CAF50;
+    background: #4CAF50; /* Green */
 } 
 .verify-frame.fail { 
-    background: #F44336;
+    background: #F44336; /* Red */
 } 
 .verify-icon { 
     font-size: 1.2rem; 
@@ -198,32 +229,10 @@ body {
     color: var(--accent);
     text-decoration: none;
     font-weight: 700;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s ease;
 }
 .hint-text a:hover {
     opacity: 0.8;
 }
 
-/* Loading Page */
-#loadingPage {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, var(--bg1), var(--bg2));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-#loadingPage[aria-hidden="false"] {
-    opacity: 1;
-    z-index: 999;
-}
-#typingText {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-top: 15px;
-    color: var(--text-color);
-}
 /* --- AKHIR COPY PASTE SELURUHNYA KE FILE style_index.css --- */
