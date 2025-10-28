@@ -3,7 +3,7 @@
     --bg1: #fcecf0; /* Background Lebih Soft */
     --bg2: #ffe6f2;
     --accent: #ff6fb5; /* Pink Utama */
-    --glass-card: rgba(255, 255, 255, 0.95); /* Lebih Solid */
+    --glass-card: rgba(255, 255, 255, 0.95);
     --muted: #806b72;
     --shadow: 0 12px 32px rgba(200, 100, 150, 0.15); /* Shadow lebih soft */
     --input-focus: #ffc2e4;
@@ -37,113 +37,136 @@ body {
 
 /* Container Halaman */
 .page--center {
+    width: 100%;
+    max-width: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    min-height: 100%;
+    min-height: 100vh;
 }
 
-/* Card Login */
-.card {
+/* Kartu Login: Elegan dan Profesional */
+.card.login-card {
     background: var(--glass-card);
-    border-radius: 16px;
-    padding: 2.5rem 1.5rem;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
     box-shadow: var(--shadow);
-    width: 100%;
-    max-width: 380px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.6); 
+    position: relative;
+    z-index: 10;
 }
 
 .login-card h1 {
-    font-size: 2.5rem;
-    color: var(--accent);
+    font-size: 1.8rem;
     font-weight: 800;
-    margin-top: 10px;
     margin-bottom: 0.5rem;
-}
-.muted {
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-bottom: 2rem;
+    color: var(--accent); 
 }
 
-/* Form Styling */
-.input-group {
+.login-card .subtitle {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.chibi-icon {
+    font-size: 3rem;
     margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
-input[type="password"] {
+/* Input Group */
+.input-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+#password {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid transparent;
+    border: 2px solid #ccc;
     border-radius: 10px;
-    font-size: 1rem;
-    background: #f0f0f0;
-    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    transition: border-color 0.3s, box-shadow 0.3s;
     outline: none;
-    transition: all 0.3s ease;
+    background: white;
 }
 
-input[type="password"]:focus {
+#password:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--input-focus);
-    background: #ffffff;
 }
 
-button {
+/* Button */
+.btn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     border: none;
     border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 700;
-    background: var(--accent);
-    color: #ffffff;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.1s;
-    box-shadow: 0 4px 10px rgba(255, 111, 181, 0.4);
+    transition: background-color 0.3s, transform 0.1s;
 }
 
-button:hover {
-    background: #f05e9e;
+.btn-primary {
+    background-color: var(--accent);
+    color: white;
 }
 
-/* Chibi Icon */
-.chibi-icon {
-    font-size: 3rem;
-    margin-bottom: 10px;
+.btn-primary:hover {
+    background-color: #e55fa4;
+    transform: translateY(-1px);
 }
 
-/* Shake Effect (Untuk Password Salah) */
+/* Animasi Gagal (Shake Effect) */
 .shake-effect {
-    animation: shake 0.5s;
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(+2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(+4px, 0, 0); }
 }
 
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
 
 /* Pop-up Verifikasi */
 .verify-frame {
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-    padding: 15px 25px;
-    border-radius: 10px;
+    padding: 10px 20px;
+    border-radius: 15px;
     color: white;
-    font-weight: 600;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    z-index: 100;
     transition: opacity 0.3s ease, transform 0.3s ease;
     min-width: 280px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .verify-frame[hidden] {
     opacity: 0;
@@ -154,16 +177,31 @@ button:hover {
     opacity: 1;
     transform: translate(-50%, -50%);
 }
-.verify-frame.ok { background: #4CAF50; } 
-.verify-frame.fail { background: #F44336; } 
-.verify-icon { font-size: 1.2rem; }
 
-/* Footer Hint */
+.verify-frame.ok { 
+    background: #4CAF50;
+} 
+.verify-frame.fail { 
+    background: #F44336;
+} 
+.verify-icon { 
+    font-size: 1.2rem; 
+}
+
+/* Footer Hint/Contact */
 .hint-text {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: var(--muted);
     margin-top: 2rem;
-    line-height: 1.5;
+}
+.hint-text a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    transition: opacity 0.2s;
+}
+.hint-text a:hover {
+    opacity: 0.8;
 }
 
 /* Loading Page */
@@ -180,17 +218,12 @@ button:hover {
 }
 #loadingPage[aria-hidden="false"] {
     opacity: 1;
-    z-index: 9999;
+    z-index: 999;
 }
 #typingText {
-    font-family: var(--font-main);
     font-size: 1.2rem;
-    color: var(--text-color);
+    font-weight: 700;
     margin-top: 15px;
-    font-weight: 500;
-    min-height: 1.5rem;
-}
-.fa-beat {
-    animation: fa-beat 1s infinite;
+    color: var(--text-color);
 }
 /* --- AKHIR COPY PASTE SELURUHNYA KE FILE style_index.css --- */
