@@ -5,7 +5,7 @@
 const AUTH_KEY = 'auth_granted';
 const LOGIN_PAGE = 'index.html';
 const START_DATE = new Date('2024-08-03T00:00:00'); 
-const ANNIVERSARY_DATE_STR = 'November 01, 2025 00:00:00'; // UBAH TAHUN SESUAI RENCANA ANNIV!
+const ANNIVERSARY_DATE_STR = '2024-11-01T00:00:00'; // UBAH TAHUN SESUAI RENCANA ANNIV!
 const ANNIVERSARY_DATE = new Date(ANNIVERSARY_DATE_STR).getTime(); 
 
 
