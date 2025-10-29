@@ -1,56 +1,81 @@
 <h1 align="center">💌 i loved you</h1>
 
 <p align="center">
-  <i>a simple yet meaningful web project about memories, love, and feelings.</i><br>
-  built with 💖 html, css, and js — designed to look and feel like a private chatroom of emotions.
+  <img src="https://i.imgur.com/ZpQzXTx.gif" alt="love banner" width="80%">
+</p>
+
+<p align="center">
+  <i>a minimalist web about love, memories, and feelings — designed like a chat you never wanted to end.</i>
+</p>
+
+<p align="center">
+  <a href="https://github.com/elrexsaa/ilovedyou/stargazers"><img src="https://img.shields.io/github/stars/elrexsaa/ilovedyou?color=ffb6c1&style=for-the-badge" alt="stars"></a>
+  <a href="https://github.com/elrexsaa/ilovedyou/network/members"><img src="https://img.shields.io/github/forks/elrexsaa/ilovedyou?color=ffb6c1&style=for-the-badge" alt="forks"></a>
+  <a href="https://github.com/elrexsaa/ilovedyou/issues"><img src="https://img.shields.io/github/issues/elrexsaa/ilovedyou?color=ffb6c1&style=for-the-badge" alt="issues"></a>
+  <a href="https://github.com/elrexsaa/ilovedyou/blob/main/LICENSE"><img src="https://img.shields.io/github/license/elrexsaa/ilovedyou?color=ffb6c1&style=for-the-badge" alt="license"></a>
 </p>
 
 ---
 
 ### 🌸 preview
-<p align="center">
-  <img src="https://github.com/elrexsaa/ilovedyou/assets/preview.png" alt="ilovedyou preview" width="80%">
-</p>
+
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/elrexsaa/ilovedyou/assets/preview-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/elrexsaa/ilovedyou/assets/preview-light.png">
+    <img src="https://github.com/elrexsaa/ilovedyou/assets/preview-light.png" alt="ilovedyou preview" width="80%">
+  </picture>
+</div>
 
 ---
 
-### 🧠 about this project
-**ilovedyou** is a personal website project that captures the feeling of nostalgia and love through a minimalist chat-style interface.  
-every detail — from the gradient tones to the chat bubbles — was crafted to feel warm and emotional.
+### 💭 about
 
-**features:**
-- 💬 realistic chat interface
-- 💟 animated heart particles
-- 🎵 background music toggle
-- 📱 responsive design for all devices
-- ⭐ favorite message feature
+**i loved you** is a small emotional project that turns digital nostalgia into something beautiful.  
+it feels like opening old messages — quiet, soft, and bittersweet.  
+
+#### ✨ features
+- 💬 real chat-style ui  
+- 💟 floating hearts & soft gradients  
+- 🎵 background music toggle  
+- ⭐ favorite message feature  
+- 📱 responsive for mobile & pc  
 
 ---
 
-### ⚙️ setup
-1. clone repo ini
-   ```bash
-   git clone https://github.com/elrexsaa/ilovedyou.git
-   cd ilovedyou
-2.	buka file index.html langsung di browser
-(no server setup needed — pure front-end)
+### ⚙️ how to use
+
+```bash
+git clone https://github.com/elrexsaa/ilovedyou.git
+cd ilovedyou
+```
+
+then just open index.html in your browser.
+
+no backend, no build tools — only html, css, js, and emotions.
+
+⸻
 
 🎨 design concept
 
-“every bubble tells a story,
-and every animation carries a memory.”
+“you don’t stop loving someone.
+you just learn to live with the distance.”
 
-the main inspiration is from digital diary vibes — a mix of love, melancholy, and simplicity. soft pink tones meet chat ui layout for a personal touch.
+aesthetic pink tones, glowing hearts, and floating animations — all meant to recreate that “love chatroom” energy from memories you never deleted.
 
-⸻
-
-🚀 live demo
-
-👉 open website
-
-⸻
+<p align="center">
+  <audio controls autoplay loop>
+    <source src="audio.mp3" type="audio/mpeg">
+    your browser does not support the audio element.
+  </audio>
+</p>
 
 🧑‍💻 author
 
 @elrexsaa
-created with heart and late-night feelings 💗
+made with 💕, caffeine, and 2 a.m. thoughts.
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=ffb6c1&height=120&section=footer&text=thank%20you%20for%20visiting%20💗&fontColor=fff&fontSize=25&animation=fadeIn" alt="footer banner"/>
+</p>
+```
