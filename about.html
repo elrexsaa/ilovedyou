@@ -88,8 +88,18 @@
     }
   </style>
 </head>
+</head>
 <body>
-  <audio id="bgm" src="sound/audio.mp3" loop></audio>
+  
+  <script>
+      const AUTH_KEY = 'auth_granted';
+      const LOGIN_PAGE = 'index.html';
+      
+      if (sessionStorage.getItem(AUTH_KEY) !== 'true') {
+          window.location.replace(LOGIN_PAGE);
+      }
+  </script>
+  <audio id="bgm" src="audio.mp3" loop></audio>
   <button id="bgm-toggle" aria-label="Toggle Background Music">🔇</button>
   
   <div class="bg-hearts"></div>
