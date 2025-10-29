@@ -5,8 +5,30 @@
 const AUTH_KEY = 'auth_granted';
 const LOGIN_PAGE = 'index.html';
 const START_DATE = new Date('2024-08-03T00:00:00'); 
-const ANNIVERSARY_DATE_STR = '2024-11-01T00:00:00'; // UBAH TAHUN SESUAI RENCANA ANNIV!
-const ANNIVERSARY_DATE = new Date(ANNIVERSARY_DATE_STR).getTime(); 
+const ANNIVERSARY_DAY = 1; // Tanggal Hari Jadi
+const ANNIVERSARY_MONTH = 10; // Bulan Hari Jadi (10 = November, karena Januari = 0)
+
+
+// Fungsi untuk menghitung tanggal hari jadi berikutnya
+function getNextAnniversary() {
+    const today = new Date();
+    // Atur tanggal anniv untuk tahun ini
+    let nextAnniv = new Date(today.getFullYear(), ANNIVERSARY_MONTH, ANNIVERSARY_DAY, 0, 0, 0);
+
+    // Jika hari ini sudah melewati tanggal anniv tahun ini, atur ke tahun depan
+    // Pengecualian: jangan pindah ke tahun depan jika hari ini adalah Hari H.
+    if (today.getTime() > nextAnniv.getTime() && (today.getDate() !== ANNIVERSARY_DAY || today.getMonth() !== ANNIVERSARY_MONTH)) {
+        nextAnniv.setFullYear(today.getFullYear() + 1);
+    }
+    
+    // Cek apakah hari ini SANGAT SPESIFIK adalah tanggal anniv (untuk trigger animasi)
+    const isTodayAnniversary = today.getDate() === ANNIVERSARY_DAY && today.getMonth() === ANNIVERSARY_MONTH;
+
+    return {
+        date: nextAnniv.getTime(),
+        isTodayAnniversary: isTodayAnniversary
+    };
+}
 
 
 // -----------------------------------------------------------------
@@ -24,15 +46,19 @@ function updateDaysCount() {
     }
 }
 
+let timerInterval;
+
 function updateAnniversaryCountdown() {
     const now = new Date().getTime();
+    const annivData = getNextAnniversary();
+    const ANNIVERSARY_DATE = annivData.date;
     const distance = ANNIVERSARY_DATE - now;
     const countdownElement = document.getElementById("anniversaryCountdown");
 
     if (!countdownElement) return;
 
-    // Cek jika sudah hari H
-    if (distance <= 0) {
+    // FIX KRITIS ANNIV LEAK: Cek Hari H secara spesifik dan pastikan hitungan sudah kurang dari 24 jam.
+    if (annivData.isTodayAnniversary && distance < 24 * 60 * 60 * 1000) { 
         clearInterval(timerInterval);
         countdownElement.innerHTML = "🎉 **HARI JADI KITA!** 🎉";
         countdownElement.classList.add('anniversary-reached');
@@ -42,32 +68,79 @@ function updateAnniversaryCountdown() {
         return;
     }
 
-    // Perhitungan waktu
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    if (distance > 0) {
+        // Perhitungan waktu normal
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    countdownElement.innerHTML = `<span class="countdown-value">${days}</span> Hari : <span class="countdown-value">${hours}</span> Jam : <span class="countdown-value">${minutes}</span> Menit : <span class="countdown-value">${seconds}</span> Detik`;
+        countdownElement.innerHTML = `<span class="countdown-value">${days}</span> Hari : <span class="countdown-value">${hours}</span> Jam : <span class="countdown-value">${minutes}</span> Menit : <span class="countdown-value">${seconds}</span> Detik`;
+    } 
 }
-
-let timerInterval;
 
 function showAnniversaryAnimation() {
     const overlay = document.getElementById('anniversary-overlay');
     const mainContent = document.querySelector('main');
     
     if (overlay) {
-        // Sembunyikan konten utama, tampilkan overlay
         if (mainContent) mainContent.hidden = true;
         overlay.hidden = false;
-        // Opsional: Tambahkan animasi confetti heboh di sini
+        
+        // Animasi Heboh: Confetti/Emoji Lucu
+        addConfettiEffect(); 
+    }
+}
+
+function addConfettiEffect() {
+    const overlayContent = document.querySelector('#anniversary-overlay .overlay-content');
+    if (overlayContent) {
+        overlayContent.querySelectorAll('.confetti').forEach(c => c.remove());
+        
+        // Emoji lucu, imut, gemes
+        const emojis = ['💖', '🥰', '🐻', '🐰', '💗', '🥳', '😘', '💘'];
+        for (let i = 0; i < 30; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Random positioning dan animasi
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.top = `${Math.random() * 100}%`;
+            confetti.style.transform = `scale(${0.5 + Math.random()})`;
+            confetti.style.animation = `fall ${5 + Math.random() * 5}s linear infinite, shake ${0.5 + Math.random()}s infinite alternate`;
+            overlayContent.appendChild(confetti);
+        }
+        
+        // Tambahkan style animasi confetti
+        if (!document.getElementById('confetti-style')) {
+            const style = document.createElement('style');
+            style.id = 'confetti-style';
+            style.innerHTML = `
+                .confetti {
+                    position: absolute;
+                    font-size: 1.5rem;
+                    opacity: 0.8;
+                    pointer-events: none;
+                }
+                @keyframes fall {
+                    0% { transform: translateY(-100vh); opacity: 0.5; }
+                    100% { transform: translateY(100vh); opacity: 1; }
+                }
+                @keyframes shake {
+                    0% { transform: translateX(0) rotate(0deg); }
+                    50% { transform: translateX(5px) rotate(5deg); }
+                    100% { transform: translateX(-5px) rotate(-5deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
     }
 }
 
 
 // -----------------------------------------------------------------
-// B. INTRO & BGM CONTROL
+// B. INTRO & BGM CONTROL (FIX AUTOPLAY & BLANK PAGE)
 // -----------------------------------------------------------------
 
 function startIntroSequence() {
@@ -75,15 +148,15 @@ function startIntroSequence() {
     const introScreen = document.querySelector('.intro-screen');
     const mainContent = document.querySelector('main');
     const bgm = document.getElementById('bgm');
-
-    // Tampilkan role di header
     const userRoleElement = document.getElementById('userRole');
+
+    // Tampilkan role di header (jika elemen ada)
     if (userRoleElement) {
         const role = sessionStorage.getItem('user_role') || 'Sayang';
-        userRoleElement.textContent = (role === 'NIKITA' ? 'Welcome Back, Nikita!' : 'Hai, ' + role + '!');
+        userRoleElement.textContent = (role === 'NIKITA' ? 'Welcome Back, Nikita Sayangku!' : 'Hai, ' + role + '!');
     }
 
-    // Hanya jalankan intro jika elemen ada
+    // Hanya jalankan intro di kenangan.html
     if (introTextDiv && introScreen) {
         const textToType = "Selamat Datang di Dunia Kita, Sayang! 💗";
         let i = 0;
@@ -102,11 +175,13 @@ function startIntroSequence() {
                         introScreen.style.display = 'none';
                         if(mainContent) mainContent.classList.remove('hidden'); 
                         
-                        // FIX: PUTAR MUSIK OTOMATIS SETELAH INTRO SELESAI
+                        // FIX AUTOPLAY: PUTAR MUSIK OTOMATIS SETELAH INTRO
                         if (bgm && bgm.paused) {
-                            bgm.play().catch(error => {
-                                // Gagal Autoplay (browser memblokir)
-                                console.log("Autoplay blocked. User must interact.");
+                            bgm.play().then(() => {
+                                const bgmToggle = document.getElementById('bgm-toggle');
+                                if(bgmToggle) bgmToggle.innerHTML = '🔊'; 
+                            }).catch(error => {
+                                console.log("Autoplay blocked. User must click.");
                             });
                         }
                     }, 500); 
@@ -115,15 +190,20 @@ function startIntroSequence() {
         }
         typeIntro();
     } else {
-        // Jika tidak ada intro, pastikan main content tampil dan musik jalan
+        // FIX BLANK PAGE: Untuk halaman konten lain, pastikan main content tampil
         if(mainContent) mainContent.classList.remove('hidden');
-        if (bgm && bgm.paused) {
-            bgm.play().catch(error => {});
+        
+        // Putar musik jika status BGM 'playing' dari session sebelumnya
+        if (bgm && bgm.paused && sessionStorage.getItem('bgm_state') === 'playing') {
+             bgm.play().then(() => {
+                const bgmToggle = document.getElementById('bgm-toggle');
+                if(bgmToggle) bgmToggle.innerHTML = '🔊'; 
+            }).catch(error => {});
         }
     }
 }
 
-// BGM Toggle
+// BGM Toggle & Session Storage
 document.addEventListener('DOMContentLoaded', () => {
     const bgm = document.getElementById('bgm');
     const bgmToggle = document.getElementById('bgm-toggle');
@@ -133,15 +213,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (bgm.paused) {
                 bgm.play().then(() => {
                     bgmToggle.innerHTML = '🔊';
+                    sessionStorage.setItem('bgm_state', 'playing');
                 }).catch(error => {
-                    // Autoplay diblokir setelah diklik
                     bgmToggle.innerHTML = '🔇';
+                    sessionStorage.setItem('bgm_state', 'paused');
                 });
             } else {
                 bgm.pause();
                 bgmToggle.innerHTML = '🔇';
+                sessionStorage.setItem('bgm_state', 'paused');
             }
         });
+        
+        // Atur tampilan awal tombol
+        if (sessionStorage.getItem('bgm_state') === 'playing') {
+            const bgmToggle = document.getElementById('bgm-toggle');
+            if(bgmToggle) bgmToggle.innerHTML = '🔊';
+        }
     }
 });
 
@@ -154,7 +242,7 @@ function logout() {
     if (confirm('Yakin ingin keluar, Sayang? 🥺')) {
         sessionStorage.removeItem(AUTH_KEY);
         sessionStorage.removeItem('user_role');
-        // FIX: Menggunakan replace()
+        sessionStorage.removeItem('bgm_state'); 
         window.location.replace(LOGIN_PAGE);
     }
 }
