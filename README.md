@@ -27,24 +27,6 @@ every detail — from the gradient tones to the chat bubbles — was crafted to 
 
 ---
 
-### 🧩 structure
-ilovedyou/
-├── index.html
-├── css/
-│   ├── style_chat.css
-│   ├── style_general.css
-│   ├── style_login.css
-├── js/
-│   ├── script_chat.js
-│   ├── script_general.js
-│   ├── script_login.js
-└── assets/
-├── img/
-├── music/
-└── icons/
-
----
-
 ### ⚙️ setup
 1. clone repo ini
    ```bash
