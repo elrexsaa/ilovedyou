@@ -5,68 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Our Memories Website💕</title>
 
-  <meta property="og:title" content="Our Memories Website💗" />
-  <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
-  <meta property="og:image" content="img/logo.ico" /> 
-  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <link rel="stylesheet" href="css/style_general.css"> 
-  
-  <style>
-    /* Styling khusus kenangan.html */
-    .menu-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 15px;
-        text-align: center;
-    }
-    .menu-item {
-        background: var(--color-primary);
-        color: white;
-        text-decoration: none;
-        padding: 15px 10px;
-        border-radius: 10px;
-        transition: transform 0.2s, box-shadow 0.3s;
-    }
-    .menu-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(255, 105, 180, 0.5);
-    }
-    .menu-icon {
-        font-size: 2rem;
-        display: block;
-        margin-bottom: 5px;
-    }
-    .menu-label {
-        font-weight: 600;
-        font-size: 0.9rem;
-    }
-    
-    #sectionCountdown h3 {
-        color: var(--color-secondary);
-        font-size: 1.5rem;
-    }
-    .countdown-value {
-        font-family: monospace;
-        background-color: #ffc0cb;
-        padding: 4px 8px;
-        border-radius: 4px;
-        margin: 0 3px;
-    }
-    .anniversary-reached {
-        color: #ff00ff !important;
-        animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-  </style>
-</head>
+  <link rel="stylesheet" href="css/style_general.css">
+  <link rel="stylesheet" href="css/style.css"> 
 </head>
 <body>
   
@@ -74,74 +17,46 @@
       const AUTH_KEY = 'auth_granted';
       const LOGIN_PAGE = 'index.html';
       
-      // Jika sesi tidak ada, langsung redirect. Ini BLOKIR render halaman lain.
       if (sessionStorage.getItem(AUTH_KEY) !== 'true') {
-          // Menggunakan replace() untuk mencegah loop
           window.location.replace(LOGIN_PAGE);
       }
   </script>
-  <audio id="bgm" src="audio.mp3" loop></audio>
+  <audio id="bgm" src="sound/audio.mp3" loop></audio>
   <button id="bgm-toggle" aria-label="Toggle Background Music">🔇</button>
-  
+  <button id="logout-btn" aria-label="Logout" title="Keluar dari Sesi"><i class="fas fa-sign-out-alt"></i></button>
+
   <div class="bg-hearts"></div>
 
-  <div class="intro-screen" style="display: none; opacity: 1;">
+  <div class="intro-screen">
     <div id="intro-text" class="intro-text"></div>
   </div>
 
-  <main class="hidden">
+  <main class="hidden"> 
     <header class="header-main">
-        <h1>Hello, Sayangku! 🌹</h1>
-        <p>A little piece of our memories. Everything is for you.</p>
+        <div class="header-text">
+            <span class="user-role" id="userRole"></span>
+            <h1>Selamat Datang di Dunia Kita!</h1>
+        </div>
+        <img src="img/logo.ico" alt="Icon Kita" class="header-icon">
     </header>
 
     <section id="sectionCountdown" class="content-section">
-        <h2>🗓️ Our Journey</h2>
-        <div class="text-center">
-            <p style="font-size: 1.1rem; color: var(--color-text-muted); margin-bottom: 15px;">Kita resmi menjadi "kita" sejak: 
-            <strong id="startDate" style="color: var(--color-primary);">03 Agustus 2024</strong></p>
+        <h3>Hari Ini Kita Sudah</h3>
+        <p class="days-count" id="daysCount">... Hari</p>
+        
+        <h3 style="margin-top: 20px;">Menuju Hari Jadian Kita! 🥳</h3>
+        <div id="anniversaryCountdown" class="countdown-timer">
+            </div>
+    </section>
 
-            <p style="font-size: 1.2rem; margin-bottom: 5px;">Sudah berjalan:</p>
-            <p id="daysCount" style="font-size: 3rem; font-weight: 800; color: var(--color-secondary);">0 Hari</p>
-            
-            <hr style="margin: 20px auto; width: 80%; border-color: var(--color-primary); opacity: 0.5;">
-
-            <h3 style="color: var(--color-text-main); margin-bottom: 10px;">Countdown Menuju Hari Jadi Kita (01 November 2024):</h3>
-            <p id="anniversaryCountdown" style="font-size: 1.4rem; font-weight: 700; color: var(--color-secondary);">Memuat...</p>
-            <p style="font-size: 1rem; color: var(--color-text-muted); margin-top: 10px;">...and counting, forever! ❤️</p>
+    </main>
+  
+  <div id="anniversary-overlay" class="anniversary-overlay" hidden>
+    <div class="overlay-content">
+        <h1>🎉 SELAMAT HARI JADI, CINTAKU! 🎉</h1>
+        <p>Semoga kita selalu bahagia bersama! 🥰</p>
         </div>
-    </section>
-
-    <section id="sectionMenu" class="content-section">
-        <h2>✨ Quick Access</h2>
-        <div class="menu-grid">
-            <a href="songs.html" class="menu-item">
-                <span class="menu-icon">🎵</span>
-                <span class="menu-label">Lagu Kita</span>
-            </a>
-            <a href="photos.html" class="menu-item">
-                <span class="menu-icon">📸</span>
-                <span class="menu-label">Foto Kenangan</span>
-            </a>
-            <a href="chat.html" class="menu-item">
-                <span class="menu-icon">💬</span>
-                <span class="menu-label">Awal Chat</span>
-            </a>
-            <a href="quotes.html" class="menu-item">
-                <span class="menu-icon">💖</span>
-                <span class="menu-label">Chat Favorit</span>
-            </a>
-        </div>
-    </section>
-
-    <section id="sectionQuote" class="content-section">
-        <h2>💌 Pesan Hari Ini</h2>
-        <blockquote style="font-family: var(--font-script); font-size: 1.8rem; color: var(--color-secondary); border-left: 5px solid var(--color-primary); padding-left: 20px; margin: 10px 0; font-weight: 700;">
-            "Terima kasih sudah hadir dan mewarnai hidupku. Kamu adalah rumah, dan hatiku telah menemukan tempatnya."
-        </blockquote>
-        <p class="text-center" style="font-size: 1rem; color: var(--color-text-muted);">- From your "Elgalau😭👎🏼"</p>
-    </section>
-  </main>
+  </div>
 
   <nav class="nav-bottom">
     <a href="kenangan.html" class="nav-item active">
@@ -170,7 +85,84 @@
     </a>
   </nav>
 
-  <script src="js/script.js"></script>
   <script src="js/animasi.js"></script>
+  <script src="js/script.js"></script> 
+
+  <style>
+    /* Styling Logout Button */
+    #logout-btn {
+        position: fixed;
+        top: 20px; 
+        right: 20px;
+        background: var(--color-primary);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        z-index: 2000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    #logout-btn:hover {
+        background: var(--color-primary-dark);
+    }
+
+    /* Styling Anniversary Overlay (Mirip Loading Page) */
+    .anniversary-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); /* Warna ceria */
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        animation: pulseBg 4s infinite alternate; /* Animasi latar belakang */
+    }
+
+    .overlay-content {
+        padding: 40px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: scale(0.9);
+        animation: popUp 0.5s forwards;
+    }
+
+    .overlay-content h1 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 2.5rem;
+        color: var(--color-primary-dark);
+        margin-bottom: 10px;
+        animation: shake 0.5s infinite;
+    }
+    
+    .overlay-content p {
+        font-size: 1.2rem;
+        color: #333;
+    }
+
+    @keyframes pulseBg {
+        from { filter: hue-rotate(0deg); }
+        to { filter: hue-rotate(360deg); }
+    }
+    @keyframes popUp {
+        to { transform: scale(1); }
+    }
+    @keyframes shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        20% { transform: translate(-1px, -2px) rotate(-1deg); }
+        40% { transform: translate(-3px, 0px) rotate(1deg); }
+        60% { transform: translate(3px, 2px) rotate(0deg); }
+        80% { transform: translate(1px, -1px) rotate(1deg); }
+        100% { transform: translate(-1px, 2px) rotate(-1deg); }
+    }
+  </style>
 </body>
 </html>
