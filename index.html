@@ -3,26 +3,28 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Masuk Rahasia - Our Memories Site</title>
-
-    <meta property="og:title" content="Our Memories Website💗" />
-    <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
-    <meta property="og:image" content="img/logo.ico" /> 
+    <title>Masuk - Our Memories Site</title>
     
+    <meta property="og:title" content="Our Memories Website💗" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <link rel="stylesheet" href="css/style_general.css">
-    <link rel="stylesheet" href="css/style_login.css">
+    <link rel="stylesheet" href="style_general.css">
+    <link rel="stylesheet" href="style_login.css">
+    
+    <script>
+        const AUTH_KEY = 'auth_granted';
+        const TARGET_PAGE = 'kenangan.html'; 
+
+        // Cek sesi dan langsung REDIRECT MENGGUNAKAN REPLACE()
+        if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
+            window.location.replace(TARGET_PAGE); 
+        }
+    </script>
 </head>
 <body>
 
     <div class="bg-hearts"></div>
-
-    <div id="loadingPage" hidden aria-hidden="true">
-        <div class="chibi-icon">⏳</div>
-        <div id="typingText"></div>
-    </div>
 
     <main id="loginPage" class="page--center">
         <div class="card login-card" role="dialog" aria-modal="true">
@@ -47,12 +49,11 @@
         <span id="verifyText"></span>
     </div>
 
-    <script src="js/animasi.js"></script> 
+    <script src="animasi.js"></script> 
     
     <script>
-        const AUTH_KEY = 'auth_granted';
-        const TARGET_PAGE = 'kenangan.html'; 
         const CORRECT_PASSWORD = 'CIANKU'; // Ganti dengan kata sandi Anda
+        // AUTH_KEY dan TARGET_PAGE sudah didefinisikan di atas
         
         const passwordInput = document.getElementById('passwordInput');
         const togglePassword = document.getElementById('togglePassword');
@@ -60,36 +61,38 @@
         const verifyIcon = document.getElementById('verifyIcon');
         const verifyText = document.getElementById('verifyText');
         const loginCard = document.querySelector('.login-card');
-        const loadingPage = document.getElementById('loadingPage');
-        const typingTextElement = document.getElementById('typingText');
-        const loginPage = document.getElementById('loginPage');
 
-        // 1. Logika Typing Animation (Dipindahkan ke sini untuk kepastian)
-        function startTypingSequence() {
-            loginPage.hidden = true;
-            loadingPage.hidden = false; 
-            loadingPage.setAttribute('aria-hidden', 'false');
-
-            typingTextElement.textContent = '';
-            const text = 'Memuat Kenangan Romantis & Merapikan Memori...';
-            let i = 0;
-            const speed = 50; 
-
-            const t = setInterval(() => {
-                if (i < text.length) {
-                    typingTextElement.textContent += text.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(t);
-                    // **FIX PENTING:** Menggunakan replace() untuk mencegah loop histori
-                    setTimeout(() => {
-                        window.location.replace(TARGET_PAGE);
-                    }, 800); 
-                }
-            }, speed);
+        // 1. Fungsi Redirect Pasca-Login (Sederhana dan Cepat)
+        function redirectToTarget() {
+             // FIX PENTING: Langsung redirect tanpa animasi/typing
+             // Hanya jeda sebentar untuk efek "Akses Diberikan"
+             setTimeout(() => {
+                 window.location.replace(TARGET_PAGE);
+             }, 500); 
         }
 
-        // 2. Toggle Password Visibility
+        // 2. Cek Kata Sandi (Inti Login)
+        function checkPassword() {
+            const password = passwordInput.value.trim().toUpperCase();
+            
+            if (password === CORRECT_PASSWORD) {
+                sessionStorage.setItem(AUTH_KEY, 'true');
+                // Tampilkan sukses sebentar lalu redirect
+                showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
+                redirectToTarget();
+            } else {
+                showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
+                
+                loginCard.classList.add('shake-effect');
+                setTimeout(() => {
+                    loginCard.classList.remove('shake-effect');
+                }, 500);
+            }
+        }
+        
+        // --- Fungsi Pelengkap (Tidak diubah dari sebelumnya) ---
+
+        // Toggle Password Visibility
         togglePassword.addEventListener('click', function () {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
@@ -97,7 +100,7 @@
             this.classList.toggle('fa-eye-slash');
         });
 
-        // 3. Tampilkan Notifikasi (Toast)
+        // Tampilkan Notifikasi (Toast)
         function showVerification(isSuccess, message) {
             verifyFrame.hidden = false;
             verifyText.textContent = message;
@@ -106,7 +109,6 @@
             if (isSuccess) {
                 verifyFrame.classList.add('ok');
                 verifyIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
-                // Animasi fade-in/out
                 verifyFrame.style.opacity = '1';
                 setTimeout(() => { verifyFrame.style.opacity = '0'; verifyFrame.hidden = true; }, 4000);
             } else {
@@ -119,66 +121,17 @@
                 }, 3000);
             }
         }
-
-        // 4. Cek Kata Sandi (Inti Login)
-        function checkPassword() {
-            const password = passwordInput.value.trim().toUpperCase();
-            
-            if (password === CORRECT_PASSWORD) {
-                sessionStorage.setItem(AUTH_KEY, 'true');
-                showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
-                
-                setTimeout(() => startTypingSequence(), 1000);
-            } else {
-                showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
-                
-                loginCard.classList.add('shake-effect');
-                setTimeout(() => {
-                    loginCard.classList.remove('shake-effect');
-                }, 500);
-            }
-        }
-
-        // 5. Cek Session saat Halaman Dimuat (Mencegah Loop/Stuck di Login jika sudah login)
-        document.addEventListener('DOMContentLoaded', () => {
-             // Jika sudah login, langsung redirect
-             if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
-                 // **FIX PENTING:** Menggunakan replace() untuk mencegah loop histori
-                 window.location.replace(TARGET_PAGE); 
-             }
-        });
     </script>
     <style>
-        /* Style untuk Notifikasi Verifikasi/Toast */
         .verify-frame {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 5000;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            padding: 12px 20px; border-radius: 8px; color: white; font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); display: flex; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease; z-index: 5000;
         }
-
-        .verify-frame.ok {
-            background-color: #28a745; 
-        }
-
-        .verify-frame.fail {
-            background-color: #dc3545; 
-        }
-
-        .verify-icon {
-            margin-right: 10px;
-            font-size: 1.1rem;
-        }
+        .verify-frame.ok { background-color: #28a745; }
+        .verify-frame.fail { background-color: #dc3545; }
+        .verify-icon { margin-right: 10px; font-size: 1.1rem; }
     </style>
 </body>
 </html>
