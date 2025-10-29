@@ -8,6 +8,8 @@
     <meta property="og:title" content="Our Memories Website💗" />
     <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
     <meta property="og:image" content="img/logo.ico" /> 
+    <meta property="og:url" content="https://elrexsaa.github.io/index.html" /> 
+    <meta property="og:type" content="website" />
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -19,7 +21,6 @@
         const AUTH_KEY = 'auth_granted';
         const TARGET_PAGE = 'kenangan.html'; 
 
-        // Cek sesi dan langsung REDIRECT MENGGUNAKAN REPLACE()
         if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
             window.location.replace(TARGET_PAGE); 
         }
@@ -31,15 +32,23 @@
 
     <main id="loginPage" class="page--center">
         <div class="card login-card" role="dialog" aria-modal="true">
-            <h2>Our Memories</h2>
-            <p>Masukkan kata sandi rahasia untuk melihat kenangan kita.</p>
+            <h2 id="loginTitle">Our Memories</h2>
+            <p id="loginSubtitle">Masukkan kata sandi rahasia untuk melihat kenangan kita.</p>
             
-            <div class="input-group">
+            <div class="input-group" id="passwordGroup">
                 <input type="password" id="passwordInput" placeholder="Kata Sandi Rahasia..." required>
                 <i class="fas fa-eye input-icon" id="togglePassword" aria-label="Tampilkan Kata Sandi"></i>
             </div>
             
-            <button class="login-btn" onclick="checkPassword()">Masuk Sekarang</button>
+            <div class="input-group" id="a2fGroup" hidden>
+                <select id="a2fSelect" class="a2f-select" required>
+                    <option value="">Pilih Siapa Kamu...</option>
+                    <option value="ELGA">ELGA (Si Ganteng)</option>
+                    <option value="NIKITA">NIKITA (Si Cantik)</option>
+                </select>
+            </div>
+            
+            <button class="login-btn" onclick="processLogin()" id="loginButton">Masuk Sekarang</button>
             
             <p class="hint-text">
                 Lupa? Tanya <a href="https://wa.me/6282110292723" target="_blank" rel="noopener noreferrer">Elgalau😭👎🏼</a>
@@ -63,36 +72,73 @@
         const verifyIcon = document.getElementById('verifyIcon');
         const verifyText = document.getElementById('verifyText');
         const loginCard = document.querySelector('.login-card');
+        
+        const loginTitle = document.getElementById('loginTitle');
+        const loginSubtitle = document.getElementById('loginSubtitle');
+        const passwordGroup = document.getElementById('passwordGroup');
+        const a2fGroup = document.getElementById('a2fGroup');
+        const a2fSelect = document.getElementById('a2fSelect');
+        const loginButton = document.getElementById('loginButton');
 
-        // 1. Fungsi Redirect Pasca-Login (Sederhana dan Cepat)
+        let step = 1; // 1: Password, 2: A2F
+
         function redirectToTarget() {
-             // Redirect cepat setelah 0.5 detik
              setTimeout(() => {
                  window.location.replace(TARGET_PAGE);
              }, 500); 
         }
 
-        // 2. Cek Kata Sandi (Inti Login)
-        function checkPassword() {
-            const password = passwordInput.value.trim().toUpperCase();
-            
-            if (password === CORRECT_PASSWORD) {
-                sessionStorage.setItem(AUTH_KEY, 'true');
-                showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
-                redirectToTarget();
-            } else {
-                showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
+        function processLogin() {
+            if (step === 1) {
+                // STEP 1: Cek Password
+                const password = passwordInput.value.trim().toUpperCase();
                 
-                loginCard.classList.add('shake-effect');
-                setTimeout(() => {
-                    loginCard.classList.remove('shake-effect');
-                }, 500);
+                if (password === CORRECT_PASSWORD) {
+                    // Password Benar, Pindah ke A2F
+                    showVerification(true, 'Kata Sandi Benar. Lanjut ke Verifikasi. 🔐');
+                    
+                    step = 2;
+                    loginTitle.textContent = 'Verifikasi Diri 😠';
+                    loginSubtitle.textContent = 'Kamu Elga/Nikita Bukan? Pilih yang benar!';
+                    passwordGroup.hidden = true;
+                    a2fGroup.hidden = false;
+                    loginButton.textContent = 'Verifikasi & Masuk';
+                    a2fSelect.focus();
+                } else {
+                    // Password Salah
+                    showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
+                    loginCard.classList.add('shake-effect');
+                    setTimeout(() => {
+                        loginCard.classList.remove('shake-effect');
+                    }, 500);
+                }
+            } else if (step === 2) {
+                // STEP 2: Cek A2F
+                const role = a2fSelect.value;
+                
+                if (role === 'NIKITA') {
+                    // A2F Berhasil
+                    sessionStorage.setItem(AUTH_KEY, 'true');
+                    sessionStorage.setItem('user_role', role); // Simpan role
+                    showVerification(true, '✅ Akses Diberikan! Welcome, Nikita Sayangku!');
+                    redirectToTarget();
+                } else if (role === 'ELGA') {
+                    // A2F Gagal (Elga tidak boleh masuk)
+                    showVerification(false, '❌ Kamu kan Elga! Gak boleh masuk dulu. Coba lagi yaa.');
+                    loginCard.classList.add('shake-effect');
+                    setTimeout(() => {
+                        loginCard.classList.remove('shake-effect');
+                    }, 500);
+                    a2fSelect.value = ""; // Reset pilihan
+                } else {
+                    // Belum Pilih
+                    showVerification(false, 'Pilih dulu ya, Sayang... 🥺');
+                }
             }
         }
         
         // --- Fungsi Pelengkap ---
 
-        // Toggle Password Visibility
         togglePassword.addEventListener('click', function () {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
@@ -100,7 +146,6 @@
             this.classList.toggle('fa-eye-slash');
         });
 
-        // Tampilkan Notifikasi (Toast)
         function showVerification(isSuccess, message) {
             verifyFrame.hidden = false;
             verifyText.textContent = message;
@@ -132,6 +177,26 @@
         .verify-frame.ok { background-color: #28a745; }
         .verify-frame.fail { background-color: #dc3545; }
         .verify-icon { margin-right: 10px; font-size: 1.1rem; }
+        
+        /* Tambahan style untuk A2F select */
+        .a2f-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--color-primary-light);
+            background: white;
+            color: var(--color-text-dark);
+            font-size: 1rem;
+            box-sizing: border-box;
+            -webkit-appearance: none; /* Hilangkan default arrow di Chrome */
+            -moz-appearance: none;    /* Hilangkan default arrow di Firefox */
+            appearance: none;         /* Hilangkan default arrow */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23F3689D%22%20d%3D%22M287%2069.8L146.2%20210.6%205.4%2069.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 12px;
+            cursor: pointer;
+        }
     </style>
 </body>
 </html>
