@@ -6,11 +6,14 @@
     <title>Masuk - Our Memories Site</title>
     
     <meta property="og:title" content="Our Memories Website💗" />
+    <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
+    <meta property="og:image" content="img/logo.ico" /> 
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <link rel="stylesheet" href="style_general.css">
-    <link rel="stylesheet" href="style_login.css">
+    <link rel="stylesheet" href="css/style_general.css">
+    <link rel="stylesheet" href="css/style_login.css">
     
     <script>
         const AUTH_KEY = 'auth_granted';
@@ -49,11 +52,10 @@
         <span id="verifyText"></span>
     </div>
 
-    <script src="animasi.js"></script> 
+    <script src="js/animasi.js"></script> 
     
     <script>
         const CORRECT_PASSWORD = 'CIANKU'; // Ganti dengan kata sandi Anda
-        // AUTH_KEY dan TARGET_PAGE sudah didefinisikan di atas
         
         const passwordInput = document.getElementById('passwordInput');
         const togglePassword = document.getElementById('togglePassword');
@@ -64,8 +66,7 @@
 
         // 1. Fungsi Redirect Pasca-Login (Sederhana dan Cepat)
         function redirectToTarget() {
-             // FIX PENTING: Langsung redirect tanpa animasi/typing
-             // Hanya jeda sebentar untuk efek "Akses Diberikan"
+             // Redirect cepat setelah 0.5 detik
              setTimeout(() => {
                  window.location.replace(TARGET_PAGE);
              }, 500); 
@@ -77,7 +78,6 @@
             
             if (password === CORRECT_PASSWORD) {
                 sessionStorage.setItem(AUTH_KEY, 'true');
-                // Tampilkan sukses sebentar lalu redirect
                 showVerification(true, 'Akses Diberikan! Selamat datang, Sayang!');
                 redirectToTarget();
             } else {
@@ -90,7 +90,7 @@
             }
         }
         
-        // --- Fungsi Pelengkap (Tidak diubah dari sebelumnya) ---
+        // --- Fungsi Pelengkap ---
 
         // Toggle Password Visibility
         togglePassword.addEventListener('click', function () {
