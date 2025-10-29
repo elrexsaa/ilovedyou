@@ -74,7 +74,9 @@
       const AUTH_KEY = 'auth_granted';
       const LOGIN_PAGE = 'index.html';
       
+      // Jika sesi tidak ada, langsung redirect. Ini BLOKIR render halaman lain.
       if (sessionStorage.getItem(AUTH_KEY) !== 'true') {
+          // Menggunakan replace() untuk mencegah loop
           window.location.replace(LOGIN_PAGE);
       }
   </script>
