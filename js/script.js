@@ -1,5 +1,5 @@
 // =============================================================
-// File: js/script.js (Logika Utama Website - FIX ANNIVERSARY)
+// File: js/script.js (Logika Utama Website - FIX ANNIVERSARY MUTLAK)
 // =============================================================
 
 const AUTH_KEY = 'auth_granted';
@@ -12,10 +12,10 @@ const ANNIVERSARY_MONTH = 10;   // Bulan Hari Jadi (10 = November, karena Januar
 // Fungsi untuk menghitung tanggal hari jadi berikutnya
 function getNextAnniversary() {
     const today = new Date();
-    // 1. Atur tanggal anniv untuk tahun ini
+    // Atur tanggal anniv untuk tahun ini
     let nextAnniv = new Date(today.getFullYear(), ANNIVERSARY_MONTH, ANNIVERSARY_DAY, 0, 0, 0);
 
-    // 2. Jika waktu sekarang sudah melewati waktu anniv tahun ini, atur ke tahun depan
+    // Jika waktu sekarang sudah melewati waktu anniv tahun ini, atur ke tahun depan
     if (today.getTime() > nextAnniv.getTime()) {
         nextAnniv.setFullYear(today.getFullYear() + 1);
     }
@@ -26,6 +26,7 @@ function getNextAnniversary() {
 // Fungsi Paling Penting: Cek apakah hari ini SANGAT SPESIFIK Hari H
 function isTodayTheAnniversary() {
     const today = new Date();
+    // Cek Bulan dan Tanggal secara absolut
     return today.getDate() === ANNIVERSARY_DAY && today.getMonth() === ANNIVERSARY_MONTH;
 }
 
@@ -55,13 +56,12 @@ function updateAnniversaryCountdown() {
 
     if (!countdownElement) return;
 
-    // *** FIX KRITIS: Jika Hari Ini Adalah Hari H, Tampilkan Animasi, Abaikan Waktu Hitungan Mundur ***
+    // *** FIX KRITIS: Jika Hari Ini Adalah Hari H, Tampilkan Animasi ***
     if (isTodayTheAnniversary()) { 
         clearInterval(timerInterval);
         countdownElement.innerHTML = "🎉 **HARI JADI KITA!** 🎉";
         countdownElement.classList.add('anniversary-reached');
         
-        // Panggil Animasi Heboh!
         showAnniversaryAnimation();
         return;
     }
@@ -74,11 +74,7 @@ function updateAnniversaryCountdown() {
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         countdownElement.innerHTML = `<span class="countdown-value">${days}</span> Hari : <span class="countdown-value">${hours}</span> Jam : <span class="countdown-value">${minutes}</span> Menit : <span class="countdown-value">${seconds}</span> Detik`;
-    } else {
-        // Jika hitungan habis tapi BUKAN hari H, itu berarti kesalahan hitungan, 
-        // kita tetap menampilkan hitungan menuju tahun berikutnya.
-        // Fungsi getNextAnniversary sudah menjamin ini akan mengarah ke tahun depan.
-    }
+    } 
 }
 
 function showAnniversaryAnimation() {
@@ -157,37 +153,46 @@ function startIntroSequence() {
 
     // Hanya jalankan intro di kenangan.html (introTextDiv ada)
     if (introTextDiv && introScreen) {
-        const textToType = "Selamat Datang di Dunia Kita, Sayang! 💗";
-        let i = 0;
-        const speed = 75;
+        // Cek jika sudah hari H, langsung tampilkan overlay tanpa intro normal
+        if (isTodayTheAnniversary()) {
+            if(mainContent) mainContent.classList.remove('hidden'); // Tampilkan main sebentar untuk hitungan mundur
+            introScreen.style.display = 'none';
+            // Biarkan updateAnniversaryCountdown yang memanggil showAnniversaryAnimation()
+        } else {
+             // Jalankan intro normal
+            const textToType = "Selamat Datang di Dunia Kita, Sayang! 💗";
+            let i = 0;
+            const speed = 75;
 
-        function typeIntro() {
-            if (i < textToType.length) {
-                introTextDiv.textContent += textToType.charAt(i);
-                i++;
-                setTimeout(typeIntro, speed);
-            } else {
-                // Intro Selesai
-                setTimeout(() => {
-                    introScreen.style.opacity = '0';
+            function typeIntro() {
+                if (i < textToType.length) {
+                    introTextDiv.textContent += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeIntro, speed);
+                } else {
+                    // Intro Selesai
                     setTimeout(() => {
-                        introScreen.style.display = 'none';
-                        if(mainContent) mainContent.classList.remove('hidden'); 
-                        
-                        // FIX AUTOPLAY: PUTAR MUSIK OTOMATIS SETELAH INTRO
-                        if (bgm && bgm.paused) {
-                            bgm.play().then(() => {
-                                const bgmToggle = document.getElementById('bgm-toggle');
-                                if(bgmToggle) bgmToggle.innerHTML = '🔊'; 
-                            }).catch(error => {
-                                console.log("Autoplay blocked. User must click.");
-                            });
-                        }
-                    }, 500); 
-                }, 1500);
+                        introScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            introScreen.style.display = 'none';
+                            if(mainContent) mainContent.classList.remove('hidden'); 
+                            
+                            // FIX AUTOPLAY: PUTAR MUSIK OTOMATIS SETELAH INTRO
+                            if (bgm && bgm.paused) {
+                                bgm.play().then(() => {
+                                    const bgmToggle = document.getElementById('bgm-toggle');
+                                    if(bgmToggle) bgmToggle.innerHTML = '🔊'; 
+                                    sessionStorage.setItem('bgm_state', 'playing');
+                                }).catch(error => {
+                                    console.log("Autoplay blocked. User must click.");
+                                });
+                            }
+                        }, 500); 
+                    }, 1500);
+                }
             }
+            typeIntro();
         }
-        typeIntro();
     } else {
         // FIX BLANK PAGE: Untuk halaman konten lain, pastikan main content tampil
         if(mainContent) mainContent.classList.remove('hidden');
