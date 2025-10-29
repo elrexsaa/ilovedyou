@@ -1,33 +1,32 @@
 // =============================================================
-// File: js/script.js (Logika Utama Website)
+// File: js/script.js (Logika Utama Website - FIX ANNIVERSARY)
 // =============================================================
 
 const AUTH_KEY = 'auth_granted';
 const LOGIN_PAGE = 'index.html';
 const START_DATE = new Date('2024-08-03T00:00:00'); 
-const ANNIVERSARY_DAY = 1; // Tanggal Hari Jadi
-const ANNIVERSARY_MONTH = 10; // Bulan Hari Jadi (10 = November, karena Januari = 0)
+const ANNIVERSARY_DAY = 1;      // Tanggal Hari Jadi (1)
+const ANNIVERSARY_MONTH = 10;   // Bulan Hari Jadi (10 = November, karena Januari = 0)
 
 
 // Fungsi untuk menghitung tanggal hari jadi berikutnya
 function getNextAnniversary() {
     const today = new Date();
-    // Atur tanggal anniv untuk tahun ini
+    // 1. Atur tanggal anniv untuk tahun ini
     let nextAnniv = new Date(today.getFullYear(), ANNIVERSARY_MONTH, ANNIVERSARY_DAY, 0, 0, 0);
 
-    // Jika hari ini sudah melewati tanggal anniv tahun ini, atur ke tahun depan
-    // Pengecualian: jangan pindah ke tahun depan jika hari ini adalah Hari H.
-    if (today.getTime() > nextAnniv.getTime() && (today.getDate() !== ANNIVERSARY_DAY || today.getMonth() !== ANNIVERSARY_MONTH)) {
+    // 2. Jika waktu sekarang sudah melewati waktu anniv tahun ini, atur ke tahun depan
+    if (today.getTime() > nextAnniv.getTime()) {
         nextAnniv.setFullYear(today.getFullYear() + 1);
     }
     
-    // Cek apakah hari ini SANGAT SPESIFIK adalah tanggal anniv (untuk trigger animasi)
-    const isTodayAnniversary = today.getDate() === ANNIVERSARY_DAY && today.getMonth() === ANNIVERSARY_MONTH;
+    return nextAnniv.getTime();
+}
 
-    return {
-        date: nextAnniv.getTime(),
-        isTodayAnniversary: isTodayAnniversary
-    };
+// Fungsi Paling Penting: Cek apakah hari ini SANGAT SPESIFIK Hari H
+function isTodayTheAnniversary() {
+    const today = new Date();
+    return today.getDate() === ANNIVERSARY_DAY && today.getMonth() === ANNIVERSARY_MONTH;
 }
 
 
@@ -50,15 +49,14 @@ let timerInterval;
 
 function updateAnniversaryCountdown() {
     const now = new Date().getTime();
-    const annivData = getNextAnniversary();
-    const ANNIVERSARY_DATE = annivData.date;
+    const ANNIVERSARY_DATE = getNextAnniversary();
     const distance = ANNIVERSARY_DATE - now;
     const countdownElement = document.getElementById("anniversaryCountdown");
 
     if (!countdownElement) return;
 
-    // FIX KRITIS ANNIV LEAK: Cek Hari H secara spesifik dan pastikan hitungan sudah kurang dari 24 jam.
-    if (annivData.isTodayAnniversary && distance < 24 * 60 * 60 * 1000) { 
+    // *** FIX KRITIS: Jika Hari Ini Adalah Hari H, Tampilkan Animasi, Abaikan Waktu Hitungan Mundur ***
+    if (isTodayTheAnniversary()) { 
         clearInterval(timerInterval);
         countdownElement.innerHTML = "🎉 **HARI JADI KITA!** 🎉";
         countdownElement.classList.add('anniversary-reached');
@@ -76,7 +74,11 @@ function updateAnniversaryCountdown() {
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         countdownElement.innerHTML = `<span class="countdown-value">${days}</span> Hari : <span class="countdown-value">${hours}</span> Jam : <span class="countdown-value">${minutes}</span> Menit : <span class="countdown-value">${seconds}</span> Detik`;
-    } 
+    } else {
+        // Jika hitungan habis tapi BUKAN hari H, itu berarti kesalahan hitungan, 
+        // kita tetap menampilkan hitungan menuju tahun berikutnya.
+        // Fungsi getNextAnniversary sudah menjamin ini akan mengarah ke tahun depan.
+    }
 }
 
 function showAnniversaryAnimation() {
@@ -86,8 +88,6 @@ function showAnniversaryAnimation() {
     if (overlay) {
         if (mainContent) mainContent.hidden = true;
         overlay.hidden = false;
-        
-        // Animasi Heboh: Confetti/Emoji Lucu
         addConfettiEffect(); 
     }
 }
@@ -97,7 +97,6 @@ function addConfettiEffect() {
     if (overlayContent) {
         overlayContent.querySelectorAll('.confetti').forEach(c => c.remove());
         
-        // Emoji lucu, imut, gemes
         const emojis = ['💖', '🥰', '🐻', '🐰', '💗', '🥳', '😘', '💘'];
         for (let i = 0; i < 30; i++) {
             const confetti = document.createElement('div');
@@ -112,7 +111,7 @@ function addConfettiEffect() {
             overlayContent.appendChild(confetti);
         }
         
-        // Tambahkan style animasi confetti
+        // Style Confetti ditambahkan satu kali
         if (!document.getElementById('confetti-style')) {
             const style = document.createElement('style');
             style.id = 'confetti-style';
@@ -140,7 +139,7 @@ function addConfettiEffect() {
 
 
 // -----------------------------------------------------------------
-// B. INTRO & BGM CONTROL (FIX AUTOPLAY & BLANK PAGE)
+// B. INTRO & BGM CONTROL
 // -----------------------------------------------------------------
 
 function startIntroSequence() {
@@ -156,7 +155,7 @@ function startIntroSequence() {
         userRoleElement.textContent = (role === 'NIKITA' ? 'Welcome Back, Nikita Sayangku!' : 'Hai, ' + role + '!');
     }
 
-    // Hanya jalankan intro di kenangan.html
+    // Hanya jalankan intro di kenangan.html (introTextDiv ada)
     if (introTextDiv && introScreen) {
         const textToType = "Selamat Datang di Dunia Kita, Sayang! 💗";
         let i = 0;
@@ -227,7 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Atur tampilan awal tombol
         if (sessionStorage.getItem('bgm_state') === 'playing') {
-            const bgmToggle = document.getElementById('bgm-toggle');
             if(bgmToggle) bgmToggle.innerHTML = '🔊';
         }
     }
@@ -246,6 +244,10 @@ function logout() {
         window.location.replace(LOGIN_PAGE);
     }
 }
+
+// Global scope agar bisa dipanggil di HTML lain
+window.logout = logout; 
+
 
 // -----------------------------------------------------------------
 // D. INITIALIZATION
