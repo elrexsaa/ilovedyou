@@ -11,16 +11,15 @@
   <link rel="stylesheet" href="css/style_general.css">
   <link rel="stylesheet" href="css/style_chat.css">
 </head>
-</head>
 <body>
   <script>
       const AUTH_KEY = 'auth_granted';
       const LOGIN_PAGE = 'index.html';
-      
       if (sessionStorage.getItem(AUTH_KEY) !== 'true') {
           window.location.replace(LOGIN_PAGE);
       }
   </script>
+
   <audio id="bgm" src="sound/audio.mp3" loop></audio> 
   <button id="bgm-toggle" aria-label="Toggle Background Music">🔇</button>
   <button id="logout-btn" aria-label="Logout" title="Keluar dari Sesi"><i class="fas fa-sign-out-alt"></i></button> 
@@ -38,81 +37,28 @@
         <h3 style="padding: 15px 10px; color: var(--color-secondary); font-size: 1.2rem; text-align: center;">💬 Awal Dari Segalanya (03 Agustus 2024)</h3>
         
         <div class="chat-body" id="chatBody">
-            <div class="chat-bubble right">
-                <div class="text">Hi, boleh kenalan?</div>
-                <div class="meta">
-                    <span class="timestamp">14:05</span>
-                    <span class="checkmark"><i class="fas fa-check-double"></i></span>
-                </div>
-            </div>
-            
-            <div class="chat-bubble left">
-                <div class="text">Boleh.</div>
-                <div class="meta">
-                    <span class="timestamp">14:06</span>
-                </div>
-            </div>
-            
-            <div class="chat-bubble right">
-                <div class="text">Nama kamu siapa? Aku El.</div>
-                <div class="meta">
-                    <span class="timestamp">14:07</span>
-                    <span class="checkmark read"><i class="fas fa-check-double"></i></span>
-                </div>
-            </div>
-            
-            <div class="chat-bubble left">
-                <div class="text">Aku Nikita.</div>
-                <div class="meta">
-                    <span class="timestamp">14:08</span>
-                </div>
-            </div>
-            
-            <div class="chat-bubble right">
-                <div class="text">Nikita cantik banget deh. Salam kenal ya.</div>
-                <div class="meta">
-                    <span class="timestamp">14:10</span>
-                    <span class="checkmark read"><i class="fas fa-check-double"></i></span>
-                </div>
-            </div>
-            
+          <!-- chat otomatis dimuat dari data/chat.txt -->
+          <div class="loading">memuat percakapan...</div>
         </div> 
         
         <p class="muted text-center" style="margin-top:20px; font-size: 0.9rem; color: var(--color-text-muted); padding: 0 10px 20px 10px;">
-          *03 Agustus 2024*. Aku dengan semua modus aku hahaha. malu kalo diinget tapi gabakal bisa aku lupain juga wkwkwk, jaman jaman masih prik bgt akuu. botak, so keras, so jago, masih petantang petenteng wkwkwk😭😭😭😭
+          *03 Agustus 2024*. Aku dengan semua modus aku hahaha. malu kalo diinget tapi gabakal bisa aku lupain juga wkwkwk😭😭😭
         </p>
       </section>
     </main>
   </div>
 
   <nav class="nav-bottom">
-    <a href="kenangan.html" class="nav-item">
-      <span class="icon">🏠</span>
-      <span class="label">Home</span>
-    </a>
-    <a href="songs.html" class="nav-item">
-      <span class="icon">🎵</span>
-      <span class="label">Lagu</span>
-    </a>
-    <a href="photos.html" class="nav-item">
-      <span class="icon">📸</span>
-      <span class="label">Foto</span>
-    </a>
-    <a href="chat.html" class="nav-item active">
-      <span class="icon">💬</span>
-      <span class="label">Chat</span>
-    </a>
-    <a href="quotes.html" class="nav-item">
-      <span class="icon">💖</span>
-      <span class="label">Favorit</span>
-    </a>
-    <a href="about.html" class="nav-item">
-      <span class="icon">ℹ️</span>
-      <span class="label">Tentang</span>
-    </a>
+    <a href="kenangan.html" class="nav-item"><span class="icon">🏠</span><span class="label">Home</span></a>
+    <a href="songs.html" class="nav-item"><span class="icon">🎵</span><span class="label">Lagu</span></a>
+    <a href="photos.html" class="nav-item"><span class="icon">📸</span><span class="label">Foto</span></a>
+    <a href="chat.html" class="nav-item active"><span class="icon">💬</span><span class="label">Chat</span></a>
+    <a href="quotes.html" class="nav-item"><span class="icon">💖</span><span class="label">Favorit</span></a>
+    <a href="about.html" class="nav-item"><span class="icon">ℹ️</span><span class="label">Tentang</span></a>
   </nav>
 
   <script src="js/script.js"></script>
   <script src="js/animasi.js"></script>
+  <script src="js/chat_ui.js"></script> <!-- file baru -->
 </body>
 </html>
