@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Kita | Elga & Nikita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="main-content">
+        
+        <div class="header-wrapper">
+            <header class="header">
+                <h1>Playlist Kita</h1>
+                <p class="subtitle">Lagu-lagu yang Merekam Kisah Kita 🎶</p>
+            </header>
+            <button id="logout-btn" class="logout-button" title="Keluar">
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
+        </div>
+        <section class="card music-player-card">
+            
+            <div class="album-cover-wrapper">
+                <img id="track-cover" src="images/cover_1.jpg" alt="Album Cover" class="album-cover">
+                <div class="music-visualizer" id="visualizer">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+
+            <div class="track-info">
+                <h2 id="track-title">Loading...</h2>
+                <p id="track-artist">Loading...</p>
+            </div>
+
+            <div class="progress-area" id="progress-area">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="timer-area">
+                <span id="current-time">0:00</span>
+                <span id="total-duration">0:00</span>
+            </div>
+
+            <div class="controls">
+                <button id="shuffle-btn" title="Shuffle"><i class="bi bi-shuffle"></i></button>
+                
+                <button id="prev-btn" title="Previous"><i class="bi bi-skip-start-fill"></i></button>
+                
+                <button class="play-pause-btn" id="play-pause-btn">
+                    <i class="bi bi-play-fill"></i>
+                </button>
+                
+                <button id="next-btn" title="Next"><i class="bi bi-skip-end-fill"></i></button>
+                
+                <button id="volume-btn" title="Volume"><i class="bi bi-volume-up-fill"></i></button>
+            </div>
+            
+            <p class="current-playlist-info">
+                <i class="bi bi-music-note-list"></i> Sedang Memutar: <span id="current-track-index">1</span> dari <span id="total-tracks">5</span>
+            </p>
+
+        </section>
+
+        <section class="card info-card">
+            <h3 class="card-title">Penting!</h3>
+            <p>Musik latar di halaman utama (**`dash.html`**) akan otomatis nonaktif saat Anda membuka Playlist ini agar tidak bertabrakan.</p>
+        </section>
+
+
+        <div style="height: 100px;"></div> 
+    </div>
+    <nav class="bottom-nav">
+        <a href="dash.html" class="nav-link">
+            <i class="bi bi-house-door-fill"></i>
+            <span>Home</span>
+        </a>
+        <a href="tentang.html" class="nav-link">
+            <i class="bi bi-person-hearts"></i>
+            <span>Tentang Kita</span>
+        </a>
+        <a href="playlist.html" class="nav-link active">
+            <i class="bi bi-disc-fill"></i>
+            <span>Playlist</span>
+        </a>
+        <a href="chat.html" class="nav-link">
+            <i class="bi bi-chat-dots-fill"></i>
+            <span>Chat</span>
+        </a>
+        <a href="chatfav.html" class="nav-link">
+            <i class="bi bi-star-fill"></i>
+            <span>Fav Chat</span>
+        </a>
+    </nav>
+
+    <footer class="website-footer">
+        &copy; 2024 Elga & Nikita. Crafted by @elgarexsaa
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/playlist.js"></script> 
+</body>
+</html>
