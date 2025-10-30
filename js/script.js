@@ -114,11 +114,41 @@ function initMainPage() {
                 item.classList.remove('visible'); // Opsional: hapus saat scroll ke atas
             }
         });
+
+            // ... (Logika revealTimelineItems dan window.addEventListener('scroll') sebelumnya)
+
+    // 7. --- BARU: LOGIKA IMAGE SLIDER (FADE) UNTUK TENTANG.HTML ---
+    function initImageSlider() {
+        const images = document.querySelectorAll('.image-slider .slider-image');
+        if (images.length === 0) return; // Hentikan jika tidak ada gambar
+
+        let currentIndex = 0;
+        
+        // Fungsi untuk menampilkan gambar berikutnya
+        function nextImage() {
+            // Hapus kelas 'active' dari gambar saat ini
+            images[currentIndex].classList.remove('active');
+            
+            // Hitung indeks gambar berikutnya (looping)
+            currentIndex = (currentIndex + 1) % images.length;
+            
+            // Tambahkan kelas 'active' ke gambar berikutnya
+            images[currentIndex].classList.add('active');
+        }
+
+        // Atur interval untuk mengganti gambar setiap 4 detik
+        setInterval(nextImage, 4000); // Ganti setiap 4000ms (4 detik)
+    }
+
+    // Panggil fungsi slider saat halaman dimuat
+    initImageSlider(); 
+} // <--- PASTIKAN KURUNG TUTUP INI ADALAH AKHIR DARI initMainPage()
+
     };
 
     // Jalankan saat load dan saat scroll
     window.addEventListener('scroll', revealTimelineItems);
-    revealTimelineItems(); // Jalankan sekali saat halaman dimuat
+    revealTimelineItems();// Jalankan sekali saat halaman dimuat
 
     }
 }
