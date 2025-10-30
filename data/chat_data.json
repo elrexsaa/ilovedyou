@@ -1,0 +1,45 @@
+[
+    {
+        "id": 1,
+        "sender": "elga",
+        "type": "text",
+        "content": "Halo sayangku, udah cek webnya? Aku buat spesial buat kamu lho 💖",
+        "time": "18:05"
+    },
+    {
+        "id": 2,
+        "sender": "nikita",
+        "type": "text",
+        "content": "Astaga Elgaaa! Gemes banget, aku sukaaa! 😭 Kamu serius bikin ini? ",
+        "time": "18:07"
+    },
+    {
+        "id": 3,
+        "sender": "elga",
+        "type": "image",
+        "content": "images/chat_photo_1.jpg",
+        "caption": "Ini foto pertama kita jalan-jalan, ingat kan? 😊",
+        "time": "18:09"
+    },
+    {
+        "id": 4,
+        "sender": "nikita",
+        "type": "sticker",
+        "content": "images/sticker_1.png",
+        "time": "18:10"
+    },
+    {
+        "id": 5,
+        "sender": "elga",
+        "type": "text",
+        "content": "Sebentar ya, ada yang mau aku hapus dulu. Salah kirim hehe.",
+        "time": "18:12"
+    },
+    {
+        "id": 6,
+        "sender": "elga",
+        "type": "text",
+        "content": "Oh iya, password buat dashboard nya '011124', jangan kasih tau siapapun yaa!",
+        "time": "18:13"
+    }
+]
