@@ -23,7 +23,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://github.com/elrexsaa/ilovedyou/assets/preview-dark.png">
     <source media="(prefers-color-scheme: light)" srcset="https://github.com/elrexsaa/ilovedyou/assets/preview-light.png">
-    <img src="https://github.com/elrexsaa/ilovedyou/assets/preview-light.png" alt="ilovedyou preview" width="80%">
+    <img src="https://github.com/elrexsaa/ilovedyou/img/f2.jpg" alt="ilovedyou preview" width="80%">
   </picture>
 </div>
 
