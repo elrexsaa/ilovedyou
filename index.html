@@ -1,190 +1,40 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Masuk - Our Memories Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satu November Kita</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <meta property="og:title" content="Our Memories Website💗" />
-    <meta property="og:description" content="For Sayangku Cintaku Cantikku Cianku Tondiku😋❤️" />
-    <meta property="og:image" content="img/logo.ico" /> 
-    <meta property="og:url" content="https://elrexsaa.github.io/index.html" /> 
-    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <link rel="stylesheet" href="css/style_general.css">
     <link rel="stylesheet" href="css/style_login.css">
-    
-    <script>
-        const AUTH_KEY = 'auth_granted';
-        const TARGET_PAGE = 'kenangan.html'; 
-
-        if (sessionStorage.getItem(AUTH_KEY) === 'true') { 
-            window.location.replace(TARGET_PAGE); 
-        }
-    </script>
 </head>
 <body>
 
-    <div class="bg-hearts"></div>
-
-    <main id="loginPage" class="page--center">
-        <div class="card login-card" role="dialog" aria-modal="true">
-            <h2 id="loginTitle">Our Memories</h2>
-            <p id="loginSubtitle">Masukkan kata sandi rahasia untuk melihat kenangan kita.</p>
-            
-            <div class="input-group" id="passwordGroup">
-                <input type="password" id="passwordInput" placeholder="Kata Sandi Rahasia..." required>
-                <i class="fas fa-eye input-icon" id="togglePassword" aria-label="Tampilkan Kata Sandi"></i>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Untuk Nikita 💖</h2>
+            <p>Satu November Dua Ribu Dua Empat</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="password" id="password" required>
+                    <label for="password">Password Rahasia Kita 🤫</label>
+                    
+                    <i class="bi bi-eye-slash-fill" id="toggle-password"></i>
+                </div>
+                <button type="submit" class="login-button">Masuk</button>
+            </form>
+            <div class="forgot-password">
+                <a href="https://wa.me/6287896507726" target="_blank">
+                    Lupa password? Hubungi @elgarexsa
+                </a>
             </div>
-            
-            <div class="input-group" id="a2fGroup" hidden>
-                <select id="a2fSelect" class="a2f-select" required>
-                    <option value="">Pilih Siapa Kamu...</option>
-                    <option value="ELGA">ELGA (Si Ganteng)</option>
-                    <option value="NIKITA">NIKITA (Si Cantik)</option>
-                </select>
-            </div>
-            
-            <button class="login-btn" onclick="processLogin()" id="loginButton">Masuk Sekarang</button>
-            
-            <p class="hint-text">
-                Lupa? Tanya <a href="https://wa.me/6282110292723" target="_blank" rel="noopener noreferrer">Elgalau😭👎🏼</a>
-            </p>
         </div>
-    </main>
-    
-    <div id="verifyFrame" class="verify-frame" hidden role="alert" aria-live="polite">
-        <span class="verify-icon" id="verifyIcon"></span>
-        <span id="verifyText"></span>
     </div>
 
-    <script src="js/animasi.js"></script> 
-    
-    <script>
-        const CORRECT_PASSWORD = 'CIANKU'; // Ganti dengan kata sandi Anda
-        
-        const passwordInput = document.getElementById('passwordInput');
-        const togglePassword = document.getElementById('togglePassword');
-        const verifyFrame = document.getElementById('verifyFrame');
-        const verifyIcon = document.getElementById('verifyIcon');
-        const verifyText = document.getElementById('verifyText');
-        const loginCard = document.querySelector('.login-card');
-        
-        const loginTitle = document.getElementById('loginTitle');
-        const loginSubtitle = document.getElementById('loginSubtitle');
-        const passwordGroup = document.getElementById('passwordGroup');
-        const a2fGroup = document.getElementById('a2fGroup');
-        const a2fSelect = document.getElementById('a2fSelect');
-        const loginButton = document.getElementById('loginButton');
+    <div id="toast-container"></div>
 
-        let step = 1; // 1: Password, 2: A2F
-
-        function redirectToTarget() {
-             setTimeout(() => {
-                 window.location.replace(TARGET_PAGE);
-             }, 500); 
-        }
-
-        function processLogin() {
-            if (step === 1) {
-                // STEP 1: Cek Password
-                const password = passwordInput.value.trim().toUpperCase();
-                
-                if (password === CORRECT_PASSWORD) {
-                    // Password Benar, Pindah ke A2F
-                    showVerification(true, 'Kata Sandi Benar. Lanjut ke Verifikasi. 🔐');
-                    
-                    step = 2;
-                    loginTitle.textContent = 'Verifikasi Diri 😠';
-                    loginSubtitle.textContent = 'Kamu Elga/Nikita Bukan? Pilih yang benar!';
-                    passwordGroup.hidden = true;
-                    a2fGroup.hidden = false;
-                    loginButton.textContent = 'Verifikasi & Masuk';
-                    a2fSelect.focus();
-                } else {
-                    // Password Salah
-                    showVerification(false, 'Ups! Kata sandi salah. Coba lagi yaa.');
-                    loginCard.classList.add('shake-effect');
-                    setTimeout(() => {
-                        loginCard.classList.remove('shake-effect');
-                    }, 500);
-                }
-            } else if (step === 2) {
-                // STEP 2: Cek A2F
-                const role = a2fSelect.value;
-                
-                if (role === 'NIKITA') {
-                    // A2F Berhasil
-                    sessionStorage.setItem(AUTH_KEY, 'true');
-                    sessionStorage.setItem('user_role', role); // Simpan role
-                    showVerification(true, '✅ Akses Diberikan! Welcome, Nikita Sayangku!');
-                    redirectToTarget();
-                } else if (role === 'ELGA') {
-                    // A2F Gagal (Elga tidak boleh masuk)
-                    showVerification(false, '❌ Kamu kan Elga! Gak boleh masuk dulu. Coba lagi yaa.');
-                    loginCard.classList.add('shake-effect');
-                    setTimeout(() => {
-                        loginCard.classList.remove('shake-effect');
-                    }, 500);
-                    a2fSelect.value = ""; // Reset pilihan
-                } else {
-                    // Belum Pilih
-                    showVerification(false, 'Pilih dulu ya, Sayang... 🥺');
-                }
-            }
-        }
-        
-        // --- Fungsi Pelengkap ---
-
-        togglePassword.addEventListener('click', function () {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
-
-        function showVerification(isSuccess, message) {
-            verifyFrame.hidden = false;
-            verifyText.textContent = message;
-            verifyFrame.classList.remove('ok', 'fail');
-            
-            if (isSuccess) {
-                verifyFrame.classList.add('ok');
-                verifyIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
-                verifyFrame.style.opacity = '1';
-                setTimeout(() => { verifyFrame.style.opacity = '0'; verifyFrame.hidden = true; }, 4000);
-            } else {
-                verifyFrame.classList.add('fail');
-                verifyIcon.innerHTML = '<i class="fas fa-times-circle"></i>';
-                verifyFrame.style.opacity = '1';
-                setTimeout(() => {
-                    verifyFrame.hidden = true;
-                    verifyFrame.style.opacity = '0';
-                }, 3000);
-            }
-        }
-    </script>
-    <style>
-        .verify-frame {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            padding: 12px 20px; border-radius: 8px; color: white; font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); display: flex; align-items: center;
-            opacity: 0; transition: opacity 0.3s ease; z-index: 5000;
-        }
-        .verify-frame.ok { background-color: #28a745; }
-        .verify-frame.fail { background-color: #dc3545; }
-        .verify-icon { margin-right: 10px; font-size: 1.1rem; }
-        
-        .a2f-select {
-            width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--color-primary-light);
-            background: white; color: var(--color-text-dark); font-size: 1rem; box-sizing: border-box;
-            -webkit-appearance: none; -moz-appearance: none; appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23F3689D%22%20d%3D%22M287%2069.8L146.2%20210.6%205.4%2069.8z%22%2F%3E%3C%2Fsvg%3E');
-            background-repeat: no-repeat; background-position: right 10px top 50%; background-size: 12px; cursor: pointer;
-        }
-    </style>
+    <script src="js/script.js"></script>
 </body>
 </html>
