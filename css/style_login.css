@@ -1,143 +1,221 @@
-/* ============================================================= */
-/* File: love/css/style_login.css */
-/* ============================================================= */
-@import url('style_general.css');
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Reset Dasar & Tema Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    background: linear-gradient(135deg, #FFC0CB 0%, #FF69B4 100%); /* Gradient Romantis */
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    /* Tema Gradien Pink "Gemes tapi Formal" */
+    background: linear-gradient(135deg, #fce3ec 0%, #ffe8f0 100%);
+    overflow: hidden;
+}
+
+/* Kontainer Utama Login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     padding: 20px;
 }
 
-main#loginPage {
-    min-height: auto;
-    padding: 0;
-    margin: 0;
-    max-width: 400px;
+/* Kotak Login (Modern Glassmorphism Effect) */
+.login-box {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 2.5rem 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
     width: 100%;
-}
-
-.login-card {
-    background-color: var(--color-card-bg);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
     text-align: center;
-    transform: scale(1);
-    transition: transform 0.2s ease-in-out;
+    
+    /* Animasi saat load */
+    animation: fadeIn 1s ease-in-out forwards;
 }
 
-.login-card h2 {
-    font-size: 2.5rem;
-    font-family: var(--font-script);
-    color: var(--color-secondary);
-    margin-bottom: 10px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-.login-card p {
-    color: var(--color-text-muted);
-    margin-bottom: 25px;
+.login-box h2 {
+    color: #d63384; /* Warna pink formal */
+    margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
+.login-box p {
+    color: #6c757d;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+/* Grup Input yang Modern */
 .input-group {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 }
 
-#passwordInput {
+.input-group input {
     width: 100%;
-    padding: 12px 45px 12px 15px;
-    border: 2px solid #ccc;
+    padding: 14px 40px 14px 10px; /* Beri ruang di kanan untuk icon */
+    border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-#passwordInput:focus {
-    border-color: var(--color-primary);
+    background: #fdfdfd;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+    transition: all 0.3s ease;
 }
 
-.input-icon {
+/* Label floating (animasi) */
+.input-group label {
     position: absolute;
+    left: 10px;
     top: 50%;
-    right: 15px;
     transform: translateY(-50%);
-    color: var(--color-text-muted);
-    cursor: pointer;
+    padding: 0 5px;
+    background: transparent;
+    color: #aaa;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
 }
 
-.login-btn {
+.input-group input:focus {
+    border-color: #d63384;
+    box-shadow: 0 0 5px rgba(214, 51, 132, 0.3);
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    top: 0;
+    left: 10px;
+    font-size: 0.8rem;
+    color: #d63384;
+    background: #fff; /* Agar menutupi garis input */
+    padding: 0 5px;
+}
+
+/* BARU: Style untuk Icon Mata */
+#toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+#toggle-password:hover {
+    color: #d63384;
+}
+
+/* Tombol Login */
+.login-button {
     width: 100%;
-    padding: 12px;
-    background-color: var(--color-primary);
-    color: white;
+    padding: 14px;
     border: none;
     border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-}
-
-.login-btn:hover {
-    background-color: var(--color-secondary);
-}
-.login-btn:active {
-    transform: scale(0.98);
-}
-
-.hint-text {
-    font-size: 0.85rem;
-    margin-top: 15px;
-    color: var(--color-text-muted);
-}
-.hint-text a {
-    color: var(--color-secondary);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-/* Animasi Shake (Bug Fix) */
-.shake-effect {
-    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
-@keyframes shake {
-    10%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 80% { transform: translate3d(2px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-    40%, 60% { transform: translate3d(4px, 0, 0); }
-}
-
-/* Loading Page */
-#loadingPage {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--color-primary);
+    background: linear-gradient(135deg, #e91e63, #c2185b);
     color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3);
+}
+
+.login-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
+}
+
+/* Link Lupa Password */
+.forgot-password {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.forgot-password a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #d63384;
+    text-decoration: underline;
+}
+
+
+/* --- Style untuk Popup/Toast Notifikasi --- */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    z-index: 3000;
+    align-items: flex-end;
 }
-.chibi-icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    animation: spin 2s linear infinite;
+
+.toast {
+    padding: 15px 25px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    /* Animasi masuk dan keluar */
+    animation: slideIn 0.5s ease forwards, fadeOut 0.5s ease 3.5s forwards;
 }
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+
+.toast.success {
+    background-color: #28a745;
+}
+
+.toast.error {
+    background-color: #dc3545;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
 }
