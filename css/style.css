@@ -744,3 +744,267 @@ a:hover {
     font-weight: bold;
 }
 
+
+/* --- CHAT PAGE STYLE (WHATSAPP SIMULATION) --- */
+
+/* Pengaturan Body untuk Halaman Chat */
+.chat-page-body {
+    background-color: #e5ddd5; /* Warna latar belakang chat khas WA */
+    padding-bottom: 60px; /* Ruang untuk bottom nav */
+}
+
+.chat-app {
+    max-width: 600px; /* Lebar maksimal tampilan chat */
+    padding: 0; /* Hapus padding samping di sini */
+}
+
+/* 1. Header Chat (Sticky) */
+.chat-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--primary-pink); /* Warna tema romantis */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    z-index: 900;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-info {
+    display: flex;
+    align-items: center;
+}
+
+.chat-header .back-btn {
+    color: white;
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.chat-header .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.chat-header .contact-details h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+}
+
+.chat-header .status {
+    font-size: 0.7rem;
+    color: #ffdce9;
+    margin: 0;
+}
+
+.chat-actions button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    margin-left: 15px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.chat-actions button:hover {
+    opacity: 0.8;
+}
+
+/* 2. Area Pesan */
+.chat-messages-container {
+    padding: 10px 10px 80px 10px; /* Ruang di bawah untuk input bar */
+    overflow-y: auto;
+    width: 100%;
+    min-height: calc(100vh - 160px); /* Ketinggian minimal dikurangi header dan input */
+}
+
+/* Gelembung Pesan (Bubble) */
+.message-bubble {
+    display: flex;
+    margin-bottom: 8px;
+    max-width: 80%;
+    position: relative;
+}
+
+.message-text {
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+/* Bubble - ELGA (Pengirim) */
+.message-bubble.elga {
+    justify-content: flex-end;
+    margin-left: auto;
+}
+.message-bubble.elga .message-text {
+    background-color: #dcf8c6; /* Hijau muda WA */
+    color: #1f2a37;
+    border-top-right-radius: 0;
+}
+.message-bubble.elga .message-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -8px;
+    border: 8px solid transparent;
+    border-left: 8px solid #dcf8c6;
+    border-top: 8px solid #dcf8c6;
+}
+
+/* Bubble - NIKITA (Penerima) */
+.message-bubble.nikita {
+    justify-content: flex-start;
+    margin-right: auto;
+}
+.message-bubble.nikita .message-text {
+    background-color: white;
+    color: #1f2a37;
+    border-top-left-radius: 0;
+}
+.message-bubble.nikita .message-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -8px;
+    border: 8px solid transparent;
+    border-right: 8px solid white;
+    border-top: 8px solid white;
+}
+
+/* Time & Status */
+.message-time {
+    font-size: 0.65rem;
+    color: #777;
+    margin-left: 10px;
+    white-space: nowrap;
+    align-self: flex-end;
+}
+.message-status {
+    font-size: 0.7rem;
+    color: #4fc3f7; /* Warna centang WA */
+    margin-left: 4px;
+}
+
+/* Tipe Pesan: IMAGE */
+.message-bubble.image .message-text {
+    padding: 5px;
+    background: transparent;
+    box-shadow: none;
+}
+.message-bubble.image .message-content img {
+    max-width: 250px;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+.message-bubble.image .caption {
+    font-size: 0.8rem;
+    color: #444;
+    margin-top: 5px;
+    text-align: left;
+}
+.message-bubble.image .message-time {
+    color: white; /* Waktu di foto */
+    position: absolute;
+    bottom: 8px;
+    right: 15px;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    z-index: 10;
+}
+
+/* Tipe Pesan: STICKER */
+.message-bubble.sticker .message-text {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    max-width: 150px;
+}
+.message-bubble.sticker .message-content img {
+    width: 100%;
+    height: auto;
+}
+
+/* Tipe Pesan: DELETED */
+.message-bubble.deleted .message-text {
+    font-style: italic;
+    color: #888;
+    background-color: #f7f7f7;
+    /* Efek blur pada teks */
+    filter: blur(0.5px); 
+}
+.message-bubble.deleted .message-text .deleted-icon {
+    margin-right: 5px;
+    color: #b30000;
+}
+
+/* 3. Input Bar */
+.chat-input-bar {
+    position: fixed;
+    bottom: 60px; /* Di atas bottom nav */
+    left: 0;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto; /* Tengah di desktop */
+    display: flex;
+    padding: 8px 10px;
+    background: #f0f0f0;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 950;
+}
+.chat-input-bar input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background-color: white;
+    font-size: 1rem;
+    margin: 0 8px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.chat-input-bar button {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.4rem;
+    cursor: not-allowed; /* Tidak fungsional */
+    transition: color 0.3s;
+}
+.chat-input-bar .send-btn {
+    background-color: var(--primary-pink);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Media Query untuk Desktop: Chat Input Bar harus di tengah */
+@media (min-width: 600px) {
+    .chat-input-bar {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+/* Mengatur konten agar tidak tertutup nav di mobile */
+@media (max-width: 600px) {
+    .chat-input-bar {
+        width: 100%;
+        left: 0;
+        transform: none;
+    }
+}
