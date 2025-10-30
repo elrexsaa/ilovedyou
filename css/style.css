@@ -525,3 +525,49 @@ a:hover {
         left: 10px;
     }
 }
+
+/* --- TENTANG KITA: HERO SECTION (BARU: UNTUK SLIDER) --- */
+.hero-section {
+    padding: 0;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 250px; /* Tinggi kontainer gambar dikontrol */
+}
+
+.slider-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    filter: brightness(0.95);
+    
+    /* Animasi Fade */
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out; /* Durasi transisi fade */
+}
+
+/* Gambar yang sedang aktif akan tampil */
+.slider-image.active {
+    opacity: 1;
+}
+
+.hero-text {
+    padding: 20px 25px;
+}
+
+.hero-text .card-title {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+/* ... (Bagian TIMELINE dan MEDIA QUERY di bawahnya tetap sama) ... */
+
