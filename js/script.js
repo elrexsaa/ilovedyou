@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// Variabel global untuk musik (penting agar bisa diakses di luar initMainPage jika diperlukan)
+let bgMusic = null; 
+
 // Fungsi utama yang dijalankan setelah login terverifikasi
 function initMainPage() {
     
@@ -31,7 +34,6 @@ function initMainPage() {
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         if (countdownElement) {
-            // Pastikan elemen ditemukan sebelum diisi
             const d = document.getElementById('days');
             const h = document.getElementById('hours');
             const m = document.getElementById('minutes');
@@ -53,13 +55,13 @@ function initMainPage() {
 
 
     // 3. --- LOGIKA MUSIK LATAR OTOMATIS ---
-    let bgMusic = document.getElementById('background-music');
+    bgMusic = document.getElementById('background-music');
     if (!bgMusic) {
         bgMusic = document.createElement('audio');
         bgMusic.id = 'background-music';
-        bgMusic.src = 'audio.mp3'; // PASTIKAN FILE INI ADA!
+        bgMusic.src = 'audio.mp3'; 
         bgMusic.loop = true;
-        bgMusic.volume = 0.3; 
+        bgMusic.volume = 0.5; 
         document.body.appendChild(bgMusic);
     }
     bgMusic.play().catch(error => {
@@ -69,7 +71,7 @@ function initMainPage() {
 
     // 4. --- LOGIKA NAVIGASI AKTIF ---
     const navLinks = document.querySelectorAll('.nav-link');
-    const currentPage = window.location.pathname.split('/').pop();
+    const currentPage = window.location.pathname.split('/').pop(); 
 
     navLinks.forEach(link => {
         const linkPage = link.getAttribute('href').split('/').pop();
@@ -80,11 +82,11 @@ function initMainPage() {
         }
     });
 
-    // 5. --- BARU: LOGIKA LOGOUT ---
+    // 5. --- LOGIKA LOGOUT ---
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            if (confirm('Yakin ingin keluar?')) {
+            if (confirm('Yakin ingin keluar, Elga? Nikita akan merindukanmu!')) {
                 // Hapus status login
                 sessionStorage.removeItem('isLoggedIn');
                 
@@ -97,13 +99,16 @@ function initMainPage() {
                 window.location.href = 'index.html';
             }
         });
+    }
 
-            // ... (kode dari LOGIKA LOGOUT) ...
 
-    // 6. --- BARU: LOGIKA ANIMASI SCROLL REVEAL UNTUK TIMELINE ---
+    // 6. --- LOGIKA ANIMASI SCROLL REVEAL UNTUK TIMELINE (JANGAN DIJALANKAN DI DASH.HTML) ---
     const revealTimelineItems = () => {
+        // Hanya jalankan jika kita berada di halaman tentang.html
+        if (currentPage !== 'tentang.html') return; 
+        
         const items = document.querySelectorAll('.reveal-item');
-        const triggerBottom = window.innerHeight * 0.85; // 85% dari tinggi viewport
+        const triggerBottom = window.innerHeight * 0.85;
 
         items.forEach(item => {
             const itemTop = item.getBoundingClientRect().top;
@@ -111,44 +116,33 @@ function initMainPage() {
             if (itemTop < triggerBottom) {
                 item.classList.add('visible');
             } else {
-                item.classList.remove('visible'); // Opsional: hapus saat scroll ke atas
+                item.classList.remove('visible'); 
             }
         });
+    };
+    
+    // 7. --- LOGIKA IMAGE SLIDER (FADE) UNTUK TENTANG.HTML (JANGAN DIJALANKAN DI DASH.HTML) ---
+    const initImageSlider = () => {
+        // Hanya jalankan jika kita berada di halaman tentang.html
+        if (currentPage !== 'tentang.html') return; 
 
-            // ... (Logika revealTimelineItems dan window.addEventListener('scroll') sebelumnya)
-
-    // 7. --- BARU: LOGIKA IMAGE SLIDER (FADE) UNTUK TENTANG.HTML ---
-    function initImageSlider() {
         const images = document.querySelectorAll('.image-slider .slider-image');
-        if (images.length === 0) return; // Hentikan jika tidak ada gambar
+        if (images.length === 0) return; 
 
         let currentIndex = 0;
         
-        // Fungsi untuk menampilkan gambar berikutnya
         function nextImage() {
-            // Hapus kelas 'active' dari gambar saat ini
             images[currentIndex].classList.remove('active');
-            
-            // Hitung indeks gambar berikutnya (looping)
             currentIndex = (currentIndex + 1) % images.length;
-            
-            // Tambahkan kelas 'active' ke gambar berikutnya
             images[currentIndex].classList.add('active');
         }
 
         // Atur interval untuk mengganti gambar setiap 4 detik
-        setInterval(nextImage, 4000); // Ganti setiap 4000ms (4 detik)
-    }
-
-    // Panggil fungsi slider saat halaman dimuat
-    initImageSlider(); 
-} // <--- PASTIKAN KURUNG TUTUP INI ADALAH AKHIR DARI initMainPage()
-
+        setInterval(nextImage, 4000);
     };
 
-    // Jalankan saat load dan saat scroll
+    // Inisialisasi fungsi-fungsi tambahan
+    initImageSlider(); 
     window.addEventListener('scroll', revealTimelineItems);
-    revealTimelineItems();// Jalankan sekali saat halaman dimuat
-
-    }
-}
+    revealTimelineItems(); // Jalankan sekali saat halaman dimuat
+} 
