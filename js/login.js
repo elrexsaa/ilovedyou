@@ -1,81 +1,94 @@
-// Menunggu semua elemen halaman dimuat
 document.addEventListener('DOMContentLoaded', () => {
 
     const loginForm = document.getElementById('login-form');
-    // BARU: Pindahkan variabel ini ke atas agar bisa diakses oleh fungsi lain
     const passwordInput = document.getElementById('password'); 
     const togglePassword = document.getElementById('toggle-password');
+    
+    // BARU: Variabel untuk Modal
+    const modalContainer = document.getElementById('modal-container');
+    const modalContent = document.querySelector('.modal-content');
+    const modalTitle = document.getElementById('modal-title');
+    const modalMessage = document.getElementById('modal-message');
 
     // 1. --- LOGIKA LOGIN ---
     loginForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Mencegah form terkirim (reload)
+        event.preventDefault(); 
 
         const passwordValue = passwordInput.value;
-
-        // --- PENTING! GANTI PASSWORD DI SINI ---
-        // Ganti '011124' dengan password rahasia kalian
-        const correctPassword = '011124'; 
+        const correctPassword = '011124'; // <-- GANTI PASSWORD DI SINI
 
         if (passwordValue === correctPassword) {
-            // Jika Benar
             loginSuccess();
         } else {
-            // Jika Salah
             loginError();
         }
     });
 
     function loginSuccess() {
-        // 1. Simpan status "sudah login" di browser
-        // Ini adalah "kunci" agar halaman lain bisa dibuka
+        // Simpan status login
         sessionStorage.setItem('isLoggedIn', 'true');
 
-        // 2. Tampilkan popup sukses
-        // (Sengaja dibuat dua popup agar lebih manis)
-        showToast('Hai nikitaa🙋🏻‍♂️', 'success');
+        // Tampilkan modal sukses
+        showModal(
+            'Hai nikitaa🙋🏻‍♂️', 
+            'Selamat datang bu boss🙏🏻', 
+            'success'
+        );
         
-        setTimeout(() => {
-            showToast('Selamat datang bu boss🙏🏻', 'success');
-        }, 1500); // Popup kedua muncul 1.5 detik setelah popup pertama
-
-        // 3. Tunggu animasi popup selesai, lalu pindah ke halaman dash.html
+        // Pindah ke halaman dash.html setelah 3 detik
         setTimeout(() => {
             window.location.href = 'dash.html';
-        }, 4000); // Pindah halaman setelah 4 detik
+        }, 3000); // 3 detik
     }
 
     function loginError() {
-        // Tampilkan popup error
-        showToast('Password salah, dilarang masuk!', 'error');
+        // Tampilkan modal error
+        showModal(
+            'Password Salah!', 
+            'Dilarang masuk!', 
+            'error'
+        );
 
-        // Goyangkan kotak login (animasi tambahan)
+        // Goyangkan kotak login (animasi dari CSS lama, masih dipakai)
         const loginBox = document.querySelector('.login-box');
         loginBox.classList.add('shake');
         
-        // Hapus animasi shake setelah selesai
+        // Hapus animasi shake
         setTimeout(() => {
             loginBox.classList.remove('shake');
         }, 500);
-    }
 
-
-    // 2. --- FUNGSI UNTUK MENAMPILKAN POPUP (TOAST) ---
-    function showToast(message, type) {
-        const container = document.getElementById('toast-container');
-        
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`; // Cth: 'toast success' atau 'toast error'
-        toast.innerText = message;
-
-        container.appendChild(toast);
-
-        // Hapus toast setelah animasinya selesai (4 detik)
+        // "Refresh" (Tutup modal, kosongkan & fokus ulang password)
         setTimeout(() => {
-            toast.remove();
-        }, 4000);
+            hideModal();
+            passwordInput.value = ''; // Kosongkan field
+            passwordInput.focus(); // Fokus ulang ke field
+        }, 2500); // 2.5 detik
     }
+
+
+    // 2. --- FUNGSI BARU UNTUK MODAL ---
+    
+    function showModal(title, message, type) {
+        modalTitle.innerText = title;
+        modalMessage.innerText = message;
+        // Hapus class lama, tambahkan class baru (cth: .success atau .error)
+        modalContent.className = 'modal-content ' + type; 
+        
+        // Tampilkan modal & blur background
+        modalContainer.classList.add('show');
+        document.body.classList.add('modal-open');
+    }
+
+    function hideModal() {
+        // Sembunyikan modal & hilangkan blur background
+        modalContainer.classList.remove('show');
+        document.body.classList.remove('modal-open');
+    }
+
 
     // 3. --- CSS UNTUK ANIMASI SHAKE (GOYANG) ---
+    // (Ini masih sama, untuk menggoyangkan box jika salah)
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
     styleSheet.innerText = `
@@ -91,20 +104,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(styleSheet);
 
 
-    // 4. --- BARU: LOGIKA UNTUK SHOW/HIDE PASSWORD ---
+    // 4. --- LOGIKA UNTUK SHOW/HIDE PASSWORD ---
+    // (Ini masih sama)
     if (togglePassword) {
         togglePassword.addEventListener('click', () => {
-            // Cek tipe input saat ini
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             
-            // Ganti icon matanya
             if (type === 'password') {
-                // Jika jadi password (tertutup)
                 togglePassword.classList.remove('bi-eye-fill');
                 togglePassword.classList.add('bi-eye-slash-fill');
             } else {
-                // Jika jadi text (terlihat)
                 togglePassword.classList.remove('bi-eye-slash-fill');
                 togglePassword.classList.add('bi-eye-fill');
             }
