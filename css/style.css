@@ -901,12 +901,33 @@ a:hover {
     padding: 5px;
     background: transparent;
     box-shadow: none;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width:80%
 }
 .message-bubble.image .message-content img {
-    max-width: 250px;
+    max-width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 8px;
     display: block;
+}
+.message-bubble.image .message-time-status {
+    position: absolute;
+    bottom: 5px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.4); /* Latar belakang semi-transparan */
+    padding: 2px 6px;
+    border-radius: 5px;
+}
+.message-bubble.image .message-time-status .message-time {
+    color: white;
+    margin-left: 0;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    font-size: 0.6rem;
+}
+.message-bubble.image .message-time-status .message-status {
+    color: #8edefc; 
+    font-size: 0.6rem;
 }
 .message-bubble.image .caption {
     font-size: 0.8rem;
