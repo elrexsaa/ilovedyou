@@ -40,7 +40,36 @@ a:hover {
     margin: 0 auto;
 }
 
-/* --- HEADER & JUDUL --- */
+/* --- BARU: HEADER WRAPPER DAN LOGOUT BUTTON --- */
+.header-wrapper {
+    position: relative;
+    /* Tambahkan padding di kanan jika tampilan desktop */
+}
+
+/* Tombol Logout */
+.logout-button {
+    position: absolute;
+    top: 25px; /* Sesuaikan agar tidak terlalu di pojok */
+    right: 20px;
+    background: none;
+    border: 2px solid var(--primary-pink);
+    color: var(--primary-pink);
+    padding: 8px 12px;
+    border-radius: 50%; /* Bulat */
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.logout-button:hover {
+    background-color: var(--primary-pink);
+    color: white;
+    transform: scale(1.05);
+}
+
+
+/* --- HEADER & JUDUL (Disesuaikan agar ada ruang di kanan) --- */
 .header {
     text-align: center;
     padding: 40px 0 20px;
@@ -51,12 +80,14 @@ a:hover {
     font-size: 2rem;
     color: var(--primary-pink);
     font-weight: 700;
+    padding-right: 50px; /* Agar tidak tumpang tindih dengan tombol logout */
 }
 
 .header .subtitle {
     font-size: 0.9rem;
     color: #6c757d;
     font-style: italic;
+    padding-right: 50px; /* Agar tidak tumpang tindih dengan tombol logout */
 }
 
 /* --- CARD UMUM (Modern & Elegan) --- */
@@ -78,7 +109,7 @@ a:hover {
     padding-bottom: 5px;
 }
 
-/* --- COUNTDOWN ANNIV STYLE --- */
+/* --- COUNTDOWN ANNIV STYLE (SAMA) --- */
 .anniv-countdown {
     text-align: center;
     background: linear-gradient(145deg, var(--secondary-light), #fff);
@@ -89,7 +120,7 @@ a:hover {
     justify-content: center;
     gap: 15px;
     margin-bottom: 15px;
-    flex-wrap: wrap; /* Responsif */
+    flex-wrap: wrap; 
 }
 
 .time-unit {
@@ -133,7 +164,7 @@ a:hover {
     color: #6c757d;
 }
 
-/* --- QUICK LINKS --- */
+/* --- QUICK LINKS (SAMA) --- */
 .quick-links {
     display: flex;
     gap: 15px;
@@ -166,7 +197,7 @@ a:hover {
 }
 
 
-/* --- NAVIGASI BAWAH (MOBILE STYLE) --- */
+/* --- NAVIGASI BAWAH (SAMA) --- */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -199,7 +230,6 @@ a:hover {
     margin-bottom: 2px;
 }
 
-/* Style link aktif */
 .nav-link.active {
     color: var(--primary-pink);
     transform: translateY(-2px);
@@ -209,7 +239,6 @@ a:hover {
     color: var(--primary-pink);
 }
 
-/* Hanya tampilkan label span di mobile */
 @media (min-width: 600px) {
     .nav-link span {
         display: inline;
@@ -223,24 +252,30 @@ a:hover {
 }
 
 
-/* --- FOOTER (COPYRIGHT) --- */
+/* --- FOOTER (COPYRIGHT) | PENTING: TIDAK BERTABRAKAN --- */
+/* Posisinya kini di atas nav bar (z-index lebih rendah) */
 .website-footer {
     position: fixed;
-    bottom: 0;
+    bottom: 60px; /* Ditinggikan 60px (setinggi nav) */
     left: 0;
     width: 100%;
     text-align: center;
     padding: 3px 0;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: #aaa;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(2px);
-    z-index: 901; /* Di atas nav sedikit */
-    opacity: 0.5;
-    pointer-events: none; /* Agar tidak menghalangi klik di bawahnya */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(1px);
+    z-index: 899; /* Di bawah nav (z-index 900) */
+    font-weight: 500;
+    border-top: 1px solid #eee;
+}
+/* Menambahkan transisi agar lebih elegan saat dimuat */
+.website-footer {
+    animation: fadeIn 1.5s ease-out 0.5s forwards;
+    opacity: 0;
 }
 
-/* --- ANIMASI UMUM --- */
+/* --- ANIMASI UMUM (SAMA) --- */
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -250,4 +285,3 @@ a:hover {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
