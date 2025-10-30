@@ -930,10 +930,11 @@ a:hover {
     font-size: 0.6rem;
 }
 .message-bubble.image .caption {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #444;
     margin-top: 5px;
     text-align: left;
+    padding: 0 5px;
 }
 .message-bubble.image .message-time {
     color: white; /* Waktu di foto */
