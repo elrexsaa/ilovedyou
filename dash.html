@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Satu November Kita</title>
+    <title>Home | Satu November Kita</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
@@ -12,11 +12,16 @@
 <body>
 
     <div class="main-content">
-        <header class="header">
-            <h1>Selamat Datang, Nikita Pakpahan!</h1>
-            <p class="subtitle">Website Personal Elga & Nikita 💖</p>
-        </header>
-
+        
+        <div class="header-wrapper">
+            <header class="header">
+                <h1>Selamat Datang, Nikita Pakpahan!</h1>
+                <p class="subtitle">Website Personal Elga & Nikita 💖</p>
+            </header>
+            <button id="logout-btn" class="logout-button" title="Keluar">
+                <i class="bi bi-box-arrow-right"></i>
+            </button>
+        </div>
         <section class="card anniv-countdown" id="countdown">
             <h3 class="card-title">Menuju Anniversary Kita!</h3>
             <div class="timer-display">
@@ -45,7 +50,7 @@
 
         <section class="card info-card">
             <h3 class="card-title">Kenangan Terbaru</h3>
-            <p>Klik menu Tentang Kita di bawah untuk melihat cerita kita, dan **Playlist** untuk mendengarkan lagu-lagu kesayangan!</p>
+            <p>Klik menu **Tentang Kita** di bawah untuk melihat cerita kita, dan **Playlist** untuk mendengarkan lagu-lagu kesayangan!</p>
             <div class="quick-links">
                 <a href="tentang.html" class="quick-link-btn"><i class="bi bi-heart-fill"></i> Cerita Kita</a>
                 <a href="playlist.html" class="quick-link-btn"><i class="bi bi-music-note-list"></i> Musik</a>
