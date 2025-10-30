@@ -898,19 +898,23 @@ a:hover {
 
 /* Tipe Pesan: IMAGE */
 .message-bubble.image .message-text {
-    padding: 5px;
-    background: transparent;
-    box-shadow: none;
-    border-radius: 10px;
-    overflow: hidden;
-    max-width:80%
+    padding: 5px; /* Kurangi padding untuk gambar */
+    background: transparent; /* Hilangkan latar belakang bubble untuk gambar */
+    box-shadow: none; /* Hilangkan shadow bubble untuk gambar */
+    border-radius: 10px; /* Tambahkan border-radius ke bubble gambar */
+    overflow: hidden; /* Penting untuk menahan gambar di dalam bubble */
+    max-width: 80%; /* Maksimal 80% dari lebar container chat */
 }
+
 .message-bubble.image .message-content img {
-    max-width: 100%;
+    max-width: 100%; /* Gambar mengisi 100% dari bubble gambarnya sendiri */
     height: auto;
-    border-radius: 8px;
+    border-radius: 8px; /* Sudut sedikit melengkung */
     display: block;
+    object-fit: cover;
 }
+
+/* Penyesuaian untuk waktu dan status agar menempel di gambar */
 .message-bubble.image .message-time-status {
     position: absolute;
     bottom: 5px;
@@ -918,6 +922,7 @@ a:hover {
     background: rgba(0, 0, 0, 0.4); /* Latar belakang semi-transparan */
     padding: 2px 6px;
     border-radius: 5px;
+    z-index: 10; /* Pastikan di atas gambar */
 }
 .message-bubble.image .message-time-status .message-time {
     color: white;
@@ -926,23 +931,16 @@ a:hover {
     font-size: 0.6rem;
 }
 .message-bubble.image .message-time-status .message-status {
-    color: #8edefc; 
+    color: #8edefc; /* Warna centang WA */
     font-size: 0.6rem;
 }
+
 .message-bubble.image .caption {
     font-size: 0.75rem;
     color: #444;
     margin-top: 5px;
     text-align: left;
-    padding: 0 5px;
-}
-.message-bubble.image .message-time {
-    color: white; /* Waktu di foto */
-    position: absolute;
-    bottom: 8px;
-    right: 15px;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
-    z-index: 10;
+    padding: 0 5px; /* Padding untuk caption */
 }
 
 /* Tipe Pesan: STICKER */
