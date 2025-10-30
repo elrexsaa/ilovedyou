@@ -97,5 +97,28 @@ function initMainPage() {
                 window.location.href = 'index.html';
             }
         });
+
+            // ... (kode dari LOGIKA LOGOUT) ...
+
+    // 6. --- BARU: LOGIKA ANIMASI SCROLL REVEAL UNTUK TIMELINE ---
+    const revealTimelineItems = () => {
+        const items = document.querySelectorAll('.reveal-item');
+        const triggerBottom = window.innerHeight * 0.85; // 85% dari tinggi viewport
+
+        items.forEach(item => {
+            const itemTop = item.getBoundingClientRect().top;
+            
+            if (itemTop < triggerBottom) {
+                item.classList.add('visible');
+            } else {
+                item.classList.remove('visible'); // Opsional: hapus saat scroll ke atas
+            }
+        });
+    };
+
+    // Jalankan saat load dan saat scroll
+    window.addEventListener('scroll', revealTimelineItems);
+    revealTimelineItems(); // Jalankan sekali saat halaman dimuat
+
     }
 }
