@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Satu November Kita</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
     <link rel="stylesheet" href="css/style_login.css">
 </head>
 <body>
@@ -20,21 +18,26 @@
                 <div class="input-group">
                     <input type="password" id="password" required>
                     <label for="password">Password Rahasia Kita 🤫</label>
-                    
                     <i class="bi bi-eye-slash-fill" id="toggle-password"></i>
                 </div>
                 <button type="submit" class="login-button">Masuk</button>
             </form>
             <div class="forgot-password">
-                <a href="https://wa.me/6287896507726" target="_blank">
+                <a href="https://wa.me/6281234567890" target="_blank">
                     Lupa password? Hubungi @elgarexsa
                 </a>
             </div>
         </div>
     </div>
 
-    <div id="toast-container"></div>
-
+    <div id="modal-container">
+        <div class="modal-content">
+            <div class="modal-icon">
+                </div>
+            <h2 id="modal-title"></h2>
+            <p id="modal-message"></p>
+        </div>
+    </div>
     <script src="js/login.js"></script>
 </body>
 </html>
