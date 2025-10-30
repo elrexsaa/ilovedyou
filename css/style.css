@@ -1008,3 +1008,129 @@ a:hover {
         transform: none;
     }
 }
+
+
+/* --- CHAT FAV STYLE (WHATSAPP STARRED MESSAGES SIMULATION) --- */
+
+.fav-chat-page-body {
+    background-color: var(--background-color); /* Kembali ke latar belakang standar */
+}
+
+.fav-messages-container {
+    padding-top: 20px;
+}
+
+/* Kartu Pesan Favorit */
+.fav-message-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    margin-bottom: 20px;
+    border-left: 5px solid var(--primary-pink); /* Garis elegan */
+    overflow: hidden;
+    
+    /* Animasi default: tersembunyi */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* Kelas yang ditambahkan JS untuk Animasi Staggered */
+.fav-message-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Header Pesan Fav (Konteks) */
+.fav-message-header {
+    background-color: #f8f9fa; /* Latar belakang abu-abu muda */
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.fav-message-header .sender-info {
+    display: flex;
+    align-items: center;
+}
+
+.fav-message-header .sender-profile {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.fav-message-header .sender-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-right: 10px;
+}
+
+.fav-message-header .star-icon {
+    color: gold;
+    font-size: 1.1rem;
+}
+
+/* Konten Chat (Mirip Bubble WA) */
+.fav-message-content {
+    padding: 15px;
+    position: relative;
+    background-color: white;
+}
+
+/* Teks Pesan (Mirip WA bubble) */
+.fav-message-content .message-text {
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    position: relative;
+    display: inline-block; /* Agar bubble hanya sebesar teks */
+    max-width: 100%;
+    word-wrap: break-word; /* Memastikan teks panjang pecah baris */
+}
+
+/* Style untuk pesan yang dikirim NIKITA (Penerima) */
+.fav-message-card.nikita .message-text {
+    background-color: #f0f0f0;
+    color: #1f2a37;
+    margin-right: auto;
+}
+
+/* Style untuk pesan yang dikirim ELGA (Pengirim) */
+.fav-message-card.elga .message-text {
+    background-color: #e3f5d9; /* Hijau WA */
+    color: #1f2a37;
+    margin-left: auto;
+}
+
+/* Tipe Pesan: IMAGE */
+.fav-message-content .message-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Tipe Pesan: STICKER */
+.fav-message-content .message-sticker {
+    max-width: 150px;
+    height: auto;
+    display: block;
+}
+
+/* Garis Pemisah (Konteks Chat) */
+.fav-message-footer {
+    padding: 10px 15px;
+    background-color: #fff;
+    border-top: 1px solid #f0f0f0;
+    font-size: 0.8rem;
+    color: #888;
+    text-align: right;
+    font-style: italic;
+}
