@@ -13,20 +13,20 @@ const allMusic = [
     {
         name: "Nina",
         artist: ".Feast",
-        src: "sound/track_1.mp3", // GANTI PATH INI
-        cover: "images/cover_1.jpg" // GANTI PATH INI
+        src: "sound/sound1.mp3", // GANTI PATH INI
+        cover: "img/cover1.jpg" // GANTI PATH INI
     },
     {
         name: "All Of Me",
         artist: "Jhon Legend",
-        src: "sound/track_2.mp3", // GANTI PATH INI
-        cover: "images/cover_2.jpg" // GANTI PATH INI
+        src: "sound/sound2.mp3", // GANTI PATH INI
+        cover: "img/cover2.JPG" // GANTI PATH INI
     },
     {
         name: "Kenangan Manis",
         artist: "Pamungkas",
-        src: "sound/track_3.mp3", // GANTI PATH INI
-        cover: "images/cover_3.jpg" // GANTI PATH INI
+        src: "sound/sound3.mp3", // GANTI PATH INI
+        cover: "img/cover3.jpg" // GANTI PATH INI
     }
     // Tambahkan lebih banyak lagu di sini!
 ];
