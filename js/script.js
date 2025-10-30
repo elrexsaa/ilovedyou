@@ -86,7 +86,7 @@ function initMainPage() {
     const logoutBtn = document.getElementById('logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            if (confirm('Yakin ingin keluar, Elga? Nikita akan merindukanmu!')) {
+            if (confirm('Yakin ingin keluar?')) {
                 // Hapus status login
                 sessionStorage.removeItem('isLoggedIn');
                 
