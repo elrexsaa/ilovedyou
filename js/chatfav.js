@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // NOTE: Pada implementasi nyata, ini harus diambil dari server. Di sini kita hardcode ID yang ingin di-fav.
 const FAVORITE_MESSAGE_IDS = [2, 3, 6]; 
 const SENDER_PROFILES = {
-    elga: 'images/elga_profile.jpg',
-    nikita: 'images/nikita_profile.jpg'
+    elga: 'profile/elga.JPG',
+    nikita: 'profile/nikita.jpg'
 };
 
 
