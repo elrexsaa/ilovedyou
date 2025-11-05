@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. DAFTAR LAGU
 const allMusic = [
     {
-        name: "Nina",
-        artist: ".Feast",
+        name: "All Of Me",
+        artist: "Jhon Legend",
         src: "sound/sound1.mp3", // GANTI PATH INI
         cover: "img/cover1.jpg" // GANTI PATH INI
     },
     {
-        name: "All Of Me",
-        artist: "Jhon Legend",
+        name: "Nina",
+        artist: ".Feast",
         src: "sound/sound2.mp3", // GANTI PATH INI
         cover: "img/cover2.JPG" // GANTI PATH INI
     },
